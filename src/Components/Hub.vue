@@ -19,18 +19,10 @@
 
 <script lang="ts">
 import App from 'App.vue';
-import Vue from 'Vue';
+import Vue from 'vue';
 
-@Component({
-  components: {
-
-  }
-})
 export default class Hub extends Vue {
 }
-
-
-
 </script>
 
 <style scoped lang="scss">
