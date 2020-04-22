@@ -1,7 +1,7 @@
 <template>
 <div class="body">
 
-<p> Dett Ã¤r hubben</p>
+<p> Dett är hubben</p>
 </template>
 
 <script lang="ts">
