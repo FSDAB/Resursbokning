@@ -1,7 +1,5 @@
 <template>
-  <div class="home">
     <Hub />
-  </div>
 </template>
 
 <script lang="ts">
@@ -13,5 +11,7 @@
         Hub
       }
     })
-    export default class Home extends Vue { }
+    export default class Home extends Vue {
+
+     }
 </script>

@@ -8,35 +8,11 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <title>FSD - Resursbokning</title>
   </head>
-  <body>  
-
-    <div id="app">
-      <p>{{ message }}</p>
-      <button v-on:click="reverseMessage">Reverse Message</button>
-    </div>
-
+  <body>
+    <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
   </body>
 </html>
-
-<script lang="ts">
-    var app = new Vue({
-      el: '#app',
-      data: {
-        message: 'Hello Vue.js!'
-      },
-      methods: {
-        reverseMessage: function () {
-          this.message = this.message.split('').reverse().join('')
-        }
-      }
-    })
-</script>
-
-<style scoped lang="scss">
-  html, body {
-      margin: 5px;
-      padding: 0;
-  }
-  
-  
-  </style>

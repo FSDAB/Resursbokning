@@ -1,61 +1,96 @@
 <template>
-  <div id="app">
-    <div class="container main">
-      <div class="row">
-        <div class="col-md-12 pt-4">
-          <router-view />
+    <div id="col-md-12">
+      <div class="sidebar col-md-12">
+       <Navbar/>
+      </div>
+      <div class="hub col-md-12">
+        <div class="header col-md-12" style="border: 2px solid brown;">
+          HEADER
         </div>
+          <Hub />
+        <div class="footer col-md-12"  style="border: 2px solid brown;">
+          Footer
+        </div> 
       </div>
     </div>
-  </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import Navbar from '@/Components/Navbar.vue';
+import Hub from '@/Components/Hub.vue';
+import Mesher from '@\Components\Mesher.vue';
+import Dags from '@\Components\Dags.vue';
+
 @Component({
-  components: {
-    
-  }
+  components: {    
+    Navbar,
+    Hub,
+  },
 })
 export default class App extends Vue {
   constructor() {
     super();
-    Datorer
   }
-}
-class Datorer {
-namn: String;
-karnor: Number;
-desc: String;
-
-constructor() {
-  this.namn = '';
-  this.karnor = 0;
-  this.desc = '';
-}
 }
 </script>
 
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+<style scoped lang="scss">
+#col-md-12  {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  border: 2px solid green;
 }
-#nav {
-  text-align: left;
-  font-weight: bold;
-  a {
-    font-weight: normal;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-  ul {
-    list-style: none;
-    border: 1px solid gray;
-  }
+.sidebar {
+  height: 100%;
+  width: 10%;
+  position: absolute;
+  border: 2px solid Blue;
+  float: left;
+  overflow:hidden;
+  padding: 0%;
+
 }
+
+.header {
+  height: 100px;
+  width: 100%;
+  margin-left:-20px ;
+  position: absolute;
+  top: 0px;
+}
+.hub {
+  height: 100%;
+  width: 90%;
+  margin-left: 10%;
+  border: 2px solid Red;
+  padding: 20px;
+}
+
+.footer {
+height: 70px;
+position: fixed;
+bottom: 0;
+width: 90%;
+margin-left:-20px ;
+}
+
+@media only screen and (max-width: 900px) {
+.sidebar {
+  display:none;
+}
+.footer {
+ display:none;
+}
+.header {
+ display:none;
+}
+.hub {
+  width: 100%;
+  margin-left: 0%;
+  padding:0px;
+}
+}
+
 </style>
