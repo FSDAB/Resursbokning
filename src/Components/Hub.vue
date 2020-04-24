@@ -169,12 +169,11 @@ export default class Hub extends Vue {
     };
   }
 
-
 disabled() {
-  return this.state === 'disabled'
+  return this.state === 'disabled';
 }
 readonly() {
-  return this.state === 'readonly'
+  return this.state === 'readonly';
 }
 
   created() {
