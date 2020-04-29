@@ -5,15 +5,31 @@
        <Navbar/>
       </div>
       </div>
-      <div class="hub col-md-12">
-        <div class="header col-md-12">
-        <b-button @click="hide()" style=" margin-left:-15px;"> {{ Toggle ? 'Göm ' : 'Visa ' }}sidebar</b-button>
-          HEADER
+        <div class="header col-md-12" style="background-color: #171717;">
+          <b-navbar style="background-color: #171717; " type="dark"  >
+          <b-navbar-nav>
+            <b-nav-item @click="hide()"> {{ Toggle ? 'X ' : '+ ' }}Sidebar</b-nav-item>
+
+            <b-nav-item-dropdown text="Lang" right>
+              <b-dropdown-item href="#">EN</b-dropdown-item>
+              <b-dropdown-item href="#">ES</b-dropdown-item>
+              <b-dropdown-item href="#">RU</b-dropdown-item>
+              <b-dropdown-item href="#">FA</b-dropdown-item>
+            </b-nav-item-dropdown>
+
+            <b-nav-item-dropdown text="User" right>
+              <b-dropdown-item href="#">Account</b-dropdown-item>
+              <b-dropdown-item href="#">Settings</b-dropdown-item>
+            </b-nav-item-dropdown>
+          </b-navbar-nav>
+        </b-navbar>
         </div>
+        
+      <div class="hub col-md-12">
           <Hub />
-        <div class="footer col-md-12"  style="border: 2px solid brown;">
+<!--    <div class="footer col-md-12"  style="border: 2px solid brown;">
           Footer
-        </div> 
+        </div>  -->
       </div>
     </div>
 </template>
@@ -64,21 +80,21 @@ export default class App extends Vue {
   overflow:hidden;
   padding: 0%;
   background-color: #171717;
-
 }
 
 .header {
-  height: 10%;
   width: 100%;
-  margin-left:-20px ;
   position: absolute;
   top: 0px;
 }
+
 .hub {
-  height: 100%;
+  height: auto;
   width: 90%;
   margin-left: 10%;
   padding: 20px;
+  position: absolute;
+
 }
 
 /* .footer {
