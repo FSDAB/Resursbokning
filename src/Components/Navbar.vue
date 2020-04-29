@@ -1,8 +1,7 @@
 <template>
-  <div class=" body col-md-12">
+  <div class="sidebar-body col-md-12">
         <div class="img col-md-12">
-         <!-- <img src="..." class="rounded mx-auto d-block" alt="..."> -->
-         Bild palceholder
+        <img src="http://company.fsd.se/bilder/fsd_logo.jpg" class="rounded mx-auto d-block" alt="..."> 
         </div>
     <div class="links col-md-12">
     <ul class="nav flex-column">
@@ -41,9 +40,9 @@ export default class Navbar extends Vue {
 
 <style scoped lang="scss">
 .img {
-  background-color: green;
   margin-top: 10px;
   margin-bottom: 20px;
+
   p {
     color: black;
   }
@@ -51,9 +50,8 @@ export default class Navbar extends Vue {
 .links {
   width: 100%;
   padding: 0%;
-  border: 2px solid red;
   a{
-    color: blue;
+    color: lightgray;
   }
 }
 

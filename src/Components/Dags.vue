@@ -1,5 +1,7 @@
 <template>
+
 <div class=" dagsöversikt col-md-12">
+    <p> dagsöversikt.vue</p>
 <div class="dator-row-1 row">
     <div class="dator col-md-4">
     Dator 1
@@ -42,5 +44,5 @@ import Vue from 'vue';
 
 export default class Mesher extends Vue {
   
-})
+}
 </script>
