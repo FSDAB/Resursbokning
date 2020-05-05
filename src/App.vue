@@ -13,7 +13,7 @@
                 <b-dropdown-item href="#">1</b-dropdown-item>
                 <b-dropdown-item href="#">2</b-dropdown-item>
                 <b-dropdown-item href="#">3</b-dropdown-item>
-                <b-dropdown-item href="#">4</b-dropdown-item>
+                <b-dropdown-item href="#">4</b-dropdown-item> 
               </b-nav-item-dropdown>
             </b-navbar-nav>
           </b-navbar>

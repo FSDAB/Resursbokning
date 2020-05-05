@@ -1,5 +1,7 @@
 <template>
   <div class="container col-md-12">
+      {{ computer !== undefined && computer[1] !== undefined ? computer[1].namn : 'finns ej' }}
+      <b-button @click="sune()"> Test </b-button>
     <div class="sidebar-mobile " >
       <b-button style="margin-top:5px; margin-right: 5px; float:right;" v-b-toggle.sidebar-backdrop>Meny</b-button>
       <b-sidebar
@@ -264,7 +266,6 @@
             <b-col md="auto">
               <b-calendar
                 v-model="value"
-                @context="onContext"
                 locale="sv-Sv"
               ></b-calendar>
             </b-col>
@@ -324,7 +325,7 @@
       <div class="size-grid-auto col-md-12" style="overflow-y:auto;">
         <a href="@/Components/mesh.vue" style="color:black">
           <h2>Mesher</h2>
-        </a>
+        </a> 
         <table class="mesher table-striped">
           <thead>
             <tr>
@@ -416,13 +417,26 @@ export default class Hub extends Vue {
   }
 
   created() {
-    axios.get('http://1.1.106.199:3000/datorer').then((response) => {
+     /*    axios.get('http://1.1.106.199:3000/datorer').then((response) => {
       this.computer = response.data as Datorer[];
       this.$forceUpdate();
     });
-    axios.get('http://1.1.106.199:3000/Bokning').then((response) => {
+    axios.get('http://1.1.106.199:3000/bokning').then((response) => {
       this.booking = response.data as Bokning[];
-      this.$forceUpdate();
+      this.$forceUpdate(); 
+    });*/
+
+  }
+    sune () {
+      axios.get('http://1.1.106.199:3000/datorer').then((response) => {
+        this.computer = response.data as Datorer[];
+        // tslint:disable-next-line:no-console
+        console.log(this.computer[1].namn);
+        this.$forceUpdate();
+       });
+      axios.get('http://1.1.106.199:3000/bokningar').then((response) => {
+        this.booking = response.data as Bokning[];
+        this.$forceUpdate();
     });
   }
 }

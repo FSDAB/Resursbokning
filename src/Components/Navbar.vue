@@ -8,16 +8,16 @@
     <div class="links col-md-12">
     <ul class="nav flex-column">
       <li class="nav-item">
-        <a class="nav-link active" href="#">Startsida</a>
+        <a class="nav-link active" href="@/Components/Hub.vue">Startsida</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Dagsöversikt</a>
+        <a class="nav-link" href="@/Components/Dags.vue">Dagsöversikt</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Månadsöversikt</a>
+        <a class="nav-link" href="@/Components/Month.vue">Månadsöversikt</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link " href="#">Bokningar</a>
+        <a class="nav-link " href="@/Components/Bookings.vue">Bokningar</a>
       </li>
        <li class="nav-item">
         <a class="nav-link " href="src\Components\Mesher.vue">Mesher</a>
