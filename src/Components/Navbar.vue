@@ -1,8 +1,9 @@
 <template>
   <div class="sidebar-body col-md-12">
-        <div class="img col-md-12">
-          <h1>FSD</h1>
-          <h3>Resursbokning</h3>
+        <div class="img col-md-12" >
+          <a href="@/views/App.vue">
+           <img src="@/assets/fsd_logo.png">
+          </a>
         </div>
     <div class="links col-md-12">
     <ul class="nav flex-column">
@@ -43,31 +44,20 @@ export default class Navbar extends Vue {
 
 .sidebar-body{
   height: 100%;
-    width: 100%;
-
+  width: 100%;
+  padding: 0px;
 }
 .img {
-  margin-top: 50px;
+  margin-top: 70px;
   margin-bottom: 20px;
-
-   h1 {
-    color: blue;
-  }
-
-  h3 {
-    color: blue;
-  }
 }
 .links {
   width: 100%;
   padding: 0%;
   a{
-    color: lightgray;
+    color: #1E45A1;
   }
 }
 
-@media only screen and (max-width: 1000px) {
-
-}
 
 </style>
