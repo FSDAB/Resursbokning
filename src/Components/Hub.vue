@@ -429,9 +429,9 @@ export default class Hub extends Vue {
   }
     sune () {
       axios.get('http://1.1.106.199:3000/datorer').then((response) => {
-        this.computer = response.data as Datorer[];
+        this.computer = response.data.datorer as Datorer[];
         // tslint:disable-next-line:no-console
-        console.log(this.computer[1].namn);
+        console.log(this.computer[1]);
         this.$forceUpdate();
        });
       axios.get('http://1.1.106.199:3000/bokningar').then((response) => {
