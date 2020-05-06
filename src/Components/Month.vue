@@ -1,36 +1,43 @@
  <template>
- <div class="size-grid-standard col-md-12" id="Month">
-        <div class="dator-row-1 row" id="Rubrik">
-          <a href="@/Components/Month.vue" style="color:black">
-           <h2>Månadsöversikt</h2>
-          </a>
-          {{countpc}}
-        </div>
-        <label class="control-label" for="fsdcountselector"
-          ><h4>Count Dator {{ fsdcountselector }}</h4></label
-        >
-        <b-form-select
-          v-model="countpc"
-          :options="options"
-          class="form-control"
-          id="fsdcountselector"
-          @change="updateCalender"
-        >
-        </b-form-select>
-        <div class="mt-3">Selected: <strong>{{ selected }}</strong></div>
-
+ <div class="size-grid-standard col-md-5" id="Month">
+    <label class="control-label" for="fsdcountselector" style="margin-left:40px;">
+      <h4>Count Dator </h4>
+    </label>
+      <b-form-select
+        v-model="countpc"
+        class="form-control"
+        id="fsdcountselector"
+        @change="updateCalender()"
+      >
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
+        <option>10</option>
+        <option>11</option>
+        <option>12</option>
+        <option>13</option>
+        <option>14</option>
+        <option>15</option>
+        <option>16</option>
+        <option>17</option> 
+      </b-form-select>
         <b-row>
-        <div class="calendar">
+          <div class="calendar">
             <b-col md="auto">
               <b-calendar
                 v-model="value"
-                @context="onContext"
-                locale="en-US"
+                locale="sv-Sv"
               ></b-calendar>
             </b-col>
-         </div>
-        </b-row>
-    </div>
+          </div>
+      </b-row>
+  </div>
 </template>
 
 <script lang="ts">
@@ -40,3 +47,6 @@ export default class Month extends Vue {
   
 }
 </script>>
+<style lang="sass">
+
+</style>

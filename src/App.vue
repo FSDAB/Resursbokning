@@ -20,9 +20,6 @@
         </div>
       <div class="hub col-md-12">
           <Hub />
-<!--    <div class="footer col-md-12"  style="border: 2px solid brown;">
-          Footer
-        </div>  -->
       </div>
     </div>
 </template>

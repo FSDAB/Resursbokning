@@ -1,14 +1,15 @@
 <template>
-    <Hub />
+<App/>
 </template>
+
 
 <script lang="ts">
     import { Component, Vue } from 'vue-property-decorator';
-    import Hub from '@/Components/Hub.vue';
+    import App from '@/App.vue';
 
     @Component({
       components: {
-        Hub
+        App
       }
     })
     export default class Home extends Vue {
