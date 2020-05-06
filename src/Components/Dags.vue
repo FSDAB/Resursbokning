@@ -3,7 +3,6 @@
   <div class="size-grid-standard col-md-6" id="Dags-fullscreen" >
     <div class="dator-row row">
       <div class="dator-row-1 row">
-
         <div class="dator col-md-3">
           <h4>Dator 1</h4>
           <div class="dator-bild">
@@ -222,7 +221,6 @@
             </b-popover>
           </div>
         </div>
-
       </div>
     </div>
   </div>
@@ -254,7 +252,8 @@ export default class Dags extends Vue {
     console.log(this.computer[1]);
     this.$forceUpdate();
     });
-  }}
+  }
+}
 
 class Datorer {
   namn: String;

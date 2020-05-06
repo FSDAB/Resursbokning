@@ -15,3 +15,159 @@
 //main background color #ffffff
 //Link color #1E45A1
 //Secondary background color #CBD7FB
+
+
+
+//GAMLA MAIN SCSS INNAN RENSNING IFRÅN HUB
+/* <style scoped lang="scss">
+#fsdcountselector {
+  width: 100px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+#Dags-fullscreen {
+  overflow: hidden;
+  margin-left:20px ;
+}
+#Rubrik {
+  width: 100%;
+  margin-left: 2px;
+  margin-bottom: 2px;
+}
+.mesher {
+  width: 100%;
+  height: 80%;
+  td {
+    p {
+      color: red;
+    }
+  }
+}
+
+.bokningar {
+  width: 100%;
+  height: 80%;
+}
+
+.calendar {
+  padding: 20px;
+  margin-left: 20px;
+}
+.container {
+  width: 100%;
+  height: 100%;
+  margin-top: 100px;
+}
+
+.sidebar-mobile {
+  display: none;
+}
+
+.dator-row-1 {
+  margin-right: 10px;
+}
+
+.dator-row-3 {
+  margin-right: 10px;
+  margin-top: 30px;
+}
+.dator-row-4 {
+  margin-top: 30px;
+}
+
+.row-cols-1 {
+  margin-bottom: 30px;
+  width: 100%;
+  padding: 5px;
+
+}
+
+.row-cols-2 {
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+.row-cols-3 {
+  width: 100%;
+}
+
+.dator {
+  height: 145px;
+  img {
+    width: 100px;
+    height: 100px;
+  } 
+}
+
+@media only screen and (max-width: 600px) {
+
+  .row-cols-1 {
+    float: none;
+    width: 100%;
+    padding: 10px;
+  }
+  .row-cols-2 {
+    float: none;
+    width: 100%;
+  }
+  #hidden {
+    display: none;
+  }
+}
+@media only screen and (max-width: 1200px) {
+  .sidebar-mobile {
+    display: block;
+    width: 100%;
+    height: 50px;
+    overflow-y: hidden;
+    background-color:white;
+
+    .sidebar{
+      height: 100%;
+      background-color: #CBD7FB;
+      overflow-y: hidden;
+
+      a{
+      color: #1E45A1;
+      }
+    }
+  }
+
+  .container {
+    margin: 0%;
+  }
+
+  .dator {
+
+    h3 {
+      font: 15px;
+      margin-top: 10px;
+    }
+
+  }
+  .row-cols-1{
+    width: 100%;
+  }
+  .row-cols-table {
+    float: none;
+    width: 100%;
+    flex-direction: row;
+  }
+
+  .dator-row-1 {
+    margin-right: 0px;
+  }
+}
+@media only screen and (max-width: 2500px) {
+  #Dags-fullscreen {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .dator-row-3 {
+  margin-top: 0px;
+}
+.dator-row-4 {
+  margin-top: 0px;
+}
+}
+</style> */

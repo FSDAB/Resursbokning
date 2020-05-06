@@ -1,33 +1,33 @@
 <template>
-        <div class="table-responsive">
-          <table class="bokningar table-striped">
-            <thead>
-              <tr>
-                <th scope="col">Dator</th>
-                <th scope="col">Start</th>
-                <th scope="col">Slut</th>
-                <th scope="col">Objekt</th>
-                <th scope="col">Alternativ</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">Fsdcount {{ booking !== undefined && booking[0] !== undefined ? booking[0].dator : 'Klicka på knappen för ladda in specsen, fixa så det laddas auto matiskt' }} </th>
-                <td> {{ booking !== undefined && booking[0] !== undefined ? booking[0].datumstart : '' }} </td>
-                <td> {{ booking !== undefined && booking[0] !== undefined ? booking[0].datumslut : '' }} </td>
-                <td> {{ booking !== undefined && booking[0] !== undefined ? booking[0].karnor : '' }} </td>
-                <td>  <b-button @click="sune()"> Alternativ </b-button></td>
-              </tr>
-              <tr>
-                <th scope="row">Fsdcount {{ booking !== undefined && booking[1] !== undefined ? booking[1].dator : 'Klicka på knappen för ladda in specsen, fixa så det laddas auto matiskt' }} </th>
-                <td> {{ booking !== undefined && booking[1] !== undefined ? booking[1].datumstart : '' }} </td>
-                <td> {{ booking !== undefined && booking[1] !== undefined ? booking[1].datumslut : '' }} </td>
-                <td> {{ booking !== undefined && booking[1] !== undefined ? booking[1].karnor : '' }} </td>
-                <td>  <b-button @click="sune()"> Alternativ </b-button></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+<div class="table-responsive">
+  <table class="bokningar table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Dator</th>
+        <th scope="col">Start</th>
+        <th scope="col">Slut</th>
+        <th scope="col">Objekt</th>
+        <th scope="col">Alternativ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Fsdcount {{ booking !== undefined && booking[0] !== undefined ? booking[0].dator : 'Klicka på knappen för ladda in specsen, fixa så det laddas auto matiskt' }} </th>
+        <td> {{ booking !== undefined && booking[0] !== undefined ? booking[0].datumstart : '' }} </td>
+        <td> {{ booking !== undefined && booking[0] !== undefined ? booking[0].datumslut : '' }} </td>
+        <td> {{ booking !== undefined && booking[0] !== undefined ? booking[0].karnor : '' }} </td>
+        <td>  <b-button @click="sune()"> Alternativ </b-button></td>
+      </tr>
+      <tr>
+        <th scope="row">Fsdcount {{ booking !== undefined && booking[1] !== undefined ? booking[1].dator : 'Klicka på knappen för ladda in specsen, fixa så det laddas auto matiskt' }} </th>
+        <td> {{ booking !== undefined && booking[1] !== undefined ? booking[1].datumstart : '' }} </td>
+        <td> {{ booking !== undefined && booking[1] !== undefined ? booking[1].datumslut : '' }} </td>
+        <td> {{ booking !== undefined && booking[1] !== undefined ? booking[1].karnor : '' }} </td>
+        <td>  <b-button @click="sune()"> Alternativ </b-button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 </template>  
 
 <script lang="ts">

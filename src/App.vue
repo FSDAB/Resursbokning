@@ -26,17 +26,14 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import Dags from '@/Components/Dags.vue';
 import Hub from '@/Components/Hub.vue';
-import Mesher from '@/Components/Mesher.vue';
-import Month from '@/Components/Month.vue';
 import Navbar from '@/Components/Navbar.vue';
 
 @Component({
   components: {    
     Navbar,
     Hub,
-  },
+  }
 })
 export default class App extends Vue {
     Toggle: boolean;
