@@ -17,7 +17,6 @@ library.add(faUser, faPlus, faPen, faLink);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 import './styles/site.scss';
-
 import axios from 'axios';
 
 Vue.use(Vuelidate);

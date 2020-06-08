@@ -316,6 +316,7 @@
             <h2>Månadsöversikt</h2> 
           </a>
         </div>
+          <date-range-picker :from="$route.query.from" :to="$route.query.to" :panel="$route.query.panel" @update="update"/>
           <div class="size-grid-standard col-md-5" id="Month">
             <label class="control-label" for="fsdcountselector" >
               <h4>Count Dator </h4>
@@ -348,14 +349,15 @@
                   <div class="calendar">
                     <b-col md="auto">
                       <b-calendar
-                        v-model="value"
+                        v-model="value[countpc]"
                         id="countCalendar1"
                         locale="sv-Sv"
+                        :date-info-fn="dateClass"
                       ></b-calendar>
                     </b-col>
                   </div>
               </b-row>
-          </div>
+          </div> 
       </div>
     </div>
 
@@ -495,7 +497,7 @@ export default class Hub extends Vue {
   
   data() {
     return {
-      value: '',
+      value: [],
       context: null,
       countpc: '1',
 
@@ -519,11 +521,16 @@ export default class Hub extends Vue {
         this.counting = response.data as Berakningar[];
         this.$forceUpdate();
     });    
-  }
+  } 
 
   bokingAlt () {
     // tslint:disable-next-line:no-console
     console.log('Få en ruta lite snyggt med olika alternativ');
+  }
+
+  dateClass(ymd: string, date: Date ) {
+    const day = date.getDate();
+    return day >= 10 && day <= 21 || day === 24 ? 'table-info' : '';
   }
 
   countCalendarSelect () {

@@ -231,6 +231,13 @@
 import axios from 'axios';
 import App from 'App.vue';
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import SideNav from '@/Components/SideNav.vue';
+
+@Component({
+  components: {    
+    SideNav,
+  }
+})
 
 export default class Dags extends Vue {
   computer: Datorer[];
