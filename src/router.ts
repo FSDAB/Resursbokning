@@ -1,8 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from './views/Home.vue';
+import App from '@/App.vue';
+import Home from '@/views/Home.vue';
 
 Vue.use(Router);
+
 export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -13,16 +15,29 @@ export default new Router({
       component: Home
     },
     {
-      path: '/Dagoversikt',
-      name: 'Dagoversikt',
-      props: false,
-      meta: {
-        requireAuth: true
-      },
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/Dagoversikt.vue')
+      path: '/hub',
+      name: 'hub',
+      // component: Hub
+      component: () => import(/* webpackChunkName: "about" */ './views/Hubben.vue')
+    },
+    {
+      path: '/bokning',
+      name: 'bookings',
+      // meta: {Layout: ""},
+      // component: Bookings
+      component: () => import(/* webpackChunkName: "about" */ './views/Bokning.vue')
+    },
+    {
+      path: '/dagsoversikt',
+      name: 'dags',
+      // component: Dags
+      component: () => import(/* webpackChunkName: "about" */ './views/Dagsvisning.vue')
+    },
+    {
+      path: '/mesher',
+      name: 'mesher',
+      // component: Mesher
+      component: () => import(/* webpackChunkName: "about" */ './views/Mesh.vue')
     },
   ]
 });

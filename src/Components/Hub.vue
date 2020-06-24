@@ -1,6 +1,6 @@
 <template>
   <div class="container col-md-12">
-    <div class="sidebar-mobile " >
+     <div class="sidebar-mobile " >
       <b-button style="margin-top:5px; margin-right: 5px; float:right;" v-b-toggle.sidebar-backdrop>Meny</b-button>
       <b-sidebar
         id="sidebar-backdrop"
@@ -31,7 +31,7 @@
           </ul>
         </div>
       </b-sidebar>
-    </div>
+    </div> 
 
     <div class="row-cols-1 row" >
       <div class="size-grid-standard col-md-6" id="Dags-fullscreen" style="background-color:red; height:500px;" >
@@ -101,7 +101,6 @@
                   </b-popover>
                 </div>
               </div>
-
             </div>
 
             <div class="dator-row-2 row">
@@ -316,7 +315,7 @@
             <h2>Månadsöversikt</h2> 
           </a>
         </div>
-          <date-range-picker :from="$route.query.from" :to="$route.query.to" :panel="$route.query.panel" @update="update"/>
+         <!-- <date-range-picker :from="$route.query.from" :to="$route.query.to" :panel="$route.query.panel" @update="update"/> -->
           <div class="size-grid-standard col-md-5" id="Month">
             <label class="control-label" for="fsdcountselector" >
               <h4>Count Dator </h4>
@@ -386,15 +385,17 @@
                 <td> {{ booking !== undefined && booking[0] !== undefined ? booking[0].datumstart : '' }} </td>
                 <td> {{ booking !== undefined && booking[0] !== undefined ? booking[0].datumslut : '' }} </td>
                 <td> {{ booking !== undefined && booking[0] !== undefined ? booking[0].karnor : '' }} </td>
-                <td>  <b-button @click="bokingAlt()"> Alternativ </b-button></td>
+                <td>  <b-button v-b-modal="'my-modal1'" @click="bokingAlt()"> Alternativ </b-button></td>
+                <b-modal id="my-modal1">Hello From My Modal!</b-modal>
               </tr>
               <tr>
                 <th scope="row">Fsdcount {{ booking !== undefined && booking[1] !== undefined ? booking[1].dator : 'Ett fel har inträffat ladda om sidan' }} </th>
                 <td> {{ booking !== undefined && booking[1] !== undefined ? booking[1].datumstart : '' }} </td>
                 <td> {{ booking !== undefined && booking[1] !== undefined ? booking[1].datumslut : '' }} </td>
                 <td> {{ booking !== undefined && booking[1] !== undefined ? booking[1].karnor : '' }} </td>
-                <td>  <b-button @click="bokingAlt()"> Alternativ </b-button></td>
-              </tr>
+                <td>  <b-button v-b-modal="'my-modal2'" @click="bokingAlt()"> Alternativ </b-button></td>
+                <b-modal id="my-modal2">Hello From My Modal!</b-modal>         
+                </tr>
             </tbody>
           </table>
         </div>
@@ -473,10 +474,11 @@ import Bookings from './Bookings.vue';  */
 
 @Component({
   components: {
-/*     Dags,
-    Month,  
+/*    Dags,
+    Month,
     Bookings,
-    Mesher */
+    Mesher, */
+
   }
 })
 
@@ -593,7 +595,7 @@ export default class Hub extends Vue {
       }
       case 12: {
         // tslint:disable-next-line:no-console
-        console.log('count kalender 13');
+        console.log('count kalender 12');
         break;
       }
       case 13: {
@@ -672,6 +674,7 @@ class Berakningar {
 </script>
 
 <style scoped lang="scss">
+
 #fsdcountselector {
   width: 100px;
   position: absolute;
@@ -709,7 +712,7 @@ class Berakningar {
 .container {
   width: 100%;
   height: 100%;
-  margin-top: 100px;
+  margin-top: 10px;
 }
 
 .sidebar-mobile {
@@ -818,9 +821,9 @@ class Berakningar {
   }
   .dator-row-3 {
   margin-top: 0px;
-}
-.dator-row-4 {
-  margin-top: 0px;
-}
+  }
+  .dator-row-4 {
+    margin-top: 0px;
+  }
 }
 </style>

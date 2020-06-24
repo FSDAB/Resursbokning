@@ -1,7 +1,7 @@
 <template>
 <div id="SideNav">
   <div class="col-md-12" style="background-color: #CBD7FB;">
-    <b-navbar type="blue"  >
+    <b-navbar type="blue">
       <b-navbar-nav>
           <b-nav-item @click="hide()" id="hide1200px"> {{ Toggle ? 'x ' : '+ ' }}Sidebar</b-nav-item>
           <b-nav-item-dropdown text="Länkar 1" left>

@@ -1,32 +1,17 @@
 <template>
-  <div id="app">
-    <div class="hub">
-      <Hub/>
-    </div>
+  <div class="home">
+    <Hub />
   </div>
 </template>
 
 <script lang="ts">
     import { Component, Vue } from 'vue-property-decorator';
-    import App from '@/App.vue';
     import Hub from '@/Components/Hub.vue';
+
     @Component({
       components: {
-        App,
-        Hub,
+        Hub
       }
     })
     export default class Home extends Vue { }
 </script>
-
-<style scoped>
-.hub {
-  margin-top: 50px;
-}
-
-@media only screen and (max-width: 1200px) {
-  .hub {
-    margin-top: 0px;
-  }
-}
-</style>
