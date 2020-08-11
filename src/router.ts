@@ -39,5 +39,17 @@ export default new Router({
       // component: Mesher
       component: () => import(/* webpackChunkName: "about" */ './views/Mesh.vue')
     },
+    {
+      path: '/month',
+      name: 'month',
+      // component: month
+      component: () => import(/* webpackChunkName: "about" */ './views/Month.vue')
+    },
+    {
+      path: '/count1',
+      name: 'count1',
+      // component: month
+      component: () => import(/* webpackChunkName: "about" */ './views/CountDatorer/Count1.vue')
+    },    
   ]
 });

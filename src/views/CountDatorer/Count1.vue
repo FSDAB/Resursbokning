@@ -1,16 +1,16 @@
 <template>
   <div class="about">
-    <Mesher />
+    <Count1 />
   </div>
 </template>
 
 <script lang="ts">
     import { Component, Vue } from 'vue-property-decorator';
-    import Mesher from '@/Components/Mesher.vue';
+    import Count1 from '@/Components/CountDatorer/Count1.vue';
 
     @Component({
       components: {
-        Mesher
+        Count1
       }
     })
     export default class About extends Vue { }

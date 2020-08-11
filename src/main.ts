@@ -2,8 +2,7 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import Vue from 'vue';
 import App from './App.vue';
-// import router from './router';
-import Vuelidate from 'vuelidate';
+import router from './router';
 import BootstrapVue from 'bootstrap-vue';
 
 import 'bootstrap/scss/bootstrap.scss';
@@ -19,7 +18,6 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 import './styles/site.scss';
 import axios from 'axios';
 
-Vue.use(Vuelidate);
 Vue.use(BootstrapVue);
 
 Vue.use(Dropdown);
@@ -68,6 +66,6 @@ Vue.toasted.register(
 Vue.config.productionTip = false;
 
 new Vue({
-  // router,
+  router,
   render: h => h(App)
 }).$mount('#app');

@@ -1,16 +1,16 @@
 <template>
   <div class="about">
-    <Mesher />
+    <Monthlyview />
   </div>
 </template>
 
 <script lang="ts">
     import { Component, Vue } from 'vue-property-decorator';
-    import Mesher from '@/Components/Mesher.vue';
+    import Monthlyview from '@/Components/Monthlyview.vue';
 
     @Component({
       components: {
-        Mesher
+        Monthlyview,
       }
     })
     export default class About extends Vue { }

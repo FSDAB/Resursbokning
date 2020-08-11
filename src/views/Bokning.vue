@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="about">
     <Bookings />
   </div>
 </template>
@@ -13,5 +13,5 @@
         Bookings
       }
     })
-    export default class Home extends Vue { }
+    export default class About extends Vue { }
 </script>

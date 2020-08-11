@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="home">
     <div class="hub">
       <Hub/>
     </div>
@@ -20,9 +20,6 @@
 </script>
 
 <style scoped>
-.hub {
-  margin-top: 50px;
-}
 
 @media only screen and (max-width: 1200px) {
   .hub {

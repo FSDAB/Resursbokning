@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="about">
     <Dags />
   </div>
 </template>
@@ -13,5 +13,5 @@
         Dags
       }
     })
-    export default class Home extends Vue { }
+    export default class About extends Vue { }
 </script>

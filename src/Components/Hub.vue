@@ -1,5 +1,5 @@
 <template>
-  <div class="container col-md-12">
+  <div class="container col-md-12" style="background-color:#E6EFF6;">
      <div class="sidebar-mobile " >
       <b-button style="margin-top:5px; margin-right: 5px; float:right;" v-b-toggle.sidebar-backdrop>Meny</b-button>
       <b-sidebar
@@ -8,46 +8,47 @@
         backdrop
         shadow
       >
-      <a href="@Components/App.vue">
-       <img src="@/assets/fsd_logo.png" style=" width: 100%; height: 150px;  ">
-      </a>
+        <b-link :to="{ name: 'hub' }">
+          <img src="@/assets/fsd_logo.png">
+        </b-link>
         <div class="sidebar py-2" >
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link active" href="@/views/App.vue">Startsida</a>
+              <b-nav-item :to="{ name: 'hub' }"> Startsida </b-nav-item>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="@/Components/Dags.vue">Dagsöversikt</a>
+              <b-nav-item :to="{ name: 'dags' }">Dags</b-nav-item> 
+            </li>
+              <b-nav-item :to="{ name: 'month' }">Månadsöversikt</b-nav-item> 
+            <li class="nav-item">
+              <b-nav-item :to="{ name: 'bookings' }">Bokningar</b-nav-item> 
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="@/Components/Month.vue">Månadsöversikt</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link " href="@/Components/Booking.vue">Bokningar</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link " href="@/Components/Mesher.vue">Mesher</a>
+              <b-nav-item :to="{ name: 'mesher' }">Mesher</b-nav-item> 
             </li>
           </ul>
         </div>
       </b-sidebar>
     </div> 
 
-    <div class="row-cols-1 row" >
-      <div class="size-grid-standard col-md-6" id="Dags-fullscreen" style="background-color:red; height:500px;" >
+    <div class="row" style="padding-top:20px;">
+      <div class="size-grid-standard col-md-7" id="Dags-fullscreen" style="background-color:#014B94; height:500px; border-radius: 40px;">
         <div class="row" id="Rubrik" style="margin-left: -15px;">
-          <a href="@/Components/Dags.vue" style="color:black ">
-            <h2 >Dagsöversikt</h2>
-          </a>
+          <b-link :to="{ name: 'dags' }">
+            <h2 style="color:#ffffff; margin-left:30px; " >Dagsöversikt</h2>
+          </b-link> 
         </div>
-          <div class="dator-row row">
-            <div class="dator-row-1 row">
-              <div class="dator col-md-3">
+
+          <div class="dator-row col-md-12">
+
+            <div class="row">
+
+              <div class="dator col-md-auto" >
                 <h4>Dator 1</h4>
                 <div class="dator-bild">
-                  <a href="@/Components/count_datorer/Count1" >
-                  <img src="@/assets/countpcfree.png" id="count1"/>
-                  </a>
+                  <b-link :to="{ name: 'count1' }">
+                    <img src="@/assets/countpcfree.png" id="count1"/>
+                  </b-link>
                   <b-popover target="count1" triggers="hover" placement="top">
                     <template v-slot:title>Count 1 Specs</template>
                       Namn:<p> {{ computer !== undefined && computer[0] !== undefined ? computer[0].namn : 'Ett fel har inträffat ladda om sidan' }} </p>
@@ -57,7 +58,7 @@
                 </div>
               </div>
 
-              <div class="dator col-md-3">
+              <div class="dator col-md-auto">
                 <h4>Dator 2</h4>
                 <div class="dator-bild">
                   <a href="@/Components/count_datorer/Count2" >
@@ -72,7 +73,7 @@
                 </div>
               </div>
 
-              <div class="dator col-md-3">
+              <div class="dator col-md-auto">
                 <h4>Dator 3</h4>
                 <div class="dator-bild">
                   <a href="@/Components/count_datorer/Count3" >
@@ -87,7 +88,7 @@
                 </div>
               </div>
 
-              <div class="dator col-md-3">
+              <div class="dator col-md-auto">
                 <h4>Dator 4</h4>
                 <div class="dator-bild">
                   <a href="@/Components/count_datorer/Count13" >
@@ -101,10 +102,7 @@
                   </b-popover>
                 </div>
               </div>
-            </div>
-
-            <div class="dator-row-2 row">
-              <div class="dator col-md-3">
+              <div class="dator col-md-auto">
                 <h4>Dator 5</h4>
                 <div class="dator-bild">
                   <a href="@/Components/count_datorer/Count5" >
@@ -119,7 +117,7 @@
                 </div>
               </div>
 
-              <div class="dator col-md-3">
+              <div class="dator col-md-auto">
                 <h4>Dator 6</h4>
                 <div class="dator-bild">
                   <a href="@/Components/count_datorer/Count6" >
@@ -134,7 +132,7 @@
                 </div>
               </div>
 
-              <div class="dator col-md-3">
+              <div class="dator col-md-auto">
                 <h4>Dator 7</h4>
                 <div class="dator-bild">
                   <a href="@/Components/count_datorer/Count7" >
@@ -149,26 +147,7 @@
                 </div>
               </div>
 
-              <div class="dator col-md-3">
-                <h4>Dator 8</h4>
-                <div class="dator-bild">
-                  <a href="@/Components/count_datorer/Count8" >
-                  <img src="@/assets/countpcfree.png" id="count8" />
-                  </a>
-                  <b-popover target="count8" triggers="hover" placement="top">
-                  <template v-slot:title>Count 8 Specs</template>
-                    Namn:<p> {{ computer !== undefined && computer[7] !== undefined ? computer[7].namn : 'Ett fel har inträffat ladda om sidan' }} </p>
-                    Antal kärnor:<p> {{ computer !== undefined && computer[7] !== undefined ? computer[7].karnor : '' }} </p>
-                    Processor<p> {{ computer !== undefined && computer[7] !== undefined ? computer[7].desc : '' }} </p>  
-                  </b-popover>
-                </div>
-              </div>
-
-            </div>
-
-            <div class="dator-row-3 row">
-
-              <div class="dator col-md-3">
+               <div class="dator col-md-auto">
                 <h4>Dator 9</h4>
                 <div class="dator-bild">
                   <a href="@/Components/count_datorer/Count9" >
@@ -183,7 +162,7 @@
                 </div>
               </div>
 
-              <div class="dator col-md-3">
+              <div class="dator col-md-auto">
                 <h4>Dator 10</h4>
                 <div class="dator-bild">
                   <a href="@/Components/count_datorer/Count10" >
@@ -198,7 +177,7 @@
                 </div>
               </div>
 
-              <div class="dator col-md-3">
+              <div class="dator col-md-auto">
                 <h4>Dator 11</h4>
                 <div class="dator-bild">
                   <a href="@/Components/count_datorer/Count11" >
@@ -213,7 +192,7 @@
                 </div>
               </div>
 
-              <div class="dator col-md-3">
+              <div class="dator col-md-auto">
                 <h4>Dator 12</h4>
                 <div class="dator-bild">
                   <a href="@/Components/count_datorer/Count12" >
@@ -228,11 +207,7 @@
                 </div>
               </div>
 
-            </div>
-
-            <div class="dator-row-4 row">
-
-              <div class="dator col-md-3" >
+              <div class="dator col-md-auto" >
                 <h4>Dator 13</h4>
                 <div class="dator-bild">
                   <a href="@/Components/count_datorer/Count13" >
@@ -247,7 +222,7 @@
                 </div>
               </div>
               
-              <div class="dator col-md-3">
+              <div class="dator col-md-auto">
                 <h4>Dator 14</h4>
                 <div class="dator-bild">
                   <a href="@/Components/count_datorer/Count14" >
@@ -262,7 +237,7 @@
                 </div>
               </div>
 
-              <div class="dator col-md-3">
+              <div class="dator col-md-auto">
                 <h4>Dator 15</h4>
                 <div class="dator-bild">
                   <a href="@/Components/count_datorer/Count15" >
@@ -277,7 +252,7 @@
                 </div>
               </div>
 
-              <div class="dator col-md-3">
+              <div class="dator col-md-auto">
                 <h4>Dator 16</h4>
                 <div class="dator-bild">
                   <a href="@/Components/count_datorer/Count16" >
@@ -291,8 +266,8 @@
                   </b-popover>
                 </div>
               </div>
-            </div>
-              <div class="dator col-md-3" style="margin-left:-15px;">
+
+              <div class="dator col-md-auto">
                 <h4>Dator 17</h4>
                 <div class="dator-bild">
                   <a href="@/Components/count_datorer/Count17" >
@@ -306,17 +281,18 @@
                   </b-popover>
                 </div>
               </div>
+            </div>
           </div>
         </div>
 
-      <div class="size-grid-standard col-md-5" id="Month" style="background-color:blue;">
+      <div class="size-grid-standard col-md-4" id="Month" >
         <div class="dator-row-1 row" id="Rubrik" >
-          <a href="@/Components/Month.vue" style="color:black">
-            <h2>Månadsöversikt</h2> 
-          </a>
+            <b-link :to="{ name: 'month' }"> 
+              <h2 style="color:#ffffff; margin-left:10px;">Månadsöversikt</h2> 
+            </b-link> 
         </div>
          <!-- <date-range-picker :from="$route.query.from" :to="$route.query.to" :panel="$route.query.panel" @update="update"/> -->
-          <div class="size-grid-standard col-md-5" id="Month">
+          <div class="size-grid-standard col-md-12" >
             <label class="control-label" for="fsdcountselector" >
               <h4>Count Dator </h4>
             </label>
@@ -344,28 +320,96 @@
                 <option>16</option>
                 <option>17</option> 
               </b-form-select>
-                <b-row>
-                  <div class="calendar">
+              <b-container class="col-container" >
+                <div class="row " style=" width:50%; float:left; padding-top:33px;">
+                  <div class="col-md-auto">
+                    <label for="datepicker-start" >Välj startdatum för bokning</label>
+                    <b-form-datepicker 
+                     placeholder="Välj startdatum för bokning"
+                     id="datepicker-start" 
+                     v-model="valuestart"
+                     class="mb-2"
+                     :hide-header="true"
+                     :min="minstart" 
+                     :max="maxstart"
+                    ></b-form-datepicker>
+                    <label for="datepicker-end" :min="minslut" :max="maxslut" >Välj slutdatum för bokning</label>
+                    <b-form-datepicker 
+                      placeholder="Välj slutdatum för bokning" 
+                      id="datepicker-end" 
+                      v-model="valueend" c
+                      lass="mb-2"
+                      :hide-header="true"
+                      :min="minend"
+                      :max="maxend"
+                    ></b-form-datepicker>
+                    <p></p>
+                    <b-button 
+                    variant="outline-success"
+                    @click="bookdate()"
+                    v-b-modal="'booking-modal'"
+                    >
+                      Boka Vald tid
+                    </b-button>  
+                    <b-modal id="booking-modal">
+                      <p> Din bokning bekräftad </p> 
+                      <p> Du har bokat Count Dator {{ countpc }} mellan den </p> 
+                      <p>{{ valuestart }} och {{ valueend }} </p>
+                    </b-modal>    
+                    <p></p>
+                    <p> start: '{{ valuestart }}'</p>
+                    <p>slut: '{{ valueend }}'</p>
+                    <p></p>
+                  </div>
+<!--                 <b-row >
+                  <b-col sm="auto">
+                    <label for="datepicker-end">Välj slutdatum för bokning</label>
+                    <b-form-datepicker placeholder="Välj slutdatum för bokning" id="datepicker-end" v-model="valueend" class="mb-2"></b-form-datepicker>
+                  </b-col>
+                </b-row > -->
+                </div >
+                  <div class="col-md-auto" >
+                    <b-calendar
+                    v-model="valuestart[countpc]"
+                    id="countCalendar"
+                    locale="sv-Sv"
+                    :date-info-fn="dateClass" 
+                    :hide-header="true"
+                    ></b-calendar>
+                  </div>
+              </b-container>                    
+<!--             Kalendrar för bokning kanske ska ha med     
+                 <div class="calendar-start">
                     <b-col md="auto">
                       <b-calendar
-                        v-model="value[countpc]"
-                        id="countCalendar1"
+                        v-model="valuestart[countpc]"
+                        id="countCalendar-start"
                         locale="sv-Sv"
                         :date-info-fn="dateClass"
                       ></b-calendar>
                     </b-col>
                   </div>
-              </b-row>
+                  <div class="calendar-end">
+                    <b-col md="auto">
+                      <b-calendar
+                        v-model="valueend[countpc]"
+                        id="countCalendar-end"
+                        locale="sv-Sv"
+                        :date-info-fn="dateClass"
+                      ></b-calendar>
+                    </b-col>
+                  </div> 
+              </b-row>-->
           </div> 
       </div>
     </div>
 
 
-    <div class="row-cols-table row" style="background-color:yellow; ">
+    <div class="row-cols-table row" style="background-color:#D69996;   border-radius: 25px;">
         <div class="dator-row-1 row" id="Rubrik">
-          <a href="@/Components/Bookings.vue" style="color:black">
-           <h2>Mina Bokningar</h2>
-          </a>
+          <b-link :to="{ name: 'bookings' }">
+            <h2 style="color:#ffffff; margin-left:20px;"> Mina Bokningar</h2>
+          </b-link>         
         </div>
       <div class="size-grid-auto col-md-12" style="overflow-y:auto;">
         <div class="table-responsive">
@@ -402,11 +446,11 @@
       </div>
     </div>
 
-    <div class="row-cols-table row" style="background-color:green; margin-top:10px;">
+    <div class="row-cols-table row" style="background-color:#014B94; margin-top:10px; border-radius: 25px;">
       <div class="row" id="Rubrik" >
-        <a href="@/Components/Mesher.vue" style="color:black">
-         <h2>Mesher</h2>
-        </a> 
+        <b-link :to="{ name: 'mesher' }">
+          <h2 style="color:#ffffff; margin-left:20px;" >Mesher</h2>
+        </b-link>
       </div>
        <div class="size-grid-auto col-md-12" style="overflow-y:auto;">
         <table class="mesher table-striped">
@@ -467,6 +511,7 @@
 import axios from 'axios';
 import App from 'App.vue';
 import { Component, Prop, Vue } from 'vue-property-decorator';
+
 /* import Mesher from './Mesher.vue';
 import Dags from './Dags.vue';
 import Month from './Month.vue';   
@@ -488,6 +533,7 @@ export default class Hub extends Vue {
   counting: Berakningar[];
   state: string;
   countpc: Number;
+  
   constructor() {
     super();
     this.computer = [];
@@ -498,17 +544,47 @@ export default class Hub extends Vue {
   }
   
   data() {
-    return {
-      value: [],
-      context: null,
-      countpc: '1',
+      const todaydate = new Date();
+      const today = new Date(todaydate.getDate());
 
-    };
+      const nowstart = new Date();
+      const todaystart = new Date(nowstart.getFullYear(), nowstart.getMonth(), nowstart.getDate());
+      const maxDatestart = new Date(todaystart);
+
+      const nowsend = new Date();
+      const todayend = new Date(nowsend.getFullYear(), nowsend.getMonth(), nowsend.getDate());
+      const minDateend = new Date(todayend);
+      const minDatestart = new Date(todaystart);
+
+    // Start Begränsning  
+      minDatestart.setMonth(minDatestart.getMonth() - 0);
+      minDatestart.setDate(todaydate.getDate());
+
+      maxDatestart.setMonth(maxDatestart.getMonth() + 6); // Använd slut begränsning
+      maxDatestart.setDate(1);
+
+    // Slut begränsning
+      minDateend.setMonth(minDateend.getMonth() - 0); // Använd start datumetet
+      minDateend.setDate(15);
+  
+      const maxDateend = new Date(todayend);
+      maxDateend.setMonth(maxDateend.getMonth() + 6);
+      maxDateend.setDate(31);
+      
+      return {
+        valuestart: '' ,
+        valueend: '' ,
+        context: null,
+        countpc: '1',
+        minstart: minDatestart,
+        maxstart: maxDatestart,
+        minend: minDateend,
+        maxend: maxDateend , 
+      };
   }
 
   created() {
     this.getApi();
-
   }
     getApi () {
       axios.get('http://1.1.106.199:3000/datorer').then((response) => {
@@ -525,6 +601,10 @@ export default class Hub extends Vue {
     });    
   } 
 
+  bookdate() {
+    // Boka
+  }
+
   bokingAlt () {
     // tslint:disable-next-line:no-console
     console.log('Få en ruta lite snyggt med olika alternativ');
@@ -532,7 +612,7 @@ export default class Hub extends Vue {
 
   dateClass(ymd: string, date: Date ) {
     const day = date.getDate();
-    return day >= 10 && day <= 21 || day === 24 ? 'table-info' : '';
+    return day >= 10 && day <= 21 || day === 24 ? 'table-info' : ''; // Lägg till input returnsen här istället för siffrorna
   }
 
   countCalendarSelect () {
@@ -685,6 +765,7 @@ class Berakningar {
   overflow: hidden;
  // margin-left:20px ;
 }
+
 #Rubrik {
   width: 100%;
   margin-left: 2px;
@@ -699,15 +780,27 @@ class Berakningar {
     }
   }
 }
-
+#Month {
+  background-color:#014B94; 
+  border-radius: 40px; 
+  margin-left:200px;
+  padding:20px; 
+}
 .bokningar {
   width: 100%;
   height: 80%;
 }
 
-.calendar {
+.calendar-start {
   padding: 20px;
   margin-left: 20px;
+  float: right;
+}
+.calendar-end {
+  padding: 20px;
+  margin-left: 300px;
+  margin-top: -404px;
+
 }
 .container {
   width: 100%;
@@ -819,11 +912,23 @@ class Berakningar {
     overflow-y: auto;
     overflow-x: hidden;
   }
+    #Month {
+    overflow-y: auto;
+    overflow-x: auto;
+  }
   .dator-row-3 {
   margin-top: 0px;
   }
   .dator-row-4 {
     margin-top: 0px;
   }
+  .calendar-start {
+  padding: 20px;
+  margin-left: 20px;
+  float: right;
+  margin-left: 0px;
+  margin-top: 0px;
+}
+
 }
 </style>
