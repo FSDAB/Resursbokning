@@ -1,319 +1,74 @@
 <template>
-<div class="col-md-12 container" id="Month" style="background-color:blue;">
-  <!-- <date-range-picker :from="$route.query.from" :to="$route.query.to" :panel="$route.query.panel" @update="update"/> -->
-  <div class="row-cols-1 row" style="border: 5px solid red ">
-
-    <div class="col-md-auto" id="Month" style="border: 5px solid yellow ">
-      <label class="control-label" for="fsdcountselector" >
-       <h4>Count Dator 1 </h4>
-      </label>
-      <b-row>
-        <div class="calendar">
-          <b-col md="auto">
-            <b-calendar
-            v-model="value[countpc]"
-            id="countCalendar1"
-            locale="sv-Sv"
-            :date-info-fn="dateClass"
-            ></b-calendar>
-          </b-col>
+  <div class="container col-md-12" style=" height:100%; border: 5px solid green;">
+    <div class="row" style="">
+      <div class="size-grid-standard col-md-5">
+        <div class="size-grid-standard col-md-12" id="Month" >
+          <div class="dator-row-1 row" id="Rubrik">
+            <b-link :to="{ name: 'month' }">
+              <h2 style="color:white; ">Count 1</h2>
+            </b-link>
+          </div>
+          <div class="row ">
+            <div class="col-md-6" style="margin-left:4%;">
+              <label for="datepicker-start">Välj startdatum för bokning</label>
+              <b-form-datepicker
+                placeholder="Välj startdatum för bokning"
+                id="datepicker-start"
+                v-model="valuestart"
+                class="mb-2"
+                :hide-header="true"
+                :min="minstart"
+                :max="maxstart"
+              ></b-form-datepicker>
+              <label for="datepicker-end" :min="minslut" :max="maxslut"
+                >Välj slutdatum för bokning</label
+              >
+              <b-form-datepicker
+                placeholder="Välj slutdatum för bokning"
+                id="datepicker-end"
+                v-model="valueend"
+                c
+                lass="mb-2"
+                :hide-header="true"
+                :min="minend"
+                :max="maxend"
+              ></b-form-datepicker>
+              <p></p>
+              <b-button
+                variant="outline-success"
+                @click="bookdate()"
+                v-b-modal="'booking-modal'"
+              >
+                Boka Vald tid
+              </b-button>
+              <b-modal id="booking-modal">
+                <p>Din bokning bekräftad</p>
+                <p>Du har bokat Count Dator {{ countpc }} mellan den</p>
+                <p>{{ valuestart }} och {{ valueend }}</p>
+              </b-modal>
+              <p></p>
+              <p>start: '{{ valuestart }}'</p>
+              <p>slut: '{{ valueend }}'</p>
+              <p></p>
+            </div>
+            <div class="col-md-5" >
+              <b-calendar
+                v-model="valuestart[countpc]"
+                id="countCalendar"
+                locale="sv-Sv"
+                :date-info-fn="dateClass"
+                :hide-header="true"
+              ></b-calendar>
+            </div>
+          </div>
         </div>
-      </b-row>
-    </div> 
-
-    <div class="col-md-auto" id="Month" style="border: 5px solid green ">
-      <label class="control-label" for="fsdcountselector" >
-        <h4>Count Dator 2 </h4>
-      </label>
-      <b-row>
-        <div class="calendar">
-          <b-col md="auto">
-            <b-calendar
-            v-model="value[countpc]"
-            id="countCalendar2"
-            locale="sv-Sv"
-            :date-info-fn="dateClass"
-            ></b-calendar>
-          </b-col>
-        </div>
-      </b-row>
-    </div> 
-
-    <div class="col-md-auto" id="Month" style="border: 5px solid green ">
-      <label class="control-label" for="fsdcountselector" >
-        <h4>Count Dator 3 </h4>
-      </label>
-      <b-row>
-        <div class="calendar">
-          <b-col md="auto">
-            <b-calendar
-            v-model="value[countpc]"
-            id="countCalendar2"
-            locale="sv-Sv"
-            :date-info-fn="dateClass"
-            ></b-calendar>
-          </b-col>
-        </div>
-      </b-row>
-    </div> 
-
-    <div class="col-md-auto" id="Month" style="border: 5px solid green ">
-      <label class="control-label" for="fsdcountselector" >
-        <h4>Count Dator 4 </h4>
-      </label>
-      <b-row>
-        <div class="calendar">
-          <b-col md="auto">
-            <b-calendar
-            v-model="value[countpc]"
-            id="countCalendar2"
-            locale="sv-Sv"
-            :date-info-fn="dateClass"
-            ></b-calendar>
-          </b-col>
-        </div>
-      </b-row>
+      </div>
     </div>
-
-    <div class="col-md-auto" id="Month" style="border: 5px solid green ">
-      <label class="control-label" for="fsdcountselector" >
-        <h4>Count Dator 5 </h4>
-      </label>
-      <b-row>
-        <div class="calendar">
-          <b-col md="auto">
-            <b-calendar
-            v-model="value[countpc]"
-            id="countCalendar2"
-            locale="sv-Sv"
-            :date-info-fn="dateClass"
-            ></b-calendar>
-          </b-col>
-        </div>
-      </b-row>
-    </div> 
-
-    <div class="col-md-auto" id="Month" style="border: 5px solid green ">
-      <label class="control-label" for="fsdcountselector" >
-        <h4>Count Dator 6 </h4>
-      </label>
-      <b-row>
-        <div class="calendar">
-          <b-col md="auto">
-            <b-calendar
-            v-model="value[countpc]"
-            id="countCalendar2"
-            locale="sv-Sv"
-            :date-info-fn="dateClass"
-            ></b-calendar>
-          </b-col>
-        </div>
-      </b-row>
-    </div> 
-
-    <div class="col-md-auto" id="Month" style="border: 5px solid green ">
-      <label class="control-label" for="fsdcountselector" >
-        <h4>Count Dator 7 </h4>
-      </label>
-      <b-row>
-        <div class="calendar">
-          <b-col md="auto">
-            <b-calendar
-            v-model="value[countpc]"
-            id="countCalendar2"
-            locale="sv-Sv"
-            :date-info-fn="dateClass"
-            ></b-calendar>
-          </b-col>
-        </div>
-      </b-row>
-    </div> 
-
-    <div class="col-md-auto" id="Month" style="border: 5px solid green ">
-      <label class="control-label" for="fsdcountselector" >
-        <h4>Count Dator 8 </h4>
-      </label>
-      <b-row>
-        <div class="calendar">
-          <b-col md="auto">
-            <b-calendar
-            v-model="value[countpc]"
-            id="countCalendar2"
-            locale="sv-Sv"
-            :date-info-fn="dateClass"
-            ></b-calendar>
-          </b-col>
-        </div>
-      </b-row>
-    </div> 
-
-    <div class="col-md-auto" id="Month" style="border: 5px solid green ">
-      <label class="control-label" for="fsdcountselector" >
-        <h4>Count Dator 9 </h4>
-      </label>
-      <b-row>
-        <div class="calendar">
-          <b-col md="auto">
-            <b-calendar
-            v-model="value[countpc]"
-            id="countCalendar2"
-            locale="sv-Sv"
-            :date-info-fn="dateClass"
-            ></b-calendar>
-          </b-col>
-        </div>
-      </b-row>
-    </div> 
-
-    <div class="col-md-auto" id="Month" style="border: 5px solid green ">
-      <label class="control-label" for="fsdcountselector" >
-        <h4>Count Dator 10 </h4>
-      </label>
-      <b-row>
-        <div class="calendar">
-          <b-col md="auto">
-            <b-calendar
-            v-model="value[countpc]"
-            id="countCalendar2"
-            locale="sv-Sv"
-            :date-info-fn="dateClass"
-            ></b-calendar>
-          </b-col>
-        </div>
-      </b-row>
-    </div>             
-
-    <div class="col-md-auto" id="Month" style="border: 5px solid green ">
-      <label class="control-label" for="fsdcountselector" >
-        <h4>Count Dator 11 </h4>
-      </label>
-      <b-row>
-        <div class="calendar">
-          <b-col md="auto">
-            <b-calendar
-            v-model="value[countpc]"
-            id="countCalendar2"
-            locale="sv-Sv"
-            :date-info-fn="dateClass"
-            ></b-calendar>
-          </b-col>
-        </div>
-      </b-row>
-    </div>             
-
-    <div class="col-md-auto" id="Month" style="border: 5px solid green ">
-      <label class="control-label" for="fsdcountselector" >
-        <h4>Count Dator 12 </h4>
-      </label>
-      <b-row>
-        <div class="calendar">
-          <b-col md="auto">
-            <b-calendar
-            v-model="value[countpc]"
-            id="countCalendar2"
-            locale="sv-Sv"
-            :date-info-fn="dateClass"
-            ></b-calendar>
-          </b-col>
-        </div>
-      </b-row>
-    </div>             
-
-    <div class="col-md-auto" id="Month" style="border: 5px solid green ">
-      <label class="control-label" for="fsdcountselector" >
-        <h4>Count Dator 13 </h4>
-      </label>
-      <b-row>
-        <div class="calendar">
-          <b-col md="auto">
-            <b-calendar
-            v-model="value[countpc]"
-            id="countCalendar2"
-            locale="sv-Sv"
-            :date-info-fn="dateClass"
-            ></b-calendar>
-          </b-col>
-        </div>
-      </b-row>
-    </div>             
-
-    <div class="col-md-auto" id="Month" style="border: 5px solid green ">
-      <label class="control-label" for="fsdcountselector" >
-        <h4>Count Dator 114 </h4>
-      </label>
-      <b-row>
-        <div class="calendar">
-          <b-col md="auto">
-            <b-calendar
-            v-model="value[countpc]"
-            id="countCalendar2"
-            locale="sv-Sv"
-            :date-info-fn="dateClass"
-            ></b-calendar>
-          </b-col>
-        </div>
-      </b-row>
-    </div>             
-
-    <div class="col-md-auto" id="Month" style="border: 5px solid green ">
-      <label class="control-label" for="fsdcountselector" >
-        <h4>Count Dator 15 </h4>
-      </label>
-      <b-row>
-        <div class="calendar">
-          <b-col md="auto">
-            <b-calendar
-            v-model="value[countpc]"
-            id="countCalendar2"
-            locale="sv-Sv"
-            :date-info-fn="dateClass"
-            ></b-calendar>
-          </b-col>
-        </div>
-      </b-row>
-    </div>             
-
-    <div class="col-md-auto" id="Month" style="border: 5px solid green ">
-      <label class="control-label" for="fsdcountselector" >
-        <h4>Count Dator 16 </h4>
-      </label>
-      <b-row>
-        <div class="calendar">
-          <b-col md="auto">
-            <b-calendar
-            v-model="value[countpc]"
-            id="countCalendar2"
-            locale="sv-Sv"
-            :date-info-fn="dateClass"
-            ></b-calendar>
-          </b-col>
-        </div>
-      </b-row>
-    </div>             
-
-    <div class="col-md-auto" id="Month" style="border: 5px solid green ">
-      <label class="control-label" for="fsdcountselector" >
-        <h4>Count Dator 17 </h4>
-      </label>
-      <b-row>
-        <div class="calendar">
-          <b-col md="auto">
-            <b-calendar
-            v-model="value[countpc]"
-            id="countCalendar2"
-            locale="sv-Sv"
-            :date-info-fn="dateClass"
-            ></b-calendar>
-          </b-col>
-        </div>
-      </b-row>
-    </div>             
-
   </div>
-</div>
 </template>
 
-<script lang='ts'>
+
+<script lang="ts">
 import axios from 'axios';
 import App from 'App.vue';
 import { Component, Prop, Vue } from 'vue-property-decorator';
@@ -324,33 +79,62 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
   }
 })
 
-export default class Hub extends Vue {
+export default class Count extends Vue {
   computer: Datorer[];
   booking: Bokning[];
   counting: Berakningar[];
   state: string;
   countpc: Number;
-  constructor() {
+  
+    constructor() {
     super();
     this.computer = [];
     this.booking = [];
-    this.counting = [];
+    this.counting = [];        
     this.state = 'disabled';
-    this.countpc = 0;
+    this.countpc = 1;
   }
+    data() {
+      const todaydate = new Date();
+      const today = new Date(todaydate.getDate());
+
+      const nowstart = new Date();
+      const todaystart = new Date(nowstart.getFullYear(), nowstart.getMonth(), nowstart.getDate());
+      const maxDatestart = new Date(todaystart);
+
+      const nowsend = new Date();
+      const todayend = new Date(nowsend.getFullYear(), nowsend.getMonth(), nowsend.getDate());
+      const minDateend = new Date(todayend);
+      const minDatestart = new Date(todaystart);
+
+    // Start Begränsning  
+      minDatestart.setMonth(minDatestart.getMonth() - 0);
+      minDatestart.setDate(todaydate.getDate());
+
+      maxDatestart.setMonth(maxDatestart.getMonth() + 6); // Använd slut begränsning
+      maxDatestart.setDate(1);
+
+    // Slut begränsning
+      minDateend.setMonth(minDateend.getMonth() - 0); // Använd start datumetet
+      minDateend.setDate(15);
   
-  data() {
-    return {
-      value: [],
-      context: null,
-      countpc: '1',
-
-    };
+      const maxDateend = new Date(todayend);
+      maxDateend.setMonth(maxDateend.getMonth() + 6);
+      maxDateend.setDate(31);
+      
+      return {
+        valuestart: '' ,
+        valueend: '' ,
+        context: null,
+        countpc: '1',
+        minstart: minDatestart,
+        maxstart: maxDatestart,
+        minend: minDateend,
+        maxend: maxDateend , 
+      };
   }
-
-  created() {
+    created() {
     this.getApi();
-
   }
     getApi () {
       axios.get('http://1.1.106.199:3000/datorer').then((response) => {
@@ -366,111 +150,17 @@ export default class Hub extends Vue {
         this.$forceUpdate();
     });    
   } 
+    dateClass(ymd: string, date: Date ) {
+    const day = date.getDate();
+    return day >= 10 && day <= 21 || day === 24 ? 'table-info' : ''; // Lägg till input returnsen här istället för siffrorna
+  }
+    bookdate() {
+    // Boka
+  }
 
   bokingAlt () {
     // tslint:disable-next-line:no-console
     console.log('Få en ruta lite snyggt med olika alternativ');
-  }
-
-  dateClass(ymd: string, date: Date ) {
-    const day = date.getDate();
-    return day >= 10 && day <= 21 || day === 24 ? 'table-info' : '';
-  }
-
-  countCalendarSelect () {
-    const countCalendar: Number = parseInt(this.countpc.toString(), 10);
-    switch (countCalendar ) {
-      case 1: {
-        // tslint:disable-next-line:no-console 
-        console.log('count kalender 1');
-        break;
-      }
-      case 2: {
-        // tslint:disable-next-line:no-console
-        console.log('count kalender 2');
-        break;
-      }
-      case 3: {
-        // tslint:disable-next-line:no-console
-        console.log('count kalender 3');
-        break;
-      }
-      case 4: {
-        // tslint:disable-next-line:no-console
-        console.log('count kalender 4');
-        break;
-      }
-      case 5: {
-        // tslint:disable-next-line:no-console
-        console.log('count kalender 5');
-        break;
-      }
-      case 6: {
-        // tslint:disable-next-line:no-console
-        console.log('count kalender 6');
-        break;
-      }
-      case 7: {
-        // tslint:disable-next-line:no-console
-        console.log('count kalender 7');
-        break;
-      }
-      case 8: {
-        // tslint:disable-next-line:no-console
-        console.log('count kalender 8');
-        break;
-      }  
-      case 9: {
-        // tslint:disable-next-line:no-console
-        console.log('count kalender 9');
-        break;
-      }
-      case 10: {
-        // tslint:disable-next-line:no-console
-        console.log('count kalender 10');
-        break;
-      }
-      case 11: {
-        // tslint:disable-next-line:no-console
-        console.log('count kalender 11');
-        break;
-      }
-      case 12: {
-        // tslint:disable-next-line:no-console
-        console.log('count kalender 12');
-        break;
-      }
-      case 13: {
-        // tslint:disable-next-line:no-console
-        console.log('count kalender 13');
-        break;
-      }
-      case 14: {
-        // tslint:disable-next-line:no-console
-        console.log('count kalender 14');
-        break;
-      }
-      case 15: {
-        // tslint:disable-next-line:no-console
-        console.log('count kalender 15');
-        break;
-      }
-      case 16: {
-        // tslint:disable-next-line:no-console
-        console.log('count kalender 16');
-        break;
-      }
-      case 17: {
-        // tslint:disable-next-line:no-console
-        console.log('count kalender 17');
-        break;
-      }                                                          
-      default: {
-        // tslint:disable-next-line:no-console
-        console.log('Countpc = ' + this.countpc + ' och countCalendar = ' + countCalendar);
-        break;
-      }
-    }
   }
 }
 
@@ -485,6 +175,7 @@ class Datorer {
     this.desc = '';
   }
 }
+
 class Bokning {
   dator: Number;
   karnor: Number;
@@ -516,4 +207,63 @@ class Berakningar {
 
 <style scoped lang="scss">
 
+
+#Rubrik {
+  margin-left: 4%;
+  margin-bottom: 2px;
+}
+
+#Month {
+  background-color:#014B94; 
+  border-radius: 40px; 
+  padding:20px;
+  
+}
+
+.calendar-start {
+  padding: 20px;
+  margin-left: 20px;
+  float: right;
+}
+.calendar-end {
+  padding: 20px;
+  margin-left: 300px;
+  margin-top: -404px;
+
+}
+.container {
+  width: 100%;
+  height: 100%;
+  margin-top: 10px;
+}
+
+
+@media only screen and (max-width: 1200px) {
+
+
+  .container {
+    margin: 0%;
+  }
+
+}
+@media only screen and (max-width: 2500px) {
+  #Dags-fullscreen {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+    #Month {
+    overflow-y: auto;
+    overflow-x: auto;
+
+  }
+  .calendar-start {
+  padding: 20px;
+  margin-left: 20px;
+  float: right;
+  margin-left: 0px;
+  margin-top: 0px;
+}
+
+}
 </style>
+

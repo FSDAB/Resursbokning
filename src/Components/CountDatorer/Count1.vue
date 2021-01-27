@@ -12,7 +12,7 @@
             </b-link>
           </div>
           <div class="row ">
-            <div class="col-md-6">
+            <div class="col-md-auto">
               <label for="datepicker-start">Välj startdatum för bokning</label>
               <b-form-datepicker
                 placeholder="Välj startdatum för bokning"
@@ -56,6 +56,7 @@
             </div>
             <div class="col-md-auto">
               <b-calendar
+              width="600px"
                 v-model="valuestart[countpc]"
                 id="countCalendar"
                 locale="sv-Sv"
@@ -98,43 +99,19 @@ export default class Count1 extends Vue {
     this.countpc = 1;
   }
     data() {
-      const todaydate = new Date();
-      const today = new Date(todaydate.getDate());
-
-      const nowstart = new Date();
-      const todaystart = new Date(nowstart.getFullYear(), nowstart.getMonth(), nowstart.getDate());
-      const maxDatestart = new Date(todaystart);
-
-      const nowsend = new Date();
-      const todayend = new Date(nowsend.getFullYear(), nowsend.getMonth(), nowsend.getDate());
-      const minDateend = new Date(todayend);
-      const minDatestart = new Date(todaystart);
-
-    // Start Begränsning  
-      minDatestart.setMonth(minDatestart.getMonth() - 0);
-      minDatestart.setDate(todaydate.getDate());
-
-      maxDatestart.setMonth(maxDatestart.getMonth() + 6); // Använd slut begränsning
-      maxDatestart.setDate(1);
-
-    // Slut begränsning
-      minDateend.setMonth(minDateend.getMonth() - 0); // Använd start datumetet
-      minDateend.setDate(15);
-  
-      const maxDateend = new Date(todayend);
-      maxDateend.setMonth(maxDateend.getMonth() + 6);
-      maxDateend.setDate(31);
+    const now = new Date();
+    const tmp = new Date().setDate(0);
+    const tmp2 = new Date(tmp).setDate(1);
+    const tmp3 = new Date(tmp2); 
       
-      return {
-        valuestart: '' ,
-        valueend: '' ,
+    return {
         context: null,
         countpc: '1',
-        minstart: minDatestart,
-        maxstart: maxDatestart,
-        minend: minDateend,
-        maxend: maxDateend , 
-      };
+        start: 0,
+        valuestart: tmp3 ,
+        valueend: new Date(now.setDate(0) ), 
+   
+    };
   }
     created() {
     this.getApi();

@@ -167,7 +167,7 @@
                   </b-popover>
                 </div>
               </div>
-              <div class="dator col-md-3" >
+              <div class="dator col-md-auto" >
                 <h4>Dator 13</h4>
                 <div class="dator-bild">
                   <a href="@/Components/count_datorer/Count13" >

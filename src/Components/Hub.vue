@@ -32,7 +32,7 @@
     </div> 
 
     <div class="row" style="padding-top:20px;">
-      <div class="size-grid-standard col-md-7" id="Dags-fullscreen" style="background-color:#014B94; height:500px; border-radius: 40px;">
+      <div class="size-grid-standard col-md-6" id="Dags-fullscreen" style="background-color:#014B94; height:500px; border-radius: 40px;">
         <div class="row" id="Rubrik" style="margin-left: -15px;">
           <b-link :to="{ name: 'dags' }">
             <h2 style="color:#ffffff; margin-left:30px; " >Dagsöversikt</h2>
@@ -285,7 +285,7 @@
           </div>
         </div>
 
-      <div class="size-grid-standard col-md-4" id="Month" >
+      <div class="size-grid-standard col-md-5" id="Month" >
         <div class="dator-row-1 row" id="Rubrik" >
             <b-link :to="{ name: 'month' }"> 
               <h2 style="color:#ffffff; margin-left:10px;">Månadsöversikt</h2> 
@@ -321,25 +321,27 @@
                 <option>17</option> 
               </b-form-select>
               <b-container class="col-container" >
-                <div class="row " style=" width:50%; float:left; padding-top:33px;">
-                  <div class="col-md-auto">
-                    <label for="datepicker-start" >Välj startdatum för bokning</label>
-                    <b-form-datepicker 
-                     placeholder="Välj startdatum för bokning"
-                     id="datepicker-start" 
-                     v-model="valuestart"
-                     class="mb-2"
-                     :hide-header="true"
-                     :min="minstart" 
-                     :max="maxstart"
-                    ></b-form-datepicker>
-                    <label for="datepicker-end" :min="minslut" :max="maxslut" >Välj slutdatum för bokning</label>
-                    <b-form-datepicker 
-                      placeholder="Välj slutdatum för bokning" 
-                      id="datepicker-end" 
-                      v-model="valueend" c
-                      lass="mb-2"
+                <div class="row " style=" width:70%; float:left; padding-top:1%; margin-right:1%;">
+                  <div class="col-md-9" style="">
+                    <b-form-datepicker
+                      placeholder="Välj startdatum för bokning"
+                      id="datepicker-start"
+                      v-model="valuestart"
                       :hide-header="true"
+                      :value-as-date="true"
+                      :min="minstart"
+                      :max="maxstart"
+                    ></b-form-datepicker>
+                    <label for="datepicker-end" :min="minslut" :max="maxslut"
+                      >Välj slutdatum för bokning</label
+                    >
+                    <b-form-datepicker
+                      placeholder="Välj slutdatum för bokning"
+                      id="datepicker-end"
+                      v-model="valueend"
+                      class="mb-2"
+                      :hide-header="true"
+                      :value-as-date="true"
                       :min="minend"
                       :max="maxend"
                     ></b-form-datepicker>
@@ -350,7 +352,7 @@
                     v-b-modal="'booking-modal'"
                     >
                       Boka Vald tid
-                    </b-button>  
+                    </b-button>         
                     <b-modal id="booking-modal">
                       <p> Din bokning bekräftad </p> 
                       <p> Du har bokat Count Dator {{ countpc }} mellan den </p> 
@@ -367,9 +369,9 @@
                     <b-form-datepicker placeholder="Välj slutdatum för bokning" id="datepicker-end" v-model="valueend" class="mb-2"></b-form-datepicker>
                   </b-col>
                 </b-row > -->
-                </div >
-                  <div class="col-md-auto" >
+                  <div class="col-md-3" style="margin-top: -33px;" >
                     <b-calendar
+                    width="300px"
                     v-model="valuestart[countpc]"
                     id="countCalendar"
                     locale="sv-Sv"
@@ -377,6 +379,7 @@
                     :hide-header="true"
                     ></b-calendar>
                   </div>
+                </div >
               </b-container>                    
 <!--             Kalendrar för bokning kanske ska ha med     
                  <div class="calendar-start">
@@ -547,12 +550,10 @@ export default class Hub extends Vue {
       const todaydate = new Date();
       const today = new Date(todaydate.getDate());
 
-      const nowstart = new Date();
-      const todaystart = new Date(nowstart.getFullYear(), nowstart.getMonth(), nowstart.getDate());
+      const todaystart = new Date(todaydate.getFullYear(), todaydate.getMonth(), todaydate.getDate());
       const maxDatestart = new Date(todaystart);
 
-      const nowsend = new Date();
-      const todayend = new Date(nowsend.getFullYear(), nowsend.getMonth(), nowsend.getDate());
+      const todayend = new Date(todaydate.getFullYear(), todaydate.getMonth(), todaydate.getDate());
       const minDateend = new Date(todayend);
       const minDatestart = new Date(todaystart);
 
@@ -569,17 +570,17 @@ export default class Hub extends Vue {
   
       const maxDateend = new Date(todayend);
       maxDateend.setMonth(maxDateend.getMonth() + 6);
-      maxDateend.setDate(31);
+      maxDateend.setDate(31); 
       
       return {
-        valuestart: '' ,
-        valueend: '' ,
+        valuestart: today ,
+        valueend: new Date(todaydate.setDate(0) ), 
         context: null,
         countpc: '1',
-        minstart: minDatestart,
+     /*    minstart: minDatestart,
         maxstart: maxDatestart,
         minend: minDateend,
-        maxend: maxDateend , 
+        maxend: maxDateend ,  */
       };
   }
 
@@ -783,8 +784,8 @@ class Berakningar {
 #Month {
   background-color:#014B94; 
   border-radius: 40px; 
-  margin-left:200px;
   padding:20px; 
+  margin-right: 0%;
 }
 .bokningar {
   width: 100%;

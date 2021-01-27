@@ -27,7 +27,7 @@
       </Reveal> 
       <main id="page-wrap" style="margin-top:50px;">
         <b-link :to="{ name: 'hub' }">
-          <img src="@/assets/fsd_logo.png">
+          <img src="https://www.fsd.se/images/logo/fsd_logo2.png">
         </b-link>       
          <router-view />
       </main>
