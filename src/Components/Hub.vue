@@ -30,9 +30,13 @@
         </div>
       </b-sidebar>
     </div> 
-
-    <div class="row" style="padding-top:20px;">
-      <div class="size-grid-standard col-md-6" id="Dags-fullscreen" style="background-color:#014B94; height:500px; border-radius: 40px;">
+    <!-- <div class="row">
+      <div class="col align-self-end">
+        <p>Du är inloggad som </p>
+      </div>
+    </div> -->
+    <div class="row justify-content-between firstcontent" style="padding-top:20px;">
+      <div class="col-md-6" id="Dags-fullscreen" style="background-color:#014B94; height:500px; border-radius: 40px;">
         <div class="row" id="Rubrik" style="margin-left: -15px;">
           <b-link :to="{ name: 'dags' }">
             <h2 style="color:#ffffff; margin-left:30px; " >Dagsöversikt</h2>
@@ -43,249 +47,27 @@
 
             <div class="row">
 
-              <div class="dator col-md-auto" >
-                <h4>Dator 1</h4>
+              <div class="dator col-md-auto" v-for="comp in computer" :key="comp.nr">
+                <h4>Dator {{ comp.nr }}</h4>
                 <div class="dator-bild">
-                  <b-link :to="{ name: 'count1' }">
-                    <img src="@/assets/countpcfree.png" id="count1"/>
+                  <b-link :to="{ name: 'count'+comp.nr }">
+                    <img v-if="isBooked(comp)" src="@/assets/countpctaken.png" :id="'count'+comp.nr"/>
+                    <img v-else src="@/assets/countpcfree.png" :id="'count'+comp.nr"/>
                   </b-link>
-                  <b-popover target="count1" triggers="hover" placement="top">
-                    <template v-slot:title>Count 1 Specs</template>
-                      Namn:<p> {{ computer !== undefined && computer[0] !== undefined ? computer[0].namn : 'Ett fel har inträffat ladda om sidan' }} </p>
-                      Antal kärnor:<p> {{ computer !== undefined && computer[0] !== undefined ? computer[0].karnor : '' }} </p>
-                      Processor<p> {{ computer !== undefined && computer[0] !== undefined ? computer[0].desc : '' }} </p>      
+                  <b-popover :target="'count'+comp.nr" triggers="hover" placement="top">
+                    <template v-slot:title>Count {{ comp.nr }} Specs</template>
+                      Namn:<p> {{ comp.namn }} </p>
+                      Antal kärnor:<p> {{ comp.karnor }} </p>
+                      Processor<p> {{ comp.desc }} </p>      
                   </b-popover>
                 </div>
               </div>
 
-              <div class="dator col-md-auto">
-                <h4>Dator 2</h4>
-                <div class="dator-bild">
-                  <a href="@/Components/count_datorer/Count2" >
-                  <img src="@/assets/countpcfree.png" id="count2" />
-                  </a>
-                  <b-popover target="count2" triggers="hover" placement="top">
-                    <template v-slot:title>Count 2 Specs</template>
-                      Namn:<p> {{ computer !== undefined && computer[1] !== undefined ? computer[1].namn : 'Ett fel har inträffat ladda om sidan' }} </p>
-                      Antal kärnor:<p> {{ computer !== undefined && computer[1] !== undefined ? computer[1].karnor : '' }} </p>
-                      Processor<p> {{ computer !== undefined && computer[1] !== undefined ? computer[1].desc : '' }} </p>                 
-                    </b-popover>
-                </div>
-              </div>
-
-              <div class="dator col-md-auto">
-                <h4>Dator 3</h4>
-                <div class="dator-bild">
-                  <a href="@/Components/count_datorer/Count3" >
-                  <img src="@/assets/countpcfree.png" id="count3" />
-                  </a>
-                  <b-popover target="count3" triggers="hover" placement="top">
-                    <template v-slot:title>Count 3 Specs</template>
-                      Namn:<p> {{ computer !== undefined && computer[2] !== undefined ? computer[2].namn : 'Ett fel har inträffat ladda om sidan' }} </p>
-                      Antal kärnor:<p> {{ computer !== undefined && computer[2] !== undefined ? computer[2].karnor : '' }} </p>
-                      Processor<p> {{ computer !== undefined && computer[2] !== undefined ? computer[2].desc : '' }} </p> 
-                  </b-popover>
-                </div>
-              </div>
-
-              <div class="dator col-md-auto">
-                <h4>Dator 4</h4>
-                <div class="dator-bild">
-                  <a href="@/Components/count_datorer/Count13" >
-                  <img src="@/assets/countpcfree.png" id="count4" />
-                  </a>
-                  <b-popover target="count4" triggers="hover" placement="top">
-                    <template v-slot:title>Count 4 Specs</template>
-                    Namn:<p> {{ computer !== undefined && computer[3] !== undefined ? computer[3].namn : 'Ett fel har inträffat ladda om sidan' }} </p>
-                    Antal kärnor:<p> {{ computer !== undefined && computer[3] !== undefined ? computer[3].karnor : '' }} </p>
-                    Processor<p> {{ computer !== undefined && computer[3] !== undefined ? computer[3].desc : '' }} </p>  
-                  </b-popover>
-                </div>
-              </div>
-              <div class="dator col-md-auto">
-                <h4>Dator 5</h4>
-                <div class="dator-bild">
-                  <a href="@/Components/count_datorer/Count5" >
-                  <img src="@/assets/countpcfree.png" id="count5" />
-                  </a>
-                  <b-popover target="count5" triggers="hover" placement="top">
-                  <template v-slot:title>Count 5 Specs</template>
-                    Namn:<p> {{ computer !== undefined && computer[4] !== undefined ? computer[4].namn : 'Ett fel har inträffat ladda om sidan' }} </p>
-                    Antal kärnor:<p> {{ computer !== undefined && computer[4] !== undefined ? computer[4].karnor : '' }} </p>
-                    Processor<p> {{ computer !== undefined && computer[4] !== undefined ? computer[4].desc : '' }} </p>  
-                  </b-popover>
-                </div>
-              </div>
-
-              <div class="dator col-md-auto">
-                <h4>Dator 6</h4>
-                <div class="dator-bild">
-                  <a href="@/Components/count_datorer/Count6" >
-                  <img src="@/assets/countpcfree.png" id="count6" />
-                  </a>
-                  <b-popover target="count6" triggers="hover" placement="top">
-                  <template v-slot:title>Count 6 Specs</template>
-                    Namn:<p> {{ computer !== undefined && computer[5] !== undefined ? computer[5].namn : 'Ett fel har inträffat ladda om sidan' }} </p>
-                    Antal kärnor:<p> {{ computer !== undefined && computer[5] !== undefined ? computer[5].karnor : '' }} </p>
-                    Processor<p> {{ computer !== undefined && computer[5] !== undefined ? computer[5].desc : '' }} </p>  
-                  </b-popover>
-                </div>
-              </div>
-
-              <div class="dator col-md-auto">
-                <h4>Dator 7</h4>
-                <div class="dator-bild">
-                  <a href="@/Components/count_datorer/Count7" >
-                  <img src="@/assets/countpcfree.png" id="count7" />
-                  </a>
-                  <b-popover target="count7" triggers="hover" placement="top">
-                    <template v-slot:title>Count 7 Specs</template>
-                    Namn:<p> {{ computer !== undefined && computer[6] !== undefined ? computer[6].namn : 'Ett fel har inträffat ladda om sidan' }} </p>
-                    Antal kärnor:<p> {{ computer !== undefined && computer[6] !== undefined ? computer[6].karnor : '' }} </p>
-                    Processor<p> {{ computer !== undefined && computer[6] !== undefined ? computer[6].desc : '' }} </p>          
-                  </b-popover>
-                </div>
-              </div>
-
-               <div class="dator col-md-auto">
-                <h4>Dator 9</h4>
-                <div class="dator-bild">
-                  <a href="@/Components/count_datorer/Count9" >
-                  <img src="@/assets/countpcfree.png" id="count9" />
-                  </a>
-                  <b-popover target="count9" triggers="hover" placement="top">
-                  <template v-slot:title>Count 9 Specs</template>
-                    Namn:<p> {{ computer !== undefined && computer[8] !== undefined ? computer[8].namn : 'Ett fel har inträffat ladda om sidan' }} </p>
-                    Antal kärnor:<p> {{ computer !== undefined && computer[8] !== undefined ? computer[8].karnor : '' }} </p>
-                    Processor<p> {{ computer !== undefined && computer[8] !== undefined ? computer[8].desc : '' }} </p>
-                  </b-popover>
-                </div>
-              </div>
-
-              <div class="dator col-md-auto">
-                <h4>Dator 10</h4>
-                <div class="dator-bild">
-                  <a href="@/Components/count_datorer/Count10" >
-                  <img src="@/assets/countpcfree.png" id="count10" />
-                  </a>          
-                  <b-popover target="count10" triggers="hover" placement="top">
-                  <template v-slot:title>Count 10 Specs</template>
-                    Namn:<p> {{ computer !== undefined && computer[9] !== undefined ? computer[9].namn : 'Ett fel har inträffat ladda om sidan' }} </p>
-                    Antal kärnor:<p> {{ computer !== undefined && computer[9] !== undefined ? computer[9].karnor : '' }} </p>
-                    Processor<p> {{ computer !== undefined && computer[9] !== undefined ? computer[9].desc : '' }} </p>
-                  </b-popover>
-                </div>
-              </div>
-
-              <div class="dator col-md-auto">
-                <h4>Dator 11</h4>
-                <div class="dator-bild">
-                  <a href="@/Components/count_datorer/Count11" >
-                  <img src="@/assets/countpcfree.png" id="count11" />
-                  </a>
-                  <b-popover target="count11" triggers="hover" placement="top">
-                    <template v-slot:title>Count 11 Specs</template>
-                    Namn:<p> {{ computer !== undefined && computer[10] !== undefined ? computer[10].namn : 'Ett fel har inträffat ladda om sidan' }} </p>
-                    Antal kärnor:<p> {{ computer !== undefined && computer[10] !== undefined ? computer[10].karnor : '' }} </p>
-                    Processor<p> {{ computer !== undefined && computer[10] !== undefined ? computer[10].desc : '' }} </p>              
-                  </b-popover>
-                </div>
-              </div>
-
-              <div class="dator col-md-auto">
-                <h4>Dator 12</h4>
-                <div class="dator-bild">
-                  <a href="@/Components/count_datorer/Count12" >
-                  <img src="@/assets/countpcfree.png" id="count12" />
-                  </a>
-                  <b-popover target="count12" triggers="hover" placement="top">
-                    <template v-slot:title>Count 12 Specs</template>
-                    Namn:<p> {{ computer !== undefined && computer[11] !== undefined ? computer[11].namn : 'Ett fel har inträffat ladda om sidan' }} </p>
-                    Antal kärnor:<p> {{ computer !== undefined && computer[11] !== undefined ? computer[11].karnor : '' }} </p>
-                    Processor<p> {{ computer !== undefined && computer[11] !== undefined ? computer[11].desc : '' }} </p>  
-                  </b-popover>
-                </div>
-              </div>
-
-              <div class="dator col-md-auto" >
-                <h4>Dator 13</h4>
-                <div class="dator-bild">
-                  <a href="@/Components/count_datorer/Count13" >
-                  <img src="@/assets/countpcfree.png" id="count13" />
-                  </a>
-                  <b-popover target="count13" triggers="hover" placement="top">
-                  <template v-slot:title>Count 13 Specs</template>
-                    Namn:<p> {{ computer !== undefined && computer[12] !== undefined ? computer[12].namn : 'Ett fel har inträffat ladda om sidan' }} </p>
-                    Antal kärnor:<p> {{ computer !== undefined && computer[12] !== undefined ? computer[12].karnor : '' }} </p>
-                    Processor<p> {{ computer !== undefined && computer[12] !== undefined ? computer[12].desc : '' }} </p>                  
-                  </b-popover>
-                </div>
-              </div>
-              
-              <div class="dator col-md-auto">
-                <h4>Dator 14</h4>
-                <div class="dator-bild">
-                  <a href="@/Components/count_datorer/Count14" >
-                  <img src="@/assets/countpcfree.png" id="count14" />
-                  </a>
-                  <b-popover target="count14" triggers="hover" placement="top">
-                  <template v-slot:title>Count 14 Specs</template>
-                    Namn:<p> {{ computer !== undefined && computer[13] !== undefined ? computer[13].namn : 'Ett fel har inträffat ladda om sidan' }} </p>
-                    Antal kärnor:<p> {{ computer !== undefined && computer[13] !== undefined ? computer[13].karnor : '' }} </p>
-                    Processor<p> {{ computer !== undefined && computer[13] !== undefined ? computer[13].desc : '' }} </p>                  
-                  </b-popover>
-                </div>
-              </div>
-
-              <div class="dator col-md-auto">
-                <h4>Dator 15</h4>
-                <div class="dator-bild">
-                  <a href="@/Components/count_datorer/Count15" >
-                  <img src="@/assets/countpcfree.png" id="count15" />
-                  </a>
-                  <b-popover target="count15" triggers="hover" placement="top">
-                  <template v-slot:title>Count 15 Specs</template>
-                    Namn:<p> {{ computer !== undefined && computer[14] !== undefined ? computer[14].namn : 'Ett fel har inträffat ladda om sidan' }} </p>
-                    Antal kärnor:<p> {{ computer !== undefined && computer[14] !== undefined ? computer[14].karnor : '' }} </p>
-                    Processor<p> {{ computer !== undefined && computer[14] !== undefined ? computer[14].desc : '' }} </p>                  
-                  </b-popover>
-                </div>
-              </div>
-
-              <div class="dator col-md-auto">
-                <h4>Dator 16</h4>
-                <div class="dator-bild">
-                  <a href="@/Components/count_datorer/Count16" >
-                  <img src="@/assets/countpcfree.png" id="count16" />
-                  </a>
-                  <b-popover target="count16" triggers="hover" placement="top">
-                  <template v-slot:title>Count 16 Specs</template>
-                    Namn:<p> {{ computer !== undefined && computer[15] !== undefined ? computer[15].namn : 'Ett fel har inträffat ladda om sidan' }} </p>
-                    Antal kärnor:<p> {{ computer !== undefined && computer[15] !== undefined ? computer[15].karnor : '' }} </p>
-                    Processor<p> {{ computer !== undefined && computer[15] !== undefined ? computer[15].desc : '' }} </p>                  
-                  </b-popover>
-                </div>
-              </div>
-
-              <div class="dator col-md-auto">
-                <h4>Dator 17</h4>
-                <div class="dator-bild">
-                  <a href="@/Components/count_datorer/Count17" >
-                  <img src="@/assets/countpcfree.png" id="count17" />
-                  </a>
-                  <b-popover target="count17" triggers="hover" placement="top">
-                  <template v-slot:title>Count 17 Specs</template>
-                    Namn:<p> {{ computer !== undefined && computer[16] !== undefined ? computer[16].namn : 'Ett fel har inträffat ladda om sidan' }} </p>
-                    Antal kärnor:<p> {{ computer !== undefined && computer[16] !== undefined ? computer[16].karnor : '' }} </p>
-                    Processor<p> {{ computer !== undefined && computer[16] !== undefined ? computer[16].desc : '' }} </p>                  
-                  </b-popover>
-                </div>
-              </div>
             </div>
           </div>
         </div>
 
-      <div class="size-grid-standard col-md-5" id="Month" >
+      <div class="col-md-5" id="Month" >
         <div class="dator-row-1 row" id="Rubrik" >
             <b-link :to="{ name: 'month' }"> 
               <h2 style="color:#ffffff; margin-left:10px;">Månadsöversikt</h2> 
@@ -323,45 +105,48 @@
               <b-container class="col-container" >
                 <div class="row " style=" width:70%; float:left; padding-top:1%; margin-right:1%;">
                   <div class="col-md-9" style="">
+                    <b-form-input v-model="name" placeholder="Skriv in namn för projektnamn"></b-form-input>
+                    <label for="datepicker-start" :min="min" :max="max"
+                      >Välj startdatum för bokning</label
+                    >
                     <b-form-datepicker
                       placeholder="Välj startdatum för bokning"
                       id="datepicker-start"
                       v-model="valuestart"
+                      :date-disabled-fn="dateDisabled"
                       :hide-header="true"
-                      :value-as-date="true"
-                      :min="minstart"
-                      :max="maxstart"
+                      :value-as-date="false"
+                      :min="min"
+                      :max="max"
                     ></b-form-datepicker>
-                    <label for="datepicker-end" :min="minslut" :max="maxslut"
+                    <label for="datepicker-end" :min="min" :max="max"
                       >Välj slutdatum för bokning</label
                     >
                     <b-form-datepicker
                       placeholder="Välj slutdatum för bokning"
                       id="datepicker-end"
                       v-model="valueend"
+                      :date-disabled-fn="dateDisabled"
                       class="mb-2"
                       :hide-header="true"
-                      :value-as-date="true"
-                      :min="minend"
-                      :max="maxend"
+                      :value-as-date="false"
+                      :min="min"
+                      :max="max"
+                      :hidden="isBookingFree(valuestart,valueend,countpc)"
                     ></b-form-datepicker>
                     <p></p>
                     <b-button 
                     variant="outline-success"
                     @click="bookdate()"
-                    v-b-modal="'booking-modal'"
+                 
                     >
                       Boka Vald tid
-                    </b-button>         
-                    <b-modal id="booking-modal">
-                      <p> Din bokning bekräftad </p> 
-                      <p> Du har bokat Count Dator {{ countpc }} mellan den </p> 
-                      <p>{{ valuestart }} och {{ valueend }} </p>
-                    </b-modal>    
-                    <p></p>
-                    <p> start: '{{ valuestart }}'</p>
-                    <p>slut: '{{ valueend }}'</p>
-                    <p></p>
+                    </b-button> 
+                    <div class="selects">        
+                      <b-form-select v-model="fdsversion" :options="fdsoptions"></b-form-select>
+                      <b-form-select v-model="foldercityselected" :options="foldercity"></b-form-select>
+                      <b-form-select v-model="folderprojectselected" :options="folderproject"></b-form-select>
+                    </div>
                   </div>
 <!--                 <b-row >
                   <b-col sm="auto">
@@ -376,6 +161,7 @@
                     id="countCalendar"
                     locale="sv-Sv"
                     :date-info-fn="dateClass" 
+                    :date-disabled-fn="dateDisabled"
                     :hide-header="true"
                     ></b-calendar>
                   </div>
@@ -407,6 +193,7 @@
       </div>
     </div>
 
+<!-- <button @click="removeCookie()">TEST</button> -->
 
     <div class="row-cols-table row" style="background-color:#D69996;   border-radius: 25px;">
         <div class="dator-row-1 row" id="Rubrik">
@@ -427,22 +214,27 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">Fsdcount {{ booking !== undefined && booking[0] !== undefined ? booking[0].dator : 'Ett fel har inträffat ladda om sidan' }} </th>
-                <td> {{ booking !== undefined && booking[0] !== undefined ? booking[0].datumstart : '' }} </td>
-                <td> {{ booking !== undefined && booking[0] !== undefined ? booking[0].datumslut : '' }} </td>
-                <td> {{ booking !== undefined && booking[0] !== undefined ? booking[0].karnor : '' }} </td>
-                <td>  <b-button v-b-modal="'my-modal1'" @click="bokingAlt()"> Alternativ </b-button></td>
-                <b-modal id="my-modal1">Hello From My Modal!</b-modal>
+              <tr v-for="mybooking in mybookings" :key="mybooking.id">
+                <th scope="row">Fsdcount {{ mybooking.dator }} </th>
+                <td> {{ removeTime(mybooking.datumstart) }} </td>
+                <td> {{ removeTime(mybooking.datumslut) }} </td>
+                <td> {{ mybooking.karnor }} </td>
+                <td><b-button v-b-modal="'modal'+mybooking.id" > Alternativ </b-button></td>
+                <b-modal :id="'modal'+mybooking.id">
+                  <p>Fyll i beräkningsuppgifter</p>
+                  <p v-if="bookingHasBerakning(mybooking)">{{ getBerakningFromBooking(mybooking) }}</p>
+                  <p v-else>Saknar beräkning</p>
+                  <div class="selects">
+                  <b-form-select v-if="!bookingHasBerakning(mybooking)" v-model="modalfdsversion" :options="fdsoptions"></b-form-select>
+                  <b-form-select v-if="!bookingHasBerakning(mybooking)" v-model="modalfoldercityselected" :options="foldercity"></b-form-select>
+                  <b-form-select v-if="!bookingHasBerakning(mybooking)" v-model="modalfolderprojectselected" :options="folderproject"></b-form-select>
+                  </div>
+                  <div class="modalbuttons">
+                  <button class="greenbutton" v-if="!bookingHasBerakning(mybooking)" @click="bokaberakningalt(mybooking.id,mybooking.dator)">Skicka in beräkning</button>
+                  <button class="redbutton" @click="removeBooking(mybooking)">Ta bort bokning</button>
+                  </div>
+                </b-modal>
               </tr>
-              <tr>
-                <th scope="row">Fsdcount {{ booking !== undefined && booking[1] !== undefined ? booking[1].dator : 'Ett fel har inträffat ladda om sidan' }} </th>
-                <td> {{ booking !== undefined && booking[1] !== undefined ? booking[1].datumstart : '' }} </td>
-                <td> {{ booking !== undefined && booking[1] !== undefined ? booking[1].datumslut : '' }} </td>
-                <td> {{ booking !== undefined && booking[1] !== undefined ? booking[1].karnor : '' }} </td>
-                <td>  <b-button v-b-modal="'my-modal2'" @click="bokingAlt()"> Alternativ </b-button></td>
-                <b-modal id="my-modal2">Hello From My Modal!</b-modal>         
-                </tr>
             </tbody>
           </table>
         </div>
@@ -470,36 +262,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">FSDCOUNT 3</th>
-              <td>6</td>
-              <td>4</td>
-              <td>2</td>
+            <tr v-for="m in mesher" :key="m.dator">
+              <th scope="row">FSDCOUNT {{ m.dator }}</th>
+              <td>{{ computer[m.dator-1].karnor }}</td>
+              <td>{{ multipleCountingsKarnor(m) }}</td>
+              <td>{{ freeKarnorCount(m) }}</td>
               <td>
                 <p>
-                  /Goteborg/Jonatan/2318085LisebergJP1/Scenario1_1_7/Scenario1_1_7.fds
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">FSDCOUNT 4</th>
-              <td>6</td>
-              <td>12</td>
-              <td>-6</td>
-              <td>
-                <p>
-                  /Stockholm/2919-001_Martinservera/MoS_Kylt_Scenario_2b_2MW/MoS_Kylt_Scenario_2b_2MW.fds
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">FSDCOUNT 5</th>
-              <td>12</td>
-              <td>10</td>
-              <td>2</td>
-              <td>
-                <p>
-                  /Goteborg/Jonatan/2318085LisebergJP1/Scenario1_1_6/Scenario1_1_6.fds
+                  {{ /*multipleCountings(m)*/ m.path }}
                 </p>
               </td>
             </tr>
@@ -514,6 +284,7 @@
 import axios from 'axios';
 import App from 'App.vue';
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import Bookings from './Bookings.vue';
 
 /* import Mesher from './Mesher.vue';
 import Dags from './Dags.vue';
@@ -534,76 +305,601 @@ export default class Hub extends Vue {
   computer: Datorer[];
   booking: Bokning[];
   counting: Berakningar[];
+  currentcountings: Nuvarandeberakningar[];
   state: string;
   countpc: Number;
+  valuestart: string;
+  valueend: string;
+  name: string;
+  fdsversion: Number;
+  foldercityselected: String;
+  folderprojectselected: String;
+  mybookings: Bokning[];
+  modalfdsversion: Number;
+  modalfoldercityselected: String;
+  modalfolderprojectselected: String;
+  mesher: Nuvarandeberakningar[];
   
+
   constructor() {
     super();
     this.computer = [];
     this.booking = [];
     this.counting = [];
+    this.currentcountings = [];
     this.state = 'disabled';
-    this.countpc = 0;
+    this.countpc = 1;
+    this.valuestart = new Date().toLocaleDateString('sv-se');
+    // this.valuestart = this.firstavaliable(new Date().toLocaleDateString('sv-se'),this.countpc).toString();
+    // this.valueend = new Date(new Date().getTime() + 604800000).toLocaleDateString('sv-se');
+    this.valueend = this.valuestart
+    this.name = '';
+    this.fdsversion = 0;
+    this.foldercityselected = '';
+    this.folderprojectselected = '';
+    this.mybookings = [];
+    this.modalfdsversion = 0;
+    this.modalfoldercityselected = '';
+    this.modalfolderprojectselected = '';
+    this.mesher = [];
   }
   
   data() {
-      const todaydate = new Date();
-      const today = new Date(todaydate.getDate());
-
-      const todaystart = new Date(todaydate.getFullYear(), todaydate.getMonth(), todaydate.getDate());
-      const maxDatestart = new Date(todaystart);
-
-      const todayend = new Date(todaydate.getFullYear(), todaydate.getMonth(), todaydate.getDate());
-      const minDateend = new Date(todayend);
-      const minDatestart = new Date(todaystart);
-
-    // Start Begränsning  
-      minDatestart.setMonth(minDatestart.getMonth() - 0);
-      minDatestart.setDate(todaydate.getDate());
-
-      maxDatestart.setMonth(maxDatestart.getMonth() + 6); // Använd slut begränsning
-      maxDatestart.setDate(1);
-
-    // Slut begränsning
-      minDateend.setMonth(minDateend.getMonth() - 0); // Använd start datumetet
-      minDateend.setDate(15);
-  
-      const maxDateend = new Date(todayend);
-      maxDateend.setMonth(maxDateend.getMonth() + 6);
-      maxDateend.setDate(31); 
+      const now = new Date()
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
       
+      const minDate = new Date(today)
+      minDate.setMonth(minDate.getMonth() - 2)
+      minDate.setDate(15)
+      
+      const maxDate = new Date(today)
+      maxDate.setMonth(maxDate.getMonth() + 4)
+      maxDate.setDate(15)
+      // let minabokningar = this.getmybookings();
+
       return {
-        valuestart: today ,
-        valueend: new Date(todaydate.setDate(0) ), 
-        context: null,
-        countpc: '1',
-     /*    minstart: minDatestart,
-        maxstart: maxDatestart,
-        minend: minDateend,
-        maxend: maxDateend ,  */
+      value: '',
+      min:minDate,
+      max:maxDate,
+      fdsoptions:[
+        { value:0, text:'Välj FDS version', disabled:true},
+        { value:5.00, text:'5.00'},
+        { value:6.53, text:'6.53'},
+        { value:6.60, text:'6.60'}
+      ],
+      fdsversion:0,
+      foldercity:[
+        { value: null, text:'Välj stad', disabled:true},
+        { value: 'Malmö', text:'Malmö'},
+        { value: 'Göteborg', text: 'Göteborg'},
+        { value: 'Helsingborg', text: 'Helsingborg'}
+      ],
+      foldercityselected:null,
+      folderproject:[
+        { value: null, text: 'Välj projekt',disabled:true},
+        { value: 'Projekt1', text: 'Projekt 1'},
+        { value: 'Projekt2', text: 'Projekt 2'}
+      ],
+      folderprojectselected:null,
       };
+  }
+
+  isValidDate(d) {​​
+  return d instanceof Date && !isNaN(d);
+  }​​
+  // this.isValidDate(new Date(this.removeTime(x.datumstart))) &&
+
+  dateDisabled(ymd:String,date:Date) {
+      // let date = new Date();
+      const weekday = date.getDay()
+      const day = date.getDate()
+
+      let blockeddates = this.getblockeddates(this.countpc)
+
+      if(blockeddates.length === 0){
+        return false
+      }
+      
+      // console.log(Date.parse(date.toString())+ this.removeTime(date.toString()))
+      // console.log(Date.parse(this.removeTime(blockeddates[5].datumstart)))
+      // console.log(blockeddates.findIndex(x => Date.parse(this.removeTime(x.datumstart)) <= Date.parse(date.toString()) && Date.parse(this.removeTime(x.datumslut)) >= Date.parse(date.toString())))
+      let s = ( blockeddates.find(x => date >= new Date(this.removeTime(x.datumstart)) && date <= new Date(this.removeTime(x.datumslut)))) === undefined
+  
+      return !s
+      // Return `true` if the date should be disabled
+      
   }
 
   created() {
     this.getApi();
+    this.checkCookie();
   }
+
+  mounted(){
+    this.getmybookings();
+    
+  }
+
     getApi () {
       axios.get('http://1.1.106.199:3000/datorer').then((response) => {
         this.computer = response.data.datorer as Datorer[];
-        this.$forceUpdate();
+        // this.$forceUpdate();
        });
       axios.get('http://1.1.106.199:3000/bokningar').then((response) => {
         this.booking = response.data as Bokning[];
-        this.$forceUpdate();
+        // this.$forceUpdate();
+        this.getmybookings();
+        // alert(new Date(this.firstavaliable(new Date().toLocaleDateString('sv-se'),this.countpc)).toLocaleDateString('sv-se'))
+        this.valuestart = new Date(this.firstavaliable(new Date().toLocaleDateString('sv-se'),this.countpc)).toLocaleDateString('sv-se');
     });
       axios.get('http://1.1.106.199:3000/berakningar').then((response) => {
         this.counting = response.data as Berakningar[];
-        this.$forceUpdate();
-    });    
+        // this.$forceUpdate();
+    }); 
+      axios.get('http://1.1.106.199:3000/hamtanuvarandeberakningar').then((response) => {
+        // console.log('RESPONSE')
+        // console.log(response.data)
+        this.currentcountings = response.data as Nuvarandeberakningar[];
+        // this.$forceUpdate();
+        this.getMesher();
+    }); 
+    
   } 
 
   bookdate() {
-    // Boka
+    // Boka skicka med namnet på Bokning
+    let nybokning = new Bokning();
+    let cookie = this.getCookie('username');
+    let bokningsid = -1;
+    nybokning.dator = this.countpc;
+    nybokning.datumstart = this.valuestart;
+    nybokning.datumslut = this.valueend;
+    nybokning.name = cookie;
+    this.mybookings.push(nybokning);
+    this.$forceUpdate();
+
+    // console.log(cookie)
+    // Skicka "nybokning" till Databas V
+    if(!this.bookDateValidation(new Date(nybokning.datumstart),new Date(nybokning.datumslut),nybokning.dator)){
+    axios.post('http://1.1.106.199:3000/bokningar',{dator:nybokning.dator,datumstart: nybokning.datumstart,datumslut:nybokning.datumslut,name:nybokning.name,karnor:6}).then(function(response){
+      console.log(response);
+      bokningsid = Number(response);
+    }).catch(function(error){
+      console.log(error)
+    }).then(()=>{
+       if(this.fdsversion !== 0 && this.folderprojectselected && this.foldercityselected){
+        this.bokaberakning(bokningsid,nybokning.dator);
+      }
+    });
+    alert('Du har bokat dator ' + nybokning.dator + ' från ' + nybokning.datumstart + ' till ' + nybokning.datumslut + '.')
+    } else{
+      alert('Det finns redan en bokning mellan ' + nybokning.datumstart + ' och ' + nybokning.datumslut + '.')
+    }
+  }
+
+  bookDateValidation(bookingstart:Date,bookingend:Date,computerID:Number){
+    if(bookingstart < new Date(2019,1,1)){
+      return true;
+    }
+    let desiredStart = bookingstart.toString();
+    let desiredEnd = bookingend.toString();
+    let bookedDates = this.getblockeddates(computerID);
+
+    let bool = false;
+    console.log(desiredStart)
+    console.log(desiredEnd)
+    console.log(bookedDates)
+    for(let i = 0; i < bookedDates.length; i++){
+        if(Date.parse(desiredStart) < Date.parse(bookedDates[i].datumstart) &&/* !(new Date(desiredStart) > new Date(bookedDates[i].datumslut)) && */ Date.parse(desiredEnd) > Date.parse(bookedDates[i].datumslut)){
+        //  desiredStart < bokning < desiredEnd
+        // console.log(i+ ' '+Date.parse(desiredStart) + '<' + Date.parse(bookedDates[i].datumstart) + ' ' + Date.parse(desiredEnd) + '>' + Date.parse(bookedDates[i].datumslut))
+        
+        bool = true
+        console.log(bool)
+      }
+      // console.log(i + ' ' + desiredStart + '<' + bookedDates[i].datumstart + ' ' + desiredEnd + '>' + bookedDates[i].datumslut) 
+      // console.log(i+ ' '+Date.parse(desiredStart) + '<' + Date.parse(bookedDates[i].datumstart) + ' ' + Date.parse(desiredEnd) + '>' + Date.parse(bookedDates[i].datumslut))
+      // console.log(' ')
+      // console.log(bool)
+    }
+    // if(bool == true){
+    //   alert('Bokning överlappar ' + this.valuestart + ' - ' + this.valueend)
+    //   this.valueend = this.valuestart;
+    //   this.$forceUpdate();
+    // }
+    console.log(bool)
+    return bool;
+  }
+
+  // Funktion som avänds för bokning
+  bokaberakning(id:number,dator:Number){
+
+      // skicka in sträng mapp till stad/projekt
+      // val av FDS version
+      // dator/nr
+      let nyberakning = new Berakningar();
+      nyberakning.cityfolder = this.foldercityselected;
+      nyberakning.projectfolder = this.folderprojectselected;
+      nyberakning.fds = this.fdsversion;
+      nyberakning.bokningsid = id;
+      nyberakning.namn = this.getCookie('username');
+      nyberakning.nr = dator;
+      console.log(nyberakning)
+      this.counting.push(nyberakning)
+      this.$forceUpdate();
+
+      // Skicka in beräkningar
+    axios.post('http://1.1.106.199:3000/berakningar',{nr: nyberakning.nr,fds: nyberakning.fds,cityfolder: nyberakning.cityfolder, projectfolder: nyberakning.projectfolder,name:nyberakning.namn,bokningsid: nyberakning.bokningsid,karnor:6}).then(function(response){
+      console.log(response)
+    }).catch(function(error){
+      console.log(error)
+    })
+  }
+
+  // Funktion som används i modal
+    bokaberakningalt(id:number,dator:Number){
+
+      // skicka in sträng mapp till stad/projekt
+      // val av FDS version
+      // dator/nr
+      let nyberakning = new Berakningar();
+      nyberakning.cityfolder = this.modalfoldercityselected;
+      nyberakning.projectfolder = this.modalfolderprojectselected;
+      nyberakning.fds = this.modalfdsversion;
+      nyberakning.bokningsid = id;
+      nyberakning.namn = this.getCookie('username');
+      nyberakning.nr = dator;
+      console.log(nyberakning)
+      this.counting.push(nyberakning);
+      this.$forceUpdate();
+
+      // Skicka in beräkningar
+    axios.post('http://1.1.106.199:3000/berakningar',{nr: nyberakning.nr,fds: nyberakning.fds,cityfolder: nyberakning.cityfolder, projectfolder: nyberakning.projectfolder,name:nyberakning.namn,bokningsid: nyberakning.bokningsid,karnor:6}).then(function(response){
+      console.log(response)
+    }).catch(function(error){
+      console.log(error)
+    })
+  }
+
+  // Tar bort tiden från datestring
+  removeTime(string:String){
+    let newstring = string.slice(0,10)
+    return newstring
+  }
+
+  // Sätter Cookie Username
+  setCookie(cname:string, cvalue:string, exdays:any) {
+    let d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    let expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
+
+  // Hämtar Cookie Username
+  getCookie(cname:string) {
+    let name = cname + "=";
+    let ca = document.cookie.split(';');
+    for(let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
+  // Kollar om cookie finns annars ber om nytt username
+  checkCookie() {
+    let user = this.getCookie("username");
+    if (user != "") {
+      alert("Välkommen " + user);
+    } else {
+      user = prompt("Skriv in ditt namn:", "");
+      if (user != "" && user != null) {
+        this.setCookie("username", user, 3650);
+      }
+    }
+  }
+
+  removeCookie(){
+    this.setCookie("username","",3650);
+  }
+
+  // Funktion som hämtar mina bokningar
+  getmybookings(){
+    let now = new Date()
+    let today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+    
+    let cookie = this.getCookie('username');
+    let getbookings = this.booking.filter(d => d.name == cookie && new Date(d.datumslut) > today);
+    
+    this.mybookings = getbookings;
+
+    return getbookings;
+  }
+
+  // Hämtar blockerade datum för dator ID
+  getblockeddates(compID:Number){
+    
+    let bookings = this.booking.filter(d => d.dator == compID);
+  
+    return bookings;
+  }
+
+
+  isBooked(computer:any){
+
+    const now = new Date()
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+
+    let booked = false;
+
+    let bookings = this.getblockeddates(computer.nr)
+
+    for(let i = 0; i < bookings.length; i++){
+      if(today >= new Date(bookings[i].datumstart) && today <= new Date(bookings[i].datumslut)){
+        booked = true;
+      }
+    }
+    return booked;
+  }
+
+  isBookingFree(bookingstart:Date,bookingend:Date,computerID:Number){
+    if(bookingstart < new Date(2019,1,1)){
+      return true;
+    }
+    let desiredStart = bookingstart.toString();
+    let desiredEnd = bookingend.toString();
+    let bookedDates = this.getblockeddates(computerID);
+
+    let bool = false;
+
+    for(let i = 0; i < bookedDates.length; i++){
+      // if(new Date(bookedDates[i].datumstart) >= new Date(desiredStart) && new Date(desiredStart) <= new Date(bookedDates[i].datumslut) || new Date(desiredEnd) >= new Date(bookedDates[i].datumstart) && new Date(desiredEnd) <= new Date(bookedDates[i].datumslut)){
+        if(Date.parse(desiredStart) < Date.parse(bookedDates[i].datumstart) &&/* !(new Date(desiredStart) > new Date(bookedDates[i].datumslut)) && */ Date.parse(desiredEnd) > Date.parse(bookedDates[i].datumslut)){
+        //  desiredStart < bokning < desiredEnd
+        // console.log(i+ ' '+Date.parse(desiredStart) + '<' + Date.parse(bookedDates[i].datumstart) + ' ' + Date.parse(desiredEnd) + '>' + Date.parse(bookedDates[i].datumslut))
+        bool = true
+        if(bool){
+          console.log(bookedDates[i].id)
+        }
+      }
+      // console.log(i+ ' '+desiredStart + '<' + this.removeTime(bookedDates[i].datumstart) + ' ' + desiredEnd + '>' + this.removeTime(bookedDates[i].datumslut))
+      // console.log(' ')
+    }
+    if(bool == true){
+      alert('Bokning överlappar ' + this.valuestart + ' - ' + this.valueend)
+    }
+    return bool;
+  }
+
+  firstavaliable(startdate:string,computerID:Number){
+    let desiredStart = new Date(startdate);
+    let bookedDates = this.getblockeddates(computerID);
+
+    let adddays = 0;
+    let loop = false;
+    // console.log(desiredStart)
+    // console.log(bookedDates)
+    do{
+      loop = false;
+      try {
+        for(let i = 0; i < bookedDates.length; i++){
+  
+          if(desiredStart >= new Date(bookedDates[i].datumstart) && desiredStart <= new Date(bookedDates[i].datumslut)){
+          // const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*millisecondsconst firstDate = new Date(2008, 1, 12);
+
+          // const diffDays = Date.parse(bookedDates[i].datumslut) - Date.parse(startdate.toString());
+          // adddays = Math.round(Math.abs(diffDays  / oneDay));
+          desiredStart = new Date(Date.parse(bookedDates[i].datumslut.toString()) + Date.parse(new Date(1970,0,2).toString()))
+          loop = true;
+          // alert(desiredStart + '  ' + bookedDates[i].datumslut)
+          // alert(diffDays);
+      }
+    }
+      } catch (error) {
+        alert(error)
+      }
+
+    }while(loop)
+
+    return desiredStart.toString();
+  }
+
+  getMesher(){
+    // console.log('CURRENTCOUNTINGS')
+    // console.log(this.currentcountings)
+    let used = this.currentcountings.filter(d => d.usedkarnor != 0);
+    // console.log('MESHER')
+    // console.log(used)
+    this.mesher = used.sort(function(a, b){return a.dator-b.dator});
+    
+    return used;
+  }
+
+  // Funktion för v-for mesher för att skriva ut båda pathsen på samma rad
+  multipleCountings(mesherObj:Nuvarandeberakningar){
+    let multipleCountings;
+    let pathString = '';
+
+    if(mesherObj.subnr > 0){
+      // console.log(mesherObj.dator)
+      multipleCountings = this.mesher.filter(d => d.dator == mesherObj.dator);
+      // console.log(multipleCountings)
+        multipleCountings.forEach(function(multipleCounting){
+          let i = 0;
+          pathString = pathString + (i+1) + ': ' + multipleCounting.path + ' / ';
+        })
+        // for(let i = 0; multipleCountings.length > 0; i++){
+        //   console.log(multipleCountings[i].path)
+        //   pathString = pathString + ' ' + i + ': ' + multipleCountings[i].path + '<br>';
+        // } 
+        
+    } else{
+      pathString = mesherObj.path.toString();
+    }
+    return pathString
+  }
+
+  // Funktion som lägger ihop använda kärnor från samma dator
+  multipleCountingsKarnor(mesherObj:Nuvarandeberakningar){
+    let multipleCountings;
+    let usedkarnor = mesherObj.usedkarnor;
+
+    if(mesherObj.subnr > 0){
+      usedkarnor = 0;
+      multipleCountings = this.mesher.filter(d => d.dator == mesherObj.dator);
+
+      multipleCountings.forEach(function(multipleCounting){
+        usedkarnor = usedkarnor + multipleCounting.usedkarnor;
+      })
+
+    }
+    return usedkarnor
+  }
+
+  // Funktion som räknar ut lediga kärnor
+  freeKarnorCount(mesherObj:Nuvarandeberakningar){
+    let ledigakarnor = this.computer[mesherObj.dator-1].karnor
+    let multipleCountings;
+    let usedkarnor = 0;
+   
+    // if(mesherObj.subnr > 0){
+     
+      multipleCountings = this.mesher.filter(d => d.dator == mesherObj.dator);
+      multipleCountings.forEach(function(multipleCounting){
+        usedkarnor = usedkarnor + multipleCounting.usedkarnor
+      })
+
+    ledigakarnor = ledigakarnor - usedkarnor
+
+    // } else if(mesherObj.subnr == 0){
+    //   ledigakarnor = ledigakarnor - mesherObj.usedkarnor;
+    // }
+    return ledigakarnor
+  }
+
+  removeBooking(bookingObj:Bokning){
+    console.log(bookingObj)
+    let bokningsid = bookingObj.id;
+
+    this.mybookings = this.mybookings.filter(obj => obj !== bookingObj);
+    this.$forceUpdate();
+    
+
+      axios.post('http://1.1.106.199:3000/tabortbokning' ,{id:bokningsid})
+      .then(response => {
+        this.booking.splice(bokningsid, 1)
+        this.$forceUpdate()
+        console.log(this.booking);
+      });
+      alert('Bokning för dator: ' + bookingObj.dator + ' för perioden ' + this.removeTime(bookingObj.datumstart) + ' till ' + this.removeTime(bookingObj.datumslut) + ' är nu borttagen');
+
+  }
+
+  bookingHasBerakning(bookingObj:Bokning){
+    let bool = false;
+    let countings = this.counting
+    // console.log(bookingObj.id)
+    // console.log(countings)
+    countings.forEach(function(counting){
+      if(counting.bokningsid == bookingObj.id){
+        // console.log(counting.bokningsid + ' == ' + bookingObj.id)
+        bool = true
+      }
+    })
+    return bool
+  }
+
+  getBerakningFromBooking(bookingObj:Bokning){
+    let bokningsid = bookingObj.id;
+    let countings = this.counting;
+    let berakning;
+
+    countings.forEach(function(counting){
+      if(counting.bokningsid == bokningsid)
+      berakning = counting;
+    })
+
+    let berakningString =  'Din beräkning är path: /' + berakning.cityfolder + '/' + berakning.projectfolder + ' FDS version: ' + berakning.fds;
+    return berakningString;
+  }
+
+  continueBookingIfStillCounting(runningCounts:Nuvarandeberakningar[]){
+    // Förläng bokning en dag om beräkning fortfarande körs;
+    // if currentcounting.usedkarnor > 0 && bokning.datumslut < todaydate?
+    // Hitta bokning
+    let connectedBooking:Bokning;
+    let bookings = this.booking
+    let now = new Date()
+    let today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+    let tomorrow = new Date();
+    tomorrow.setDate(today.getDate()+ 1);
+    
+    runningCounts.forEach((runningCount)=>{
+    // Kollar om beräkning är aktiv
+    if(runningCount.usedkarnor > 0){
+
+      bookings.forEach(function(thebooking){
+      // Leta upp rätt bokning bokningsid eller path?
+        if(runningCount.dator == thebooking.dator){
+
+          connectedBooking = thebooking;
+          
+          if(new Date(connectedBooking.datumslut) < today){
+          connectedBooking.datumstart = today.toString();
+          connectedBooking.datumslut = tomorrow.toString();
+          console.log(connectedBooking);
+          // Uppdatera connectedbooking
+
+          // hitta bokning som överlappar och förbered borttagning
+          bookings.forEach((booking)=>{
+            if(booking.dator == connectedBooking.dator){              
+              if(new Date(booking.datumstart) < new Date(connectedBooking.datumslut) && booking.avbokad == 0){
+                // axios avbokning -> 1
+                axios.post('http://1.1.106.199:3000/bokningupdate' ,{id:booking.id})
+                .then(response => {
+                  // this.booking.splice(bokningsid, 1)
+                  // this.$forceUpdate()
+                  // console.log(this.booking);
+                });
+              }
+            }
+          })
+
+        }
+        }
+        
+      })
+      
+    }
+    })
+  } 
+
+  // Funktion kollar om bokning har avbokats för cookie('name') och tar bort bokning från databas
+  checkAvbokning(bokningsarray:Bokning[]){
+
+    let user = this.getCookie('username');
+
+    let myAvbokningar = bokningsarray.filter(d => d.name == user && d.avbokad == 1);
+
+    if(myAvbokningar.length > 0){
+      
+      myAvbokningar.forEach((avbokning:Bokning)=>{
+        
+        // Axios delete
+          axios.post('http://1.1.106.199:3000/tabortbokning' ,{id:avbokning.id})
+          .then(response => {
+            this.booking.splice(avbokning.id, 1)
+            this.$forceUpdate()
+            console.log(this.booking);
+          });
+          alert('Din bokning mellan ' + avbokning.datumstart + ' - ' + avbokning.datumslut + ' har avbokats.');
+      })
+    }
   }
 
   bokingAlt () {
@@ -613,7 +909,7 @@ export default class Hub extends Vue {
 
   dateClass(ymd: string, date: Date ) {
     const day = date.getDate();
-    return day >= 10 && day <= 21 || day === 24 ? 'table-info' : ''; // Lägg till input returnsen här istället för siffrorna
+    return day >= 1 && day <= 31 || day === 24 ? 'table-info' : ''; // Lägg till input returnsen här istället för siffrorna
   }
 
   countCalendarSelect () {
@@ -710,12 +1006,13 @@ export default class Hub extends Vue {
         break;
       }
     }
+    this.$forceUpdate();
   }
 }
 
 class Datorer {
   namn: String;
-  karnor: Number;
+  karnor: number;
   desc: String;
 
   constructor() {
@@ -728,14 +1025,20 @@ class Datorer {
 class Bokning {
   dator: Number;
   karnor: Number;
-  datumstart: Date;
-  datumslut: Date;
+  datumstart: string;
+  datumslut: string;
+  name: String;
+  id: number;
+  avbokad: number;
 
   constructor() {
     this.dator = 0;
     this.karnor = 0;
-    this.datumstart = new Date();
-    this.datumslut = new Date();
+    this.datumstart = '';
+    this.datumslut = '';
+    this.name = '';
+    this.id = 0;
+    this.avbokad = 0;
   }
 } 
 
@@ -744,17 +1047,109 @@ class Berakningar {
   karnor: Number;
   berakning: String;
   berakningtxt: String;
+  cityfolder: String;
+  projectfolder: String;
+  fds: Number;
+  namn: String;
+  bokningsid: number;
 
   constructor() {
       this.nr = 0;
       this.karnor = 0;
       this.berakning = '';
       this.berakningtxt = '';
+      this.cityfolder = '';
+      this.projectfolder = '';
+      this.fds = 0;
+      this.namn = '';
+      this.bokningsid = 0;
   }
 } 
+
+class Nuvarandeberakningar {
+  dator: number;
+  subnr: Number;
+  usedkarnor: number;
+  path: String;
+  bokningsid: number;
+
+  constructor(){
+    this.dator = 0;
+    this.subnr = 0;
+    this.usedkarnor = 0;
+    this.path = '';
+    this.bokningsid = 0;
+  }
+}
 </script>
 
 <style scoped lang="scss">
+
+.firstcontent{
+  margin-bottom: 10px;
+}
+
+.modalbuttons button{
+  margin-right: 10px;
+  margin-top:10px;
+}
+
+.redbutton {
+	box-shadow: 0px 10px 14px -7px #d42222;
+	background:linear-gradient(to bottom, #f53434 5%, #d60000 100%);
+	background-color:#f53434;
+	border-radius:5px;
+	border:1px solid #e02d2d;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:13px;
+	font-weight:bold;
+	padding:6px 34px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #bf1313;
+	&:hover {
+	background:linear-gradient(to bottom, #d60000 5%, #f53434 100%);
+	background-color:#d60000;
+}
+ &:active {
+	position:relative;
+	top:1px;
+}
+ }
+      
+
+.greenbutton{
+  box-shadow: 0px 6px 14px -7px #3e7327;
+	background:linear-gradient(to bottom, #77b55a 5%, #72b352 100%);
+	background-color:#77b55a;
+	border-radius:5px;
+	border:1px solid #4b8f29;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:13px;
+	font-weight:bold;
+	padding:7px 37px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #5b8a3c;
+}
+
+.greenbutton:hover {
+	background:linear-gradient(to bottom, #72b352 5%, #77b55a 100%);
+	background-color:#72b352;
+}
+
+.greenbutton:active {
+	position:relative;
+	top:1px;
+}
+
+.selects select{
+  margin-top:10px;
+}
 
 #fsdcountselector {
   width: 100px;

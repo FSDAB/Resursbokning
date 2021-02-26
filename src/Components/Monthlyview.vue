@@ -17,21 +17,19 @@
                 v-model="valuestart"
                 class="mb-2"
                 :hide-header="true"
-                :min="minstart"
-                :max="maxstart"
+
               ></b-form-datepicker>
-              <label for="datepicker-end" :min="minslut" :max="maxslut"
+              <label for="datepicker-end" 
                 >Välj slutdatum för bokning</label
               >
               <b-form-datepicker
                 placeholder="Välj slutdatum för bokning"
                 id="datepicker-end"
                 v-model="valueend"
-                c
-                lass="mb-2"
+                
+                class="mb-2"
                 :hide-header="true"
-                :min="minend"
-                :max="maxend"
+
               ></b-form-datepicker>
               <p></p>
               <b-button
@@ -95,7 +93,7 @@ export default class Count extends Vue {
     this.countpc = 1;
   }
     data() {
-      const todaydate = new Date();
+  /*    const todaydate = new Date();
       const today = new Date(todaydate.getDate());
 
       const nowstart = new Date();
@@ -121,16 +119,16 @@ export default class Count extends Vue {
       const maxDateend = new Date(todayend);
       maxDateend.setMonth(maxDateend.getMonth() + 6);
       maxDateend.setDate(31);
-      
+      */
       return {
         valuestart: '' ,
         valueend: '' ,
         context: null,
         countpc: '1',
-        minstart: minDatestart,
+        /* minstart: minDatestart,
         maxstart: maxDatestart,
         minend: minDateend,
-        maxend: maxDateend , 
+        maxend: maxDateend , */
       };
   }
     created() {
