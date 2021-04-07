@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-  <Menu/> 
+  <!-- <Menu/>  -->
   
     <div class="hub col-md-12">
-      <Reveal id="desktop-only" >
+      <!-- <Reveal id="desktop-only" >
           <div class="img col-md-12" style="padding:5px;"> 
           <b-link :to="{ name: 'hub' }">
             <img src="@/assets/fsd_logo.png">
@@ -24,10 +24,10 @@
               <b-nav-item :to="{ name: 'mesher' }">Mesher</b-nav-item> 
             </li>
           </ul>
-      </Reveal> 
-      <main id="page-wrap" style="margin-top:50px;">
+      </Reveal>  -->
+      <main id="page-wrap" style="margin-top:5px;">
         <b-link :to="{ name: 'hub' }">
-          <img src="https://www.fsd.se/images/logo/fsd_logo2.png">
+          <!-- <img src="https://www.fsd.se/images/logo/fsd_logo2.png"> -->
         </b-link>       
          <router-view />
       </main>
@@ -38,12 +38,12 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import SideNav from '@/Components/SideNav.vue';
-import { Push, Reveal } from 'vue-burger-menu';
+// import { Push, Reveal } from 'vue-burger-menu';
 @Component({
   components: {    
     SideNav,
-    Push,
-    Reveal,
+    // Push,
+    // Reveal,
   }
 })
 export default class App extends Vue {
