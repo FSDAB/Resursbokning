@@ -108,6 +108,7 @@
                     <div class="selects">
                     
                       <p>Lägg till beräkning (valfritt)</p>
+                      <label for="karnor">Kärnor:</label>
                       <b-form-input v-model="mesherkarnor" placeholder="Skriv in antal kärnor" name="karnor"></b-form-input>      
                       <b-form-select v-model="fdsversion" :options="fdsoptions" name="fdsversion"></b-form-select>
                       <b-form-select v-model="foldercityselected" :options="foldercity" @change="getProjectFolders()" name="cityfolder"></b-form-select>
@@ -173,7 +174,7 @@
                   <p v-if="bookingHasBerakning(mybooking)">{{ getBerakningFromBooking(mybooking) }}</p>
                   <form method='post' action="http://1.1.106.199:3000/uploadcount" enctype="multipart/form-data">
                   <div class="selects">
-                    
+                  <label for="karnor">Kärnor:</label>
                   <b-form-input v-if="!bookingHasBerakning(mybooking)" v-model="mesherkarnormodal" placeholder="Skriv in antal kärnor" name="karnor"></b-form-input>
                   <b-form-select v-if="!bookingHasBerakning(mybooking)" v-model="modalfdsversion" :options="fdsoptions" name="fdsversion"></b-form-select>
                   <b-form-select v-if="!bookingHasBerakning(mybooking)" v-model="modalfoldercityselected" :options="foldercity" @change="getProjectFoldersmodal()" name="cityfolder"></b-form-select>
