@@ -1,205 +1,404 @@
 <template>
-  <div class="container col-md-12" style="background-color:#E6EFF6;">    
+  <div class="container col-md-12" style="background-color: #e6eff6">
     <div class="row">
       <div class="col login">
-        <p>Du är inloggad som, {{ printCookie() }}. </p>
+        <p>Du är inloggad som, {{ printCookie() }}.</p>
         <button class="redbutton" @click="removeCookie()">Logga ut</button>
       </div>
     </div>
-    <div class="row justify-content-between firstcontent" style="padding-top:20px;">
-      <div class="col-md-5" id="Dags-fullscreen" style="background-color:#014B94; border-radius: 40px;">
-        <div class="row" id="Rubrik" style="margin-left: -15px;">
-            <h2 style="color:#ffffff; margin-left:30px; " >Datorer</h2>
+    <div
+      class="row justify-content-between firstcontent"
+      style="padding-top: 20px"
+    >
+      <div
+        class="col-md-5"
+        id="Dags-fullscreen"
+        style="background-color: #014b94; border-radius: 40px"
+      >
+        <div class="row" id="Rubrik" style="margin-left: -15px">
+          <h2 style="color: #ffffff; margin-left: 30px">Datorer</h2>
         </div>
 
-          <div class="dator-row col-md-12">
-
-            <div class="row">
-
-              <div class="dator col-md-auto" v-for="comp in computer" :key="comp.nr">
-                <h4>Dator {{ comp.nr }}</h4>
-                <div class="dator-bild" @click="changeCompFromGrid(comp.nr)">
-                    <img v-if="isBooked(comp)" src="@/assets/countpctaken.png" :id="'count'+comp.nr"/>
-                    <img v-else src="@/assets/countpcfree.png" :id="'count'+comp.nr"/>
-                  <b-popover :target="'count'+comp.nr" triggers="hover" placement="top">
-                    <template v-slot:title>Count {{ comp.nr }} Specs</template>
-                      Namn:<p> {{ comp.namn }} </p>
-                      Antal kärnor:<p> {{ comp.karnor }} </p>
-                      Processor<p> {{ comp.desc }} </p>      
-                  </b-popover>
-                </div>
+        <div class="dator-row col-md-12">
+          <div class="row">
+            <div
+              class="dator col-md-auto"
+              v-for="comp in computer"
+              :key="comp.nr"
+            >
+              <h4>Dator {{ comp.nr }}</h4>
+              <div class="dator-bild" @click="changeCompFromGrid(comp.nr)">
+                <img
+                  v-if="isBooked(comp)"
+                  src="@/assets/countpctaken.png"
+                  :id="'count' + comp.nr"
+                />
+                <img
+                  v-else
+                  src="@/assets/countpcfree.png"
+                  :id="'count' + comp.nr"
+                />
+                <b-popover
+                  :target="'count' + comp.nr"
+                  triggers="hover"
+                  placement="top"
+                >
+                  <template v-slot:title>Count {{ comp.nr }} Specs</template>
+                  Namn:
+                  <p>{{ comp.namn }}</p>
+                  Antal kärnor:
+                  <p>{{ comp.karnor }}</p>
+                  Processor
+                  <p>{{ comp.desc }}</p>
+                </b-popover>
               </div>
-
             </div>
           </div>
         </div>
+      </div>
 
-      <div class="col-md-6" id="Month" >
-        <div class="dator-row-1 row" id="Rubrik" >
-              <h2 style="color:#ffffff; margin-left:10px;">Bokning</h2> 
+      <div class="col-md-6" id="Month">
+        <div class="dator-row-1 row" id="Rubrik">
+          <h2 style="color: #ffffff; margin-left: 10px">Bokning</h2>
         </div>
-          <div class="size-grid-standard col-md-12" >
-            <form id="sendfile" method='post' action="http://1.1.106.199:3000/upload" enctype="multipart/form-data">
-            <label class="control-label" for="fsdcountselector" >
+        <div class="size-grid-standard col-md-12">
+          <form
+            id="sendfile"
+            method="post"
+            action="http://1.1.106.199:3000/upload"
+            enctype="multipart/form-data"
+          >
+            <label class="control-label" for="fsdcountselector">
               <h4>Dator</h4>
             </label>
-            
-              <b-form-select
-                v-model="countpc"
-                class="form-control"
-                id="fsdcountselector"
-                @change="countCalendarSelect()"
-                name="dator"
-              >
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
-                <option>10</option>
-                <option>11</option>
-                <option>12</option>
-                <option>13</option>
-                <option>14</option>
-                <option>15</option>
-                <option>16</option>
-                <option>17</option> 
-              </b-form-select>
-              
-              <b-container class="col-container" >
-                <div class="row " style=" width:70%; float:left; padding-top:1%; margin-right:1%;">
-                  
-                  <div class="col-md-9" style="">
-                    <label for="datepicker-start" :min="min" :max="max"
-                      >Välj startdatum för bokning</label
-                    >
-                    <b-form-datepicker
-                      placeholder="Välj startdatum för bokning"
-                      id="datepicker-start"
-                      v-model="valuestart"
-                      :date-disabled-fn="dateDisabled"
-                      :hide-header="true"
-                      :value-as-date="false"
-                      :min="min"
-                      :max="max"
-                      name="datumstart"
-                    ></b-form-datepicker>
-                    <label for="datepicker-end" :min="min" :max="max"
-                      >Välj slutdatum för bokning</label
-                    >
-                    <b-form-datepicker
-                      placeholder="Välj slutdatum för bokning"
-                      id="datepicker-end"
-                      v-model="valueend"
-                      :date-disabled-fn="dateDisabled"
-                      class="mb-2"
-                      :hide-header="true"
-                      :value-as-date="false"
-                      :min="min"
-                      :max="max"
-                      :hidden="isBookingFree(valuestart,valueend,countpc)"
-                      name="datumslut"
-                    ></b-form-datepicker>
-                    <p></p>
-                    <div class="selects">
-                    
-                      <p>Lägg till beräkning (valfritt)</p>
-                      <label for="karnor">Kärnor:</label>
-                      <b-form-input v-model="mesherkarnor" placeholder="Skriv in antal kärnor" name="karnor"></b-form-input>      
-                      <b-form-select v-model="fdsversion" :options="fdsoptions" name="fdsversion"></b-form-select>
-                      <b-form-select v-model="foldercityselected" :options="foldercity" @change="getProjectFolders()" name="cityfolder"></b-form-select>
-                      <b-form-select v-if="foldercityselected != null" v-model="folderprojectselected" :options="thecityfolders" @change="getFoldersInsideProject()" name="projectfolder"></b-form-select>
-                      <b-form-select v-if="folderprojectselected != null && foldercityselected != null" v-model="thesecondprojectfolderselected" :options="thesecondprojectfolder" name="secondprojectfolder"></b-form-select>
-                      <input type="hidden" :value="printCookie()" name="name">
-                      <input type="hidden" :value="this.bokningsid" name="bokningsid">
-                      <input type='file' name='fileUploaded'>
-                      <b-button type='submit' class="greenbutton">Skicka in</b-button>
-                    </div>
-                    
-                  </div>
 
-                  <div class="col-md-3" style="margin-top: -33px;" >
-                    <b-calendar
+            <b-form-select
+              v-model="countpc"
+              class="form-control"
+              id="fsdcountselector"
+              name="dator"
+            >
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+              <option>11</option>
+              <option>12</option>
+              <option>13</option>
+              <option>14</option>
+              <option>15</option>
+              <option>16</option>
+              <option>17</option>
+              <option>18</option>
+            </b-form-select>
+
+            <b-container class="col-container">
+              <div
+                class="row"
+                style="
+                  width: 70%;
+                  float: left;
+                  padding-top: 1%;
+                  margin-right: 1%;
+                "
+              >
+                <div class="col-md-9" style="">
+                  <label for="datepicker-start" :min="min" :max="max"
+                    >Välj startdatum för bokning</label
+                  >
+                  <b-form-datepicker
+                    placeholder="Välj startdatum för bokning"
+                    id="datepicker-start"
+                    v-model="valuestart"
+                    :date-disabled-fn="dateDisabled"
+                    :hide-header="true"
+                    :value-as-date="false"
+                    :min="min"
+                    :max="max"
+                    name="datumstart"
+                  ></b-form-datepicker>
+                  <label for="datepicker-end" :min="min" :max="max"
+                    >Välj slutdatum för bokning</label
+                  >
+                  <b-form-datepicker
+                    placeholder="Välj slutdatum för bokning"
+                    id="datepicker-end"
+                    v-model="valueend"
+                    :date-disabled-fn="dateDisabled"
+                    class="mb-2"
+                    :hide-header="true"
+                    :value-as-date="false"
+                    :min="min"
+                    :max="max"
+                    :hidden="isBookingFree(valuestart, valueend, countpc)"
+                    name="datumslut"
+                  ></b-form-datepicker>
+                  <p></p>
+                  <div class="selects">
+                    <p>Lägg till beräkning (valfritt)</p>
+                    <label for="karnor">Kärnor:</label>
+                    <b-form-input
+                      v-model="mesherkarnor"
+                      placeholder="Skriv in antal kärnor"
+                      name="karnor"
+                    ></b-form-input>
+                    <b-form-select
+                      v-model="fdsversion"
+                      :options="fdsoptions"
+                      name="fdsversion"
+                    ></b-form-select>
+                    <b-form-select
+                      v-model="foldercityselected"
+                      :options="foldercity"
+                      @change="getProjectFolders()"
+                      name="cityfolder"
+                    ></b-form-select>
+                    <b-form-select
+                      v-if="foldercityselected != null"
+                      v-model="folderprojectselected"
+                      :options="thecityfolders"
+                      @change="getFoldersInsideProject()"
+                      name="projectfolder"
+                    ></b-form-select>
+                    <b-form-select
+                      v-if="
+                        folderprojectselected != null &&
+                        foldercityselected != null
+                      "
+                      v-model="thesecondprojectfolderselected"
+                      :options="thesecondprojectfolder"
+                      name="secondprojectfolder"
+                    ></b-form-select>
+                    <input type="hidden" :value="printCookie()" name="name" />
+                    <input
+                      type="hidden"
+                      :value="this.bokningsid"
+                      name="bokningsid"
+                    />
+                    <input type="file" name="fileUploaded" />
+                    <b-button type="submit" class="greenbutton"
+                      >Skicka in</b-button
+                    >
+                  </div>
+                </div>
+
+                <div class="col-md-3" style="margin-top: -33px">
+                  <b-calendar
                     width="300px"
                     v-model="valuestart[countpc]"
                     id="countCalendar"
                     locale="sv-Sv"
-                    :date-info-fn="dateClass" 
+                    :date-info-fn="dateClass"
                     :date-disabled-fn="dateDisabled"
                     :hide-header="true"
-                    ></b-calendar>
-                    <div class="createfolder" style="width:300px">
-                      <label for="newprojectfoldername">Ny projektmapp</label> 
-                      <b-form-input v-model="newprojectfoldername" placeholder="Skriv in namn för ny mapp"></b-form-input>
-                      <b-button class="mappknapp" variant="outline-success" @click="skapaMappTillStad(foldercityselected, newprojectfoldername)">Skapa mapp</b-button>
-                      <label for="newprojectinprojectfolder">Nytt projekt i projektmapp</label>
-                      <b-form-input v-model="newprojectinprojectfolder" placeholder="Skriv in namn för ny mapp"></b-form-input>
-                      <b-button class="mappknapp" variant="outline-success" @click="skapaMappTillProjekt(foldercityselected,folderprojectselected,newprojectinprojectfolder)">Skapa mapp</b-button>
-                    </div>
+                  ></b-calendar>
+                  <div class="createfolder" style="width: 300px">
+                    <label for="newprojectfoldername">Ny projektmapp</label>
+                    <b-form-input
+                      v-model="newprojectfoldername"
+                      placeholder="Skriv in namn för ny mapp"
+                    ></b-form-input>
+                    <b-button
+                      class="mappknapp"
+                      variant="outline-success"
+                      @click="
+                        skapaMappTillStad(
+                          foldercityselected,
+                          newprojectfoldername
+                        )
+                      "
+                      >Skapa mapp</b-button
+                    >
+                    <label for="newprojectinprojectfolder"
+                      >Nytt projekt i projektmapp</label
+                    >
+                    <b-form-input
+                      v-model="newprojectinprojectfolder"
+                      placeholder="Skriv in namn för ny mapp"
+                    ></b-form-input>
+                    <b-button
+                      class="mappknapp"
+                      variant="outline-success"
+                      @click="
+                        skapaMappTillProjekt(
+                          foldercityselected,
+                          folderprojectselected,
+                          newprojectinprojectfolder
+                        )
+                      "
+                      >Skapa mapp</b-button
+                    >
                   </div>
-                </div >
-              </b-container>    
-              </form>                
-          </div> 
+                </div>
+              </div>
+            </b-container>
+          </form>
+        </div>
       </div>
     </div>
 
-    <div class="row-cols-table row" style="background-color:#D69996;   border-radius: 25px;">
-        <div class="dator-row-1 row" id="Rubrik">
-            <h2 style="color:#ffffff; margin-left:20px;"> Mina Bokningar</h2>
-        </div>
-      <div class="size-grid-auto col-md-12" style="overflow-y:auto;">
+    <div
+      class="row-cols-table row"
+      style="background-color: #d69996; border-radius: 25px"
+    >
+      <div class="dator-row-1 row" id="Rubrik">
+        <h2 style="color: #ffffff; margin-left: 20px">Mina Bokningar</h2>
+      </div>
+      <div class="size-grid-auto col-md-12" style="overflow-y: auto">
         <div class="table-responsive">
           <table class="bokningar table-striped">
             <thead>
               <tr>
                 <th scope="col">Dator</th>
                 <th scope="col">Start</th>
-                <th scope="col">Slut</th>              
+                <th scope="col">Slut</th>
                 <th scope="col">Alternativ</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="mybooking in mybookings" :key="mybooking.id">
-                <th scope="row">Fsdcount {{ mybooking.dator }} </th>
-                <td> {{ removeTime(mybooking.datumstart) }} </td>
-                <td> {{ removeTime(mybooking.datumslut) }} </td>
-                <td><b-button v-b-modal="'modal'+mybooking.id"> Alternativ </b-button></td>
-                <b-modal :id="'modal'+mybooking.id">
+                <th scope="row">Fsdcount {{ mybooking.dator }}</th>
+                <td>{{ removeTime(mybooking.datumstart) }}</td>
+                <td>{{ removeTime(mybooking.datumslut) }}</td>
+                <td>
+                  <b-button v-b-modal="'modal' + mybooking.id">
+                    Alternativ
+                  </b-button>
+                </td>
+                <b-modal :id="'modal' + mybooking.id">
                   <p>Fyll i beräkningsuppgifter</p>
-                  <p v-if="bookingHasBerakning(mybooking)">{{ getBerakningFromBooking(mybooking) }}</p>
-                  <form method='post' action="http://1.1.106.199:3000/uploadcount" enctype="multipart/form-data">
-                  <div class="selects">
-                  <label for="karnor">Kärnor:</label>
-                  <b-form-input v-if="!bookingHasBerakning(mybooking)" v-model="mesherkarnormodal" placeholder="Skriv in antal kärnor" name="karnor"></b-form-input>
-                  <b-form-select v-if="!bookingHasBerakning(mybooking)" v-model="modalfdsversion" :options="fdsoptions" name="fdsversion"></b-form-select>
-                  <b-form-select v-if="!bookingHasBerakning(mybooking)" v-model="modalfoldercityselected" :options="foldercity" @change="getProjectFoldersmodal()" name="cityfolder"></b-form-select>
-                  <b-form-select v-if="!bookingHasBerakning(mybooking)" v-model="modalfolderprojectselected" :options="thecityfoldersmodal" @change="getFoldersInsideProjectModal()" name="projectfolder"></b-form-select>
-                  <b-form-select v-if="!bookingHasBerakning(mybooking)" v-model="modalthesecondprojectfolderselected" :options="thesecondprojectfoldermodal" name="secondprojectfolder"></b-form-select>
-                  </div>
-                    <div class="createfolder" style="width:300px" v-if="!bookingHasBerakning(mybooking)">
-                      <label for="modalnewprojectfoldername">Ny projektmapp</label> 
-                      <b-form-input v-model="modalnewprojectfoldername" placeholder="Skriv in namn för ny mapp"></b-form-input>
-                      <b-button class="mappknapp" variant="outline-success" @click="skapaMappTillStad(modalfoldercityselected, modalnewprojectfoldername)">Skapa mapp</b-button>
-                      <label for="modalnewprojectinprojectfolder">Nytt projekt i projektmapp</label>
-                      <b-form-input v-model="modalnewprojectinprojectfolder" placeholder="Skriv in namn för ny mapp"></b-form-input>
-                      <b-button class="mappknapp" variant="outline-success" @click="skapaMappTillProjekt(modalfoldercityselected,modalfolderprojectselected,modalnewprojectinprojectfolder)">Skapa mapp</b-button>
+                  <p v-if="bookingHasBerakning(mybooking)">
+                    {{ getBerakningFromBooking(mybooking) }}
+                  </p>
+                  <form
+                    method="post"
+                    action="http://1.1.106.199:3000/uploadcount"
+                    enctype="multipart/form-data"
+                  >
+                    <div class="selects">
+                      <label for="karnor">Kärnor:</label>
+                      <b-form-input
+                        v-if="!bookingHasBerakning(mybooking)"
+                        v-model="mesherkarnormodal"
+                        placeholder="Skriv in antal kärnor"
+                        name="karnor"
+                      ></b-form-input>
+                      <b-form-select
+                        v-if="!bookingHasBerakning(mybooking)"
+                        v-model="modalfdsversion"
+                        :options="fdsoptions"
+                        name="fdsversion"
+                      ></b-form-select>
+                      <b-form-select
+                        v-if="!bookingHasBerakning(mybooking)"
+                        v-model="modalfoldercityselected"
+                        :options="foldercity"
+                        @change="getProjectFoldersmodal()"
+                        name="cityfolder"
+                      ></b-form-select>
+                      <b-form-select
+                        v-if="!bookingHasBerakning(mybooking)"
+                        v-model="modalfolderprojectselected"
+                        :options="thecityfoldersmodal"
+                        @change="getFoldersInsideProjectModal()"
+                        name="projectfolder"
+                      ></b-form-select>
+                      <b-form-select
+                        v-if="!bookingHasBerakning(mybooking)"
+                        v-model="modalthesecondprojectfolderselected"
+                        :options="thesecondprojectfoldermodal"
+                        name="secondprojectfolder"
+                      ></b-form-select>
                     </div>
-                      <input type="hidden" :value="printCookie()" name="name">
-                      <input type="hidden" :value="mybooking.id" name="bokningsid">
-                      <input type="hidden" :value="mybooking.dator" name="dator">
-                      <input type='file' name='fileUploaded'>
-                      <input type='submit' class="greenbutton" value="Skicka in beräkning" v-if="!bookingHasBerakning(mybooking)">
-                      </form>
+                    <div
+                      class="createfolder"
+                      style="width: 300px"
+                      v-if="!bookingHasBerakning(mybooking)"
+                    >
+                      <label for="modalnewprojectfoldername"
+                        >Ny projektmapp</label
+                      >
+                      <b-form-input
+                        v-model="modalnewprojectfoldername"
+                        placeholder="Skriv in namn för ny mapp"
+                      ></b-form-input>
+                      <b-button
+                        class="mappknapp"
+                        variant="outline-success"
+                        @click="
+                          skapaMappTillStad(
+                            modalfoldercityselected,
+                            modalnewprojectfoldername
+                          )
+                        "
+                        >Skapa mapp</b-button
+                      >
+                      <label for="modalnewprojectinprojectfolder"
+                        >Nytt projekt i projektmapp</label
+                      >
+                      <b-form-input
+                        v-model="modalnewprojectinprojectfolder"
+                        placeholder="Skriv in namn för ny mapp"
+                      ></b-form-input>
+                      <b-button
+                        class="mappknapp"
+                        variant="outline-success"
+                        @click="
+                          skapaMappTillProjekt(
+                            modalfoldercityselected,
+                            modalfolderprojectselected,
+                            modalnewprojectinprojectfolder
+                          )
+                        "
+                        >Skapa mapp</b-button
+                      >
+                    </div>
+                    <input type="hidden" :value="printCookie()" name="name" />
+                    <input
+                      type="hidden"
+                      :value="mybooking.id"
+                      name="bokningsid"
+                    />
+                    <input
+                      type="hidden"
+                      :value="mybooking.dator"
+                      name="dator"
+                    />
+                    <input type="file" name="fileUploaded" />
+                    <input
+                      type="submit"
+                      class="greenbutton"
+                      value="Skicka in beräkning"
+                      v-if="!bookingHasBerakning(mybooking)"
+                    />
+                  </form>
                   <div class="modalbuttons">
-                  <button class="redbutton" @click="removeBooking(mybooking)">Ta bort bokning</button>
-                  <button class="redbutton" v-if="bookingHasBerakning(mybooking)" @click="removeBerakning(mybooking)">Ta bort beräkning</button>
-                  <!-- Hämta beräkningsid -->
-                  <button class="greenbutton" v-if="bookingHasBerakning(mybooking)" @click="sendToRunjobs(getBerakningIDFromBooking(mybooking))">Starta Beräkning</button>
+                    <button class="redbutton" @click="removeBooking(mybooking)">
+                      Ta bort bokning
+                    </button>
+                    <button
+                      class="redbutton"
+                      v-if="bookingHasBerakning(mybooking)"
+                      @click="removeBerakning(mybooking)"
+                    >
+                      Ta bort beräkning
+                    </button>
+                    <!-- Hämta beräkningsid -->
+                    <button
+                      class="greenbutton"
+                      v-if="bookingHasBerakning(mybooking)"
+                      @click="
+                        sendToRunjobs(getBerakningIDFromBooking(mybooking))
+                      "
+                    >
+                      Starta Beräkning
+                    </button>
                   </div>
                 </b-modal>
               </tr>
@@ -209,11 +408,14 @@
       </div>
     </div>
 
-    <div class="row-cols-table row" style="background-color:#014B94; margin-top:10px; border-radius: 25px;">
-      <div class="row" id="Rubrik" >
-          <h2 style="color:#ffffff; margin-left:20px;" >Mesher</h2>
+    <div
+      class="row-cols-table row"
+      style="background-color: #014b94; margin-top: 10px; border-radius: 25px"
+    >
+      <div class="row" id="Rubrik">
+        <h2 style="color: #ffffff; margin-left: 20px">Mesher</h2>
       </div>
-       <div class="size-grid-auto col-md-12" style="overflow-y:auto;">
+      <div class="size-grid-auto col-md-12" style="overflow-y: auto">
         <table class="mesher table-striped">
           <thead>
             <tr>
@@ -221,15 +423,13 @@
               <th scope="col">Tillgängliga kärnor</th>
               <th scope="col">Använda Kärnor</th>
               <th scope="col">Lediga Kärnor</th>
-              <th scope="col">
-                Multipla beräkningar ryms i samma kolumn.
-              </th>
+              <th scope="col">Multipla beräkningar ryms i samma kolumn.</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="m in mesher" :key="m.dator">
+            <tr v-for="m in mesher" :key="m.dator.toString() + m.subnr.toString()">
               <th scope="row">FSDCOUNT {{ m.dator }}</th>
-              <td>{{ computer[m.dator-1].karnor }}</td>
+              <td>{{ computer[m.dator - 1].karnor }}</td>
               <td>{{ multipleCountingsKarnor(m) }}</td>
               <td>{{ freeKarnorCount(m) }}</td>
               <td>
@@ -240,12 +440,13 @@
             </tr>
           </tbody>
         </table>
-        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang='ts'>
+// tslint:disable
 import axios from 'axios';
 import App from 'App.vue';
 import { Component, Prop, Vue } from 'vue-property-decorator';
@@ -254,18 +455,16 @@ import Bookings from './Bookings.vue';
 /* import Mesher from './Mesher.vue';
 import Dags from './Dags.vue';
 import Month from './Month.vue';   
-import Bookings from './Bookings.vue';  */  
+import Bookings from './Bookings.vue';  */
 
 @Component({
   components: {
-/*    Dags,
+    /*    Dags,
     Month,
     Bookings,
     Mesher, */
-
-  }
+  },
 })
-
 export default class Hub extends Vue {
   computer: Datorer[];
   booking: Bokning[];
@@ -283,16 +482,16 @@ export default class Hub extends Vue {
   modalfdsversion: Number;
   modalfoldercityselected: String;
   modalfolderprojectselected: String;
-  modalthesecondprojectfolderselected:String;
+  modalthesecondprojectfolderselected: String;
   mesher: Nuvarandeberakningar[];
-  thecityfolders:[];
-  thesecondprojectfolder:[];
-  thecityfoldersmodal:[];
-  thesecondprojectfoldermodal:[];
-  thesecondprojectfolderselected:String;
-  newprojectfoldername:String;
-  newprojectinprojectfolder:String;
-  modalnewprojectfoldername:String;
+  thecityfolders: [];
+  thesecondprojectfolder: [];
+  thecityfoldersmodal: [];
+  thesecondprojectfoldermodal: [];
+  thesecondprojectfolderselected: String;
+  newprojectfoldername: String;
+  newprojectinprojectfolder: String;
+  modalnewprojectfoldername: String;
   modalnewprojectinprojectfolder: String;
   mesherkarnor: Number;
   mesherkarnormodal: Number;
@@ -331,63 +530,69 @@ export default class Hub extends Vue {
     this.mesherkarnormodal = 0;
     this.bokningsid = -1;
   }
-  
-  data() {
-      const now = new Date()
-      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
-      
-      const minDate = new Date(today)
-      minDate.setMonth(minDate.getMonth() - 2)
-      minDate.setDate(15)
-      
-      const maxDate = new Date(today)
-      maxDate.setMonth(maxDate.getMonth() + 4)
-      maxDate.setDate(15)
 
-      return {
+  data() {
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+    const minDate = new Date(today);
+    minDate.setMonth(minDate.getMonth() - 2);
+    minDate.setDate(15);
+
+    const maxDate = new Date(today);
+    maxDate.setMonth(maxDate.getMonth() + 4);
+    maxDate.setDate(15);
+
+    return {
       value: '',
-      min:minDate,
-      max:maxDate,
-      fdsoptions:[
-        { value:0, text:'Välj FDS version'},
-        { value:5, text:'5.00'},
-        { value:65, text:'6.53'},
-        { value:66, text:'6.60'}
+      min: minDate,
+      max: maxDate,
+      fdsoptions: [
+        { value: 0, text: 'Välj FDS version' },
+        { value: 5, text: '5.00' },
+        { value: 65, text: '6.53' },
+        { value: 66, text: '6.60' },
       ],
-      fdsversion:0,
-      foldercity:[
-        { value: null, text:'Välj stad'},
-        { value: 'Malmo', text:'Malmö'},
-        { value: 'Goteborg', text: 'Göteborg'},
-        { value: 'Helsingborg', text: 'Helsingborg'},
-        { value: 'Stockholm', text: 'Stockholm'},
-        { value: 'Halmstad', text: 'Halmstad'},
-        { value: 'Karlskrona', text: 'Karlskrona'},
+      fdsversion: 0,
+      foldercity: [
+        { value: null, text: 'Välj stad' },
+        { value: 'Malmo', text: 'Malmö' },
+        { value: 'Goteborg', text: 'Göteborg' },
+        { value: 'Helsingborg', text: 'Helsingborg' },
+        { value: 'Stockholm', text: 'Stockholm' },
+        { value: 'Halmstad', text: 'Halmstad' },
+        { value: 'Karlskrona', text: 'Karlskrona' },
       ],
-      foldercityselected:null,
-      folderprojectselected:null,
-      };
+      foldercityselected: null,
+      folderprojectselected: null,
+    };
   }
 
-  isValidDate(d) {​​
-  return d instanceof Date && !isNaN(d);
-  }​​
+  // isValidDate(d) {
+  //   return d instanceof Date && !isNaN(d);
+  // }
+  dateDisabled(ymd: String, date: Date) {
+    const weekday = date.getDay();
+    const day = date.getDate();
 
-  dateDisabled(ymd:String,date:Date) {
-     
-      const weekday = date.getDay()
-      const day = date.getDate()
+    let blockeddates = this.getblockeddates(this.countpc);
 
-      let blockeddates = this.getblockeddates(this.countpc)
+    if (blockeddates.length === 0) {
+      return false;
+    }
 
-      if(blockeddates.length === 0){
-        return false
-      }
-      
-      let s = ( blockeddates.find(x => date.toLocaleDateString('sv-se') >= new Date(this.removeTime(x.datumstart)).toLocaleDateString('sv-se') && date.toLocaleDateString('sv-se') <= new Date(this.removeTime(x.datumslut)).toLocaleDateString('sv-se'))) === undefined
-  
-      return !s
-      
+    let s =
+      blockeddates.find(
+        (x) =>
+          date.toLocaleDateString('sv-se') >=
+            new Date(this.removeTime(x.datumstart)).toLocaleDateString(
+              'sv-se'
+            ) &&
+          date.toLocaleDateString('sv-se') <=
+            new Date(this.removeTime(x.datumslut)).toLocaleDateString('sv-se')
+      ) === undefined;
+
+    return !s;
   }
 
   created() {
@@ -395,47 +600,59 @@ export default class Hub extends Vue {
     this.checkCookie();
   }
 
-  mounted(){
+  mounted() {
     this.getmybookings();
-    
   }
 
-    getApi () {
-      axios.get('http://1.1.106.199:3000/datorer').then((response) => {
-        this.computer = response.data.datorer as Datorer[];
-       });
-      axios.get('http://1.1.106.199:3000/bokningar').then((response) => {
-        this.booking = response.data as Bokning[];
-        this.getmybookings();
-       
-        this.valuestart = new Date(this.firstavaliable(new Date().toLocaleDateString('sv-se'),this.countpc)).toLocaleDateString('sv-se');
-        let valueendtemp = new Date(this.firstavaliable(new Date().toLocaleDateString('sv-se'),this.countpc));
-        valueendtemp.setDate(valueendtemp.getDate());
-        this.valueend = valueendtemp.toLocaleDateString('sv-se');
+  getApi() {
+    axios.get('http://1.1.106.199:3000/datorer').then((response) => {
+      this.computer = response.data.datorer as Datorer[];
     });
-      axios.get('http://1.1.106.199:3000/berakningar').then((response) => {
-        this.counting = response.data as Berakningar[];
-    }); 
-      axios.get('http://1.1.106.199:3000/hamtanuvarandeberakningar').then((response) => {
+    axios.get('http://1.1.106.199:3000/bokningar').then((response) => {
+      this.booking = response.data as Bokning[];
+      this.getmybookings();
+
+      this.valuestart = new Date(
+        this.firstavaliable(
+          new Date().toLocaleDateString('sv-se'),
+          this.countpc
+        )
+      ).toLocaleDateString('sv-se');
+      let valueendtemp = new Date(
+        this.firstavaliable(
+          new Date().toLocaleDateString('sv-se'),
+          this.countpc
+        )
+      );
+      valueendtemp.setDate(valueendtemp.getDate());
+      this.valueend = valueendtemp.toLocaleDateString('sv-se');
+    });
+    axios.get('http://1.1.106.199:3000/berakningar').then((response) => {
+      this.counting = response.data as Berakningar[];
+    });
+    axios
+      .get('http://1.1.106.199:3000/hamtanuvarandeberakningar')
+      .then((response) => {
         this.currentcountings = response.data as Nuvarandeberakningar[];
 
         this.getMesher();
-    });
-
-    
-  } 
+      });
+  }
 
   // Startar beräkning
-  sendToRunjobs(berakningid:number){
-    axios.post('http://1.1.106.199:3000/writerunjobs',{id:berakningid}).then(function(response){
-      console.log(response)
-    }).catch(function(error){
-      console.log(error)
-    })
+  sendToRunjobs(berakningid: number) {
+    axios
+      .post('http://1.1.106.199:3000/writerunjobs', { id: berakningid })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     alert('Beräkning startad');
   }
 
-  // Funktion som skapar bokning 
+  // Funktion som skapar bokning
   bookdate() {
     // Boka skicka med namnet på Bokning
     let nybokning = new Bokning();
@@ -446,60 +663,104 @@ export default class Hub extends Vue {
     nybokning.datumslut = this.valueend;
     nybokning.name = cookie;
     this.mybookings.push(nybokning);
-    let a:number;
+    let a: number;
 
-    // Skicka "nybokning" till Databas V
-    if(!this.bookDateValidation(new Date(nybokning.datumstart),new Date(nybokning.datumslut),nybokning.dator)){
-    axios.post('http://1.1.106.199:3000/bokningar',{dator:nybokning.dator,datumstart: nybokning.datumstart,datumslut:nybokning.datumslut,name:nybokning.name}).then(function(response){
-      // console.log(response);
-      bokningsid = Number(response);
-      a = response.data;     
-    }).catch(function(error){
-      console.log(error)
-    }).then(()=>{
-      this.mybookings[this.mybookings.length -1].id = a;
-      this.bokningsid = a;
-      //  if(this.fdsversion !== 0 && this.folderprojectselected !== null && this.foldercityselected !== null){
-         
-      //   this.bokaberakning(a,nybokning.dator);
-      //   // alert('Beräkning bokad')
-      // }
-      // alert('Du har bokat dator ' + nybokning.dator + ' från ' + nybokning.datumstart + ' till ' + nybokning.datumslut + '.')
-    });
-    
-    } else{
-      alert('Det finns redan en bokning mellan ' + nybokning.datumstart + ' och ' + nybokning.datumslut + '.')
+    // Skicka 'nybokning' till Databas V
+    if (
+      !this.bookDateValidation(
+        new Date(nybokning.datumstart),
+        new Date(nybokning.datumslut),
+        nybokning.dator
+      )
+    ) {
+      axios
+        .post('http://1.1.106.199:3000/bokningar', {
+          dator: nybokning.dator,
+          datumstart: nybokning.datumstart,
+          datumslut: nybokning.datumslut,
+          name: nybokning.name,
+        })
+        .then(function (response) {
+          // console.log(response);
+          bokningsid = Number(response);
+          a = response.data;
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+        .then(() => {
+          this.mybookings[this.mybookings.length - 1].id = a;
+          this.bokningsid = a;
+          //  if(this.fdsversion !=== 0 && this.folderprojectselected !=== null && this.foldercityselected !=== null){
+
+          //   this.bokaberakning(a,nybokning.dator);
+          //   // alert('Beräkning bokad')
+          // }
+          // alert('Du har bokat dator ' + nybokning.dator + ' från ' + nybokning.datumstart + ' till ' + nybokning.datumslut + '.')
+        });
+    } else {
+      alert(
+        'Det finns redan en bokning mellan ' +
+          nybokning.datumstart +
+          ' och ' +
+          nybokning.datumslut +
+          '.'
+      );
     }
     this.$forceUpdate();
   }
 
   // Hämta de olika mapparna på onChange på options
-  getProjectFolders(){
-    axios.get('http://1.1.106.199:3000/hamtasokvag?beginingofpath=' + this.foldercityselected).then((response) => {
+  getProjectFolders() {
+    axios
+      .get(
+        'http://1.1.106.199:3000/hamtasokvag?beginingofpath=' +
+          this.foldercityselected
+      )
+      .then((response) => {
         this.thecityfolders = response.data;
-       });
+      });
   }
 
-  getFoldersInsideProject(){
-    axios.get('http://1.1.106.199:3000/hamtasokvagprojekt?beginingofpath=' + this.foldercityselected +'&projectfolder=' + this.folderprojectselected).then((response) => {
+  getFoldersInsideProject() {
+    axios
+      .get(
+        'http://1.1.106.199:3000/hamtasokvagprojekt?beginingofpath=' +
+          this.foldercityselected +
+          '&projectfolder=' +
+          this.folderprojectselected
+      )
+      .then((response) => {
         this.thesecondprojectfolder = response.data;
-       });
+      });
   }
 
-  getProjectFoldersmodal(){
-    axios.get('http://1.1.106.199:3000/hamtasokvag?beginingofpath=' + this.modalfoldercityselected).then((response) => {
+  getProjectFoldersmodal() {
+    axios
+      .get(
+        'http://1.1.106.199:3000/hamtasokvag?beginingofpath=' +
+          this.modalfoldercityselected
+      )
+      .then((response) => {
         this.thecityfoldersmodal = response.data;
-       });
+      });
   }
 
-  getFoldersInsideProjectModal(){
-    axios.get('http://1.1.106.199:3000/hamtasokvagprojekt?beginingofpath=' + this.modalfoldercityselected +'&projectfolder=' + this.modalfolderprojectselected).then((response) => {
+  getFoldersInsideProjectModal() {
+    axios
+      .get(
+        'http://1.1.106.199:3000/hamtasokvagprojekt?beginingofpath=' +
+          this.modalfoldercityselected +
+          '&projectfolder=' +
+          this.modalfolderprojectselected
+      )
+      .then((response) => {
         this.thesecondprojectfoldermodal = response.data;
-       });
+      });
   }
 
-  bookDateValidation(bookingstart:Date,bookingend:Date,computerID:Number){
-    if(bookingstart < new Date(2019,1,1)){
+  bookDateValidation(bookingstart: Date, bookingend: Date, computerID: Number) {
+    if (bookingstart < new Date(2019, 1, 1)) {
       return true;
     }
     let desiredStart = bookingstart.toString();
@@ -507,73 +768,103 @@ export default class Hub extends Vue {
     let bookedDates = this.getblockeddates(computerID);
 
     let bool = false;
-    console.log(desiredStart)
-    console.log(desiredEnd)
-    console.log(bookedDates)
-    for(let i = 0; i < bookedDates.length; i++){
-        if(Date.parse(desiredStart) < Date.parse(bookedDates[i].datumstart) && Date.parse(desiredEnd) > Date.parse(bookedDates[i].datumslut)){
-      
-        
-        bool = true
-        console.log(bool)
+    console.log(desiredStart);
+    console.log(desiredEnd);
+    console.log(bookedDates);
+    for (let i = 0; i < bookedDates.length; i++) {
+      if (
+        Date.parse(desiredStart) < Date.parse(bookedDates[i].datumstart) &&
+        Date.parse(desiredEnd) > Date.parse(bookedDates[i].datumslut)
+      ) {
+        bool = true;
+        console.log(bool);
       }
-
     }
-    // if(bool == true){
+    // if(bool === true){
     //   alert('Bokning överlappar ' + this.valuestart + ' - ' + this.valueend)
     //   this.valueend = this.valuestart;
     //   this.$forceUpdate();
     // }
-    console.log(bool)
+    console.log(bool);
     return bool;
   }
 
   // Funktioner för action till forms
-  getString(){
-    return 'http:\\\\1.1.106.199:3000/upload?cityfolder='+this.foldercityselected+'&projectfolder='+this.folderprojectselected+'&insideprojectfolder='+ this.thesecondprojectfolderselected;
+  getString() {
+    return (
+      'http:\\\\1.1.106.199:3000/upload?cityfolder=' +
+      this.foldercityselected +
+      '&projectfolder=' +
+      this.folderprojectselected +
+      '&insideprojectfolder=' +
+      this.thesecondprojectfolderselected
+    );
   }
 
-  getStringmodal(){
-    return 'http:\\\\1.1.106.199:3000/upload?cityfolder='+this.modalfoldercityselected+'&projectfolder='+this.modalfolderprojectselected+'&insideprojectfolder='+ this.modalthesecondprojectfolderselected;
+  getStringmodal() {
+    return (
+      'http:\\\\1.1.106.199:3000/upload?cityfolder=' +
+      this.modalfoldercityselected +
+      '&projectfolder=' +
+      this.modalfolderprojectselected +
+      '&insideprojectfolder=' +
+      this.modalthesecondprojectfolderselected
+    );
   }
 
   // Funktion som avänds för bokning
-  bokaberakning(id:number,dator:Number){
+  bokaberakning(id: number, dator: Number) {
+    // skicka in sträng mapp till stad/projekt
+    // val av FDS version
+    // dator/nr
+    let nyberakning = new Berakningar();
+    nyberakning.cityfolder = this.foldercityselected;
+    nyberakning.projectfolder = this.folderprojectselected;
+    nyberakning.insidecityproject = this.thesecondprojectfolderselected;
+    nyberakning.fds = this.fdsversion;
+    nyberakning.bokningsid = id;
+    nyberakning.namn = this.getCookie('username');
+    nyberakning.nr = dator;
+    nyberakning.karnor = this.mesherkarnor;
+    console.log(nyberakning);
+    this.counting.push(nyberakning);
+    this.$forceUpdate();
+    let runjobs: number;
 
-      // skicka in sträng mapp till stad/projekt
-      // val av FDS version
-      // dator/nr
-      let nyberakning = new Berakningar();
-      nyberakning.cityfolder = this.foldercityselected;
-      nyberakning.projectfolder = this.folderprojectselected;
-      nyberakning.insidecityproject = this.thesecondprojectfolderselected;
-      nyberakning.fds = this.fdsversion;
-      nyberakning.bokningsid = id;
-      nyberakning.namn = this.getCookie('username');
-      nyberakning.nr = dator;
-      nyberakning.karnor = this.mesherkarnor;
-      console.log(nyberakning)
-      this.counting.push(nyberakning)
-      this.$forceUpdate();
-      let runjobs:number;
-
-      // Skicka in beräkningar
-    axios.post('http://1.1.106.199:3000/berakningar',{nr: nyberakning.nr,fds: nyberakning.fds,cityfolder: nyberakning.cityfolder, projectfolder: nyberakning.projectfolder,name:nyberakning.namn,bokningsid: nyberakning.bokningsid,karnor:nyberakning.karnor,insideprojectfolder:nyberakning.insidecityproject}).then(function(response): void{
-      console.log(response);
-      runjobs = response.data
-    }).catch(function(error){
-      console.log(error)
-    }).then(()=>{
-      //  this.sendToRunjobs(runjobs);
+    // Skicka in beräkningar
+    axios
+      .post('http://1.1.106.199:3000/berakningar', {
+        nr: nyberakning.nr,
+        fds: nyberakning.fds,
+        cityfolder: nyberakning.cityfolder,
+        projectfolder: nyberakning.projectfolder,
+        name: nyberakning.namn,
+        bokningsid: nyberakning.bokningsid,
+        karnor: nyberakning.karnor,
+        insideprojectfolder: nyberakning.insidecityproject,
       })
+      .then(function (response): void {
+        console.log(response);
+        runjobs = response.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+      .then(() => {
+        //  this.sendToRunjobs(runjobs);
+      });
   }
 
   // Funktion skapar mapp inuti stadsmap
-  skapaMappTillStad(cityF:String,nyMapp:String){
-    axios.get('http://1.1.106.199:3000/skapasokvagprojekt?cityfolder=' + cityF + '&skapadir=' + nyMapp).then((response) => {
-  
-      
-       });
+  skapaMappTillStad(cityF: String, nyMapp: String) {
+    axios
+      .get(
+        'http://1.1.106.199:3000/skapasokvagprojekt?cityfolder=' +
+          cityF +
+          '&skapadir=' +
+          nyMapp
+      )
+      .then((response) => {});
     this.getProjectFolders();
     this.getProjectFoldersmodal();
     this.$forceUpdate();
@@ -581,11 +872,17 @@ export default class Hub extends Vue {
   }
 
   // Funktion som skapar mapp inuti projektmapp
-  skapaMappTillProjekt(cityF:String,projectF:String,nyMapp:String){
-    axios.get('http://1.1.106.199:3000/skapasokvagprojekttillprojekt?cityfolder=' + cityF + '&projectfolder=' + projectF + '&skapadir=' + nyMapp).then((response) => {
-
-  
-    });
+  skapaMappTillProjekt(cityF: String, projectF: String, nyMapp: String) {
+    axios
+      .get(
+        'http://1.1.106.199:3000/skapasokvagprojekttillprojekt?cityfolder=' +
+          cityF +
+          '&projectfolder=' +
+          projectF +
+          '&skapadir=' +
+          nyMapp
+      )
+      .then((response) => {});
     this.getFoldersInsideProject();
     this.getFoldersInsideProjectModal();
     this.$forceUpdate();
@@ -593,121 +890,137 @@ export default class Hub extends Vue {
   }
 
   // Funktion som används i modal
-    bokaberakningalt(id:number,dator:Number){
+  bokaberakningalt(id: number, dator: Number) {
+    // skicka in sträng mapp till stad/projekt
+    // val av FDS version
+    // dator/nr
+    let nyberakning = new Berakningar();
+    nyberakning.cityfolder = this.modalfoldercityselected;
+    nyberakning.projectfolder = this.modalfolderprojectselected;
+    nyberakning.insidecityproject = this.modalthesecondprojectfolderselected;
+    nyberakning.fds = this.modalfdsversion;
+    nyberakning.bokningsid = id;
+    nyberakning.namn = this.getCookie('username');
+    nyberakning.nr = dator;
+    nyberakning.karnor = this.mesherkarnormodal;
+    console.log(nyberakning);
+    this.counting.push(nyberakning);
+    this.$forceUpdate();
 
-      // skicka in sträng mapp till stad/projekt
-      // val av FDS version
-      // dator/nr
-      let nyberakning = new Berakningar();
-      nyberakning.cityfolder = this.modalfoldercityselected;
-      nyberakning.projectfolder = this.modalfolderprojectselected;
-      nyberakning.insidecityproject = this.modalthesecondprojectfolderselected;
-      nyberakning.fds = this.modalfdsversion;
-      nyberakning.bokningsid = id;
-      nyberakning.namn = this.getCookie('username');
-      nyberakning.nr = dator;
-      nyberakning.karnor = this.mesherkarnormodal;
-      console.log(nyberakning)
-      this.counting.push(nyberakning);
-      this.$forceUpdate();
-
-      // Skicka in beräkningar
-    axios.post('http://1.1.106.199:3000/berakningar',{nr: nyberakning.nr,fds: nyberakning.fds,cityfolder: nyberakning.cityfolder, projectfolder: nyberakning.projectfolder,name:nyberakning.namn,bokningsid: nyberakning.bokningsid,karnor:nyberakning.karnor,insideprojectfolder:nyberakning.insidecityproject}).then(function(response){
-      console.log(response)
-    }).catch(function(error){
-      console.log(error)
-    })
+    // Skicka in beräkningar
+    axios
+      .post('http://1.1.106.199:3000/berakningar', {
+        nr: nyberakning.nr,
+        fds: nyberakning.fds,
+        cityfolder: nyberakning.cityfolder,
+        projectfolder: nyberakning.projectfolder,
+        name: nyberakning.namn,
+        bokningsid: nyberakning.bokningsid,
+        karnor: nyberakning.karnor,
+        insideprojectfolder: nyberakning.insidecityproject,
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   // Tar bort tiden från datestring
-  removeTime(string:String){
-    let newstring = string.slice(0,10)
-    return newstring
+  removeTime(string: String) {
+    let newstring = string.slice(0, 10);
+    return newstring;
   }
 
   // Funktion så man kan ändra Countdator i datorgrid
-  changeCompFromGrid(Compid:number){
+  changeCompFromGrid(Compid: number) {
     this.countpc = Compid;
   }
 
   // Sätter Cookie Username
-  setCookie(cname:string, cvalue:string, exdays:any) {
+  setCookie(cname: string, cvalue: string, exdays: any) {
     let d = new Date();
-    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    let expires = "expires="+d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+    let expires = 'expires=' + d.toUTCString();
+    document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
   }
 
   // Hämtar Cookie Username
-  getCookie(cname:string) {
-    let name = cname + "=";
+  getCookie(cname: string) {
+    let name = cname + '=';
     let ca = document.cookie.split(';');
-    for(let i = 0; i < ca.length; i++) {
+    for (let i = 0; i < ca.length; i++) {
       let c = ca[i];
-      while (c.charAt(0) == ' ') {
+      while (c.charAt(0) === ' ') {
         c = c.substring(1);
       }
-      if (c.indexOf(name) == 0) {
+      if (c.indexOf(name) === 0) {
         return c.substring(name.length, c.length);
       }
     }
-    return "";
+    return '';
   }
 
   // Kollar om cookie finns annars ber om nytt username
   checkCookie() {
-    let user = this.getCookie("username");
-    if (user != "") {
-      // alert("Välkommen " + user);
+    let user = this.getCookie('username');
+    if (user != '') {
+      // alert('Välkommen ' + user);
     } else {
-      user = prompt("Skriv in din e-post:", "");
-      if (user != "" && user != null) {
-        this.setCookie("username", user, 3650);
+      user = prompt('Skriv in din e-post:', '');
+      if (user != '' && user != null) {
+        this.setCookie('username', user, 3650);
       }
     }
   }
 
-  removeCookie(){
-    this.setCookie("username","",3650);
+  removeCookie() {
+    this.setCookie('username', '', 3650);
   }
 
-  printCookie(){
-    return this.getCookie("username");
+  printCookie() {
+    return this.getCookie('username');
   }
 
   // Funktion som hämtar mina bokningar
-  getmybookings(){
-    let now = new Date()
-    let today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
-    
+  getmybookings() {
+    let now = new Date();
+    let today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
     let cookie = this.getCookie('username');
-    let getbookings = this.booking.filter(d => d.name == cookie && new Date(d.datumslut) > today);
-    
+    let getbookings = this.booking.filter(
+      (d) => d.name === cookie && new Date(d.datumslut) > today
+    );
+
     this.mybookings = getbookings;
 
     return getbookings;
   }
 
   // Hämtar blockerade datum för dator ID
-  getblockeddates(compID:Number){
-    
-    let bookings = this.booking.filter(d => d.dator == compID);
-  
+  getblockeddates(compID: Number) {
+    let bookings = this.booking.filter((d) => d.dator === compID);
+
     return bookings;
   }
 
-  // Funktion som kollar om countdator är bokad för grid 
-  isBooked(computer:any){
-
-    const now = new Date()
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+  // Funktion som kollar om countdator är bokad för grid
+  isBooked(computer: any) {
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
     let booked = false;
 
-    let bookings = this.getblockeddates(computer.nr)
+    let bookings = this.getblockeddates(computer.nr);
 
-    for(let i = 0; i < bookings.length; i++){
-      if(today.toLocaleDateString('sv-se') >= new Date(bookings[i].datumstart).toLocaleDateString('sv-se') && today.toLocaleDateString('sv-se') <= new Date(bookings[i].datumslut).toLocaleDateString('sv-se')){
+    for (let i = 0; i < bookings.length; i++) {
+      if (
+        today.toLocaleDateString('sv-se') >=
+          new Date(bookings[i].datumstart).toLocaleDateString('sv-se') &&
+        today.toLocaleDateString('sv-se') <=
+          new Date(bookings[i].datumslut).toLocaleDateString('sv-se')
+      ) {
         booked = true;
       }
     }
@@ -715,8 +1028,8 @@ export default class Hub extends Vue {
   }
 
   // Funktion till kalender som varnar ifall det ligger en bokning ivägen
-  isBookingFree(bookingstart:Date,bookingend:Date,computerID:Number){
-    if(bookingstart < new Date(2019,1,1)){
+  isBookingFree(bookingstart: Date, bookingend: Date, computerID: Number) {
+    if (bookingstart < new Date(2019, 1, 1)) {
       return true;
     }
     let desiredStart = bookingstart.toString();
@@ -725,26 +1038,25 @@ export default class Hub extends Vue {
 
     let bool = false;
 
-    for(let i = 0; i < bookedDates.length; i++){
-      
-        if(Date.parse(desiredStart) < Date.parse(bookedDates[i].datumstart) && Date.parse(desiredEnd) > Date.parse(bookedDates[i].datumslut)){
-        
-        
-        bool = true
-        if(bool){
-          console.log(bookedDates[i].id)
+    for (let i = 0; i < bookedDates.length; i++) {
+      if (
+        Date.parse(desiredStart) < Date.parse(bookedDates[i].datumstart) &&
+        Date.parse(desiredEnd) > Date.parse(bookedDates[i].datumslut)
+      ) {
+        bool = true;
+        if (bool) {
+          console.log(bookedDates[i].id);
         }
       }
- 
     }
-    if(bool == true){
-      alert('Bokning överlappar ' + this.valuestart + ' - ' + this.valueend)
+    if (bool === true) {
+      alert('Bokning överlappar ' + this.valuestart + ' - ' + this.valueend);
     }
     return bool;
   }
 
   // Funktion som gör det fösta lediga datumet förvalt
-  firstavaliable(startdate:string,computerID:Number){
+  firstavaliable(startdate: string, computerID: Number) {
     let desiredStart = new Date(startdate);
     let bookedDates = this.getblockeddates(computerID);
 
@@ -752,359 +1064,386 @@ export default class Hub extends Vue {
     let loop = false;
     // console.log(desiredStart)
     // console.log(bookedDates)
-    do{
+    do {
       loop = false;
       try {
-        for(let i = 0; i < bookedDates.length; i++){
-  
-          if(desiredStart >= new Date(bookedDates[i].datumstart) && desiredStart <= new Date(bookedDates[i].datumslut)){
-          // const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*millisecondsconst firstDate = new Date(2008, 1, 12);
+        for (let i = 0; i < bookedDates.length; i++) {
+          if (
+            desiredStart >= new Date(bookedDates[i].datumstart) &&
+            desiredStart <= new Date(bookedDates[i].datumslut)
+          ) {
+            // const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*millisecondsconst firstDate = new Date(2008, 1, 12);
 
-          // const diffDays = Date.parse(bookedDates[i].datumslut) - Date.parse(startdate.toString());
-          // adddays = Math.round(Math.abs(diffDays  / oneDay));
-          desiredStart = new Date(Date.parse(bookedDates[i].datumslut.toString()) + Date.parse(new Date(1970,0,2).toString()))
-          loop = true;
-          // alert(desiredStart + '  ' + bookedDates[i].datumslut)
-          // alert(diffDays);
-      }
-    }
+            // const diffDays = Date.parse(bookedDates[i].datumslut) - Date.parse(startdate.toString());
+            // adddays = Math.round(Math.abs(diffDays  / oneDay));
+            desiredStart = new Date(
+              Date.parse(bookedDates[i].datumslut.toString()) +
+                Date.parse(new Date(1970, 0, 2).toString())
+            );
+            loop = true;
+            // alert(desiredStart + '  ' + bookedDates[i].datumslut)
+            // alert(diffDays);
+          }
+        }
       } catch (error) {
-        alert(error)
+        alert(error);
       }
-
-    }while(loop)
+    } while (loop);
 
     return desiredStart.toString();
   }
 
+  getMesher() {
+    let used = this.currentcountings.filter((d) => d.usedkarnor != 0);
 
-  getMesher(){
+    this.mesher = used.sort(function (a, b) {
+      return a.dator - b.dator;
+    });
 
-    let used = this.currentcountings.filter(d => d.usedkarnor != 0);
-    
-    this.mesher = used.sort(function(a, b){return a.dator-b.dator});
-    
     return used;
   }
 
   // Funktion för v-for mesher för att skriva ut båda pathsen på samma rad
-  multipleCountings(mesherObj:Nuvarandeberakningar){
+  multipleCountings(mesherObj: Nuvarandeberakningar) {
     let multipleCountings;
     let pathString = '';
 
-    if(mesherObj.subnr > 0){
+    if (mesherObj.subnr > 0) {
       // console.log(mesherObj.dator)
-      multipleCountings = this.mesher.filter(d => d.dator == mesherObj.dator);
+      multipleCountings = this.mesher.filter((d) => d.dator === mesherObj.dator);
       // console.log(multipleCountings)
-        multipleCountings.forEach(function(multipleCounting){
-          let i = 0;
-          pathString = pathString + (i+1) + ': ' + multipleCounting.path + ' / ';
-        })
-        
-    } else{
+      multipleCountings.forEach(function (multipleCounting) {
+        let i = 0;
+        pathString =
+          pathString + (i + 1) + ': ' + multipleCounting.path + ' / ';
+      });
+    } else {
       pathString = mesherObj.path.toString();
     }
-    return pathString
+    return pathString;
   }
 
   // Funktion som lägger ihop använda kärnor från samma dator
-  multipleCountingsKarnor(mesherObj:Nuvarandeberakningar){
+  multipleCountingsKarnor(mesherObj: Nuvarandeberakningar) {
     let multipleCountings;
     let usedkarnor = mesherObj.usedkarnor;
 
-    if(mesherObj.subnr > 0){
+    if (mesherObj.subnr > 0) {
       usedkarnor = 0;
-      multipleCountings = this.mesher.filter(d => d.dator == mesherObj.dator);
+      multipleCountings = this.mesher.filter((d) => d.dator === mesherObj.dator);
 
-      multipleCountings.forEach(function(multipleCounting){
+      multipleCountings.forEach(function (multipleCounting) {
         usedkarnor = usedkarnor + multipleCounting.usedkarnor;
-      })
-
+      });
     }
-    return usedkarnor
+    return usedkarnor;
   }
 
   // Funktion som räknar ut lediga kärnor
-  freeKarnorCount(mesherObj:Nuvarandeberakningar){
-    let ledigakarnor = this.computer[mesherObj.dator-1].karnor
+  freeKarnorCount(mesherObj: Nuvarandeberakningar) {
+    let ledigakarnor = this.computer[mesherObj.dator - 1].karnor;
     let multipleCountings;
     let usedkarnor = 0;
-     
-      multipleCountings = this.mesher.filter(d => d.dator == mesherObj.dator);
-      multipleCountings.forEach(function(multipleCounting){
-        usedkarnor = usedkarnor + multipleCounting.usedkarnor
-      })
 
-    ledigakarnor = ledigakarnor - usedkarnor
+    multipleCountings = this.mesher.filter((d) => d.dator === mesherObj.dator);
+    multipleCountings.forEach(function (multipleCounting) {
+      usedkarnor = usedkarnor + multipleCounting.usedkarnor;
+    });
 
+    ledigakarnor = ledigakarnor - usedkarnor;
 
-    return ledigakarnor
+    return ledigakarnor;
   }
 
   // Funktion som tar bort bokning och beräkning
-  removeBooking(bookingObj:Bokning){
-    console.log(bookingObj)
+  removeBooking(bookingObj: Bokning) {
+    console.log(bookingObj);
     let bokningsid = bookingObj.id;
 
-    this.mybookings = this.mybookings.filter(obj => obj !== bookingObj);
+    this.mybookings = this.mybookings.filter((obj) => obj !== bookingObj);
     this.$forceUpdate();
-    
 
-      axios.post('http://1.1.106.199:3000/tabortbokning' ,{id:bokningsid})
-      .then(response => {
-        this.booking.splice(bokningsid, 1)
-        this.$forceUpdate()
+    axios
+      .post('http://1.1.106.199:3000/tabortbokning', { id: bokningsid })
+      .then((response) => {
+        this.booking.splice(bokningsid, 1);
+        this.$forceUpdate();
         console.log(this.booking);
       });
 
-      axios.post('http://1.1.106.199:3000/tabortberakning' ,{id:bokningsid})
-      .then(response => {
+    axios
+      .post('http://1.1.106.199:3000/tabortberakning', { id: bokningsid })
+      .then((response) => {
         console.log(response);
       });
-      alert('Bokning för dator: ' + bookingObj.dator + ' för perioden ' + this.removeTime(bookingObj.datumstart) + ' till ' + this.removeTime(bookingObj.datumslut) + ' är nu borttagen');
-
+    alert(
+      'Bokning för dator: ' +
+        bookingObj.dator +
+        ' för perioden ' +
+        this.removeTime(bookingObj.datumstart) +
+        ' till ' +
+        this.removeTime(bookingObj.datumslut) +
+        ' är nu borttagen'
+    );
   }
 
   // Tar bort beräkning
-  removeBerakning(bookingObj:Bokning){
+  removeBerakning(bookingObj: Bokning) {
     let bokningsid = bookingObj.id;
 
-      axios.post('http://1.1.106.199:3000/tabortberakning' ,{id:bokningsid})
-      .then(response => {
+    axios
+      .post('http://1.1.106.199:3000/tabortberakning', { id: bokningsid })
+      .then((response) => {
         console.log(response);
         // Ta bort berakning från countings
-        // let tempcounting = this.counting.filter(d => d.bokningsid == bokningsid)
+        // let tempcounting = this.counting.filter(d => d.bokningsid === bokningsid)
         // this.counting.splice(bokningsid,1)
         this.$forceUpdate();
       });
-      alert('Beräkning borttagen.')
+    alert('Beräkning borttagen.');
   }
 
-  // Funktion som kollar ifall bokning har beräkning 
-  bookingHasBerakning(bookingObj:Bokning){
+  // Funktion som kollar ifall bokning har beräkning
+  bookingHasBerakning(bookingObj: Bokning) {
     let bool = false;
-    let countings = this.counting
-    
-    countings.forEach(function(counting){
-      if(counting.bokningsid == bookingObj.id){
-        // console.log(counting.bokningsid + ' == ' + bookingObj.id)
-        bool = true
+    let countings = this.counting;
+
+    countings.forEach(function (counting) {
+      if (counting.bokningsid === bookingObj.id) {
+        // console.log(counting.bokningsid + ' === ' + bookingObj.id)
+        bool = true;
       }
-    })
-    return bool
+    });
+    return bool;
   }
 
-  getBerakningFromBooking(bookingObj:Bokning){
+  getBerakningFromBooking(bookingObj: Bokning) {
     let bokningsid = bookingObj.id;
     let countings = this.counting;
-    let berakning:Berakningar;
-    berakning = new Berakningar;
+    let berakning: Berakningar;
+    berakning = new Berakningar();
 
-    countings.forEach(function(counting){
-      if(counting.bokningsid == bokningsid){
+    countings.forEach(function (counting) {
+      if (counting.bokningsid === bokningsid) {
         berakning = counting;
       }
-    })
+    });
 
     let path = berakning.projectfolder;
 
-    if(berakning.insidecityproject != ''){
+    if (berakning.insidecityproject != '') {
       path = path + '/' + berakning.insidecityproject;
     }
 
-    let berakningString =  'Din beräkning är path: /' + berakning.cityfolder + '/' + path + ' Med FDS version: ' + berakning.fds;
+    let berakningString =
+      'Din beräkning är path: /' +
+      berakning.cityfolder +
+      '/' +
+      path +
+      ' Med FDS version: ' +
+      berakning.fds;
     return berakningString;
   }
 
-  getBerakningIDFromBooking(bookingObj:Bokning){
+  getBerakningIDFromBooking(bookingObj: Bokning) {
     let bokningsid = bookingObj.id;
     let countings = this.counting;
     let berakning;
 
-    countings.forEach(function(counting){
-      if(counting.bokningsid == bokningsid){
+    countings.forEach(function (counting) {
+      if (counting.bokningsid === bokningsid) {
         berakning = counting;
       }
-    })
+    });
 
     return berakning.id;
   }
 
-  continueBookingIfStillCounting(runningCounts:Nuvarandeberakningar[]){
+  continueBookingIfStillCounting(runningCounts: Nuvarandeberakningar[]) {
     // Förläng bokning en dag om beräkning fortfarande körs;
     // if currentcounting.usedkarnor > 0 && bokning.datumslut < todaydate?
     // Hitta bokning
-    let connectedBooking:Bokning;
-    let bookings = this.booking
-    let now = new Date()
-    let today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+    let connectedBooking: Bokning;
+    let bookings = this.booking;
+    let now = new Date();
+    let today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     let tomorrow = new Date();
-    tomorrow.setDate(today.getDate()+ 1);
-    
-    runningCounts.forEach((runningCount)=>{
-    // Kollar om beräkning är aktiv
-    if(runningCount.usedkarnor > 0){
+    tomorrow.setDate(today.getDate() + 1);
 
-      bookings.forEach(function(thebooking){
-      // Leta upp rätt bokning bokningsid eller path?
-        if(runningCount.dator == thebooking.dator){
+    runningCounts.forEach((runningCount) => {
+      // Kollar om beräkning är aktiv
+      if (runningCount.usedkarnor > 0) {
+        bookings.forEach(function (thebooking) {
+          // Leta upp rätt bokning bokningsid eller path?
+          if (runningCount.dator === thebooking.dator) {
+            connectedBooking = thebooking;
 
-          connectedBooking = thebooking;
-          
-          if(new Date(connectedBooking.datumslut) < today){
-          connectedBooking.datumstart = today.toString();
-          connectedBooking.datumslut = tomorrow.toString();
-          console.log(connectedBooking);
-          // Uppdatera connectedbooking
+            if (new Date(connectedBooking.datumslut) < today) {
+              connectedBooking.datumstart = today.toString();
+              connectedBooking.datumslut = tomorrow.toString();
+              console.log(connectedBooking);
+              // Uppdatera connectedbooking
 
-          // hitta bokning som överlappar och förbered borttagning
-          bookings.forEach((booking)=>{
-            if(booking.dator == connectedBooking.dator){              
-              if(new Date(booking.datumstart) < new Date(connectedBooking.datumslut) && booking.avbokad == 0){
-                // axios avbokning -> 1
-                axios.post('http://1.1.106.199:3000/bokningupdate' ,{id:booking.id})
-                .then(response => {
-                  // this.booking.splice(bokningsid, 1)
-                  // this.$forceUpdate()
-                  // console.log(this.booking);
-                });
-              }
+              // hitta bokning som överlappar och förbered borttagning
+              bookings.forEach((booking) => {
+                if (booking.dator === connectedBooking.dator) {
+                  if (
+                    new Date(booking.datumstart) <
+                      new Date(connectedBooking.datumslut) &&
+                    booking.avbokad === 0
+                  ) {
+                    // axios avbokning -> 1
+                    axios
+                      .post('http://1.1.106.199:3000/bokningupdate', {
+                        id: booking.id,
+                      })
+                      .then((response) => {
+                        // this.booking.splice(bokningsid, 1)
+                        // this.$forceUpdate()
+                        // console.log(this.booking);
+                      });
+                  }
+                }
+              });
             }
-          })
-
-        }
-        }
-        
-      })
-      
-    }
-    })
-  } 
+          }
+        });
+      }
+    });
+  }
 
   // Funktion kollar om bokning har avbokats för cookie('name') och tar bort bokning från databas
-  checkAvbokning(bokningsarray:Bokning[]){
-
+  checkAvbokning(bokningsarray: Bokning[]) {
     let user = this.getCookie('username');
 
-    let myAvbokningar = bokningsarray.filter(d => d.name == user && d.avbokad == 1);
+    let myAvbokningar = bokningsarray.filter(
+      (d) => d.name === user && d.avbokad === 1
+    );
 
-    if(myAvbokningar.length > 0){
-      
-      myAvbokningar.forEach((avbokning:Bokning)=>{
-        
+    if (myAvbokningar.length > 0) {
+      myAvbokningar.forEach((avbokning: Bokning) => {
         // Axios delete
-          axios.post('http://1.1.106.199:3000/tabortbokning' ,{id:avbokning.id})
-          .then(response => {
-            this.booking.splice(avbokning.id, 1)
-            this.$forceUpdate()
+        axios
+          .post('http://1.1.106.199:3000/tabortbokning', { id: avbokning.id })
+          .then((response) => {
+            this.booking.splice(avbokning.id, 1);
+            this.$forceUpdate();
             console.log(this.booking);
           });
-          alert('Din bokning mellan ' + avbokning.datumstart + ' - ' + avbokning.datumslut + ' har avbokats.');
-      })
+        alert(
+          'Din bokning mellan ' +
+            avbokning.datumstart +
+            ' - ' +
+            avbokning.datumslut +
+            ' har avbokats.'
+        );
+      });
     }
   }
 
-  dateClass(ymd: string, date: Date ) {
+  dateClass(ymd: string, date: Date) {
     const day = date.getDate();
-    return day >= 1 && day <= 31 || day === 24 ? 'table-info' : ''; // Lägg till input returnsen här istället för siffrorna
+    return (day >= 1 && day <= 31) || day === 24 ? 'table-info' : ''; // Lägg till input returnsen här istället för siffrorna
   }
 
-  countCalendarSelect () {
-    const countCalendar: Number = parseInt(this.countpc.toString(), 10);
-    switch (countCalendar ) {
-      case 1: {
-        // tslint:disable-next-line:no-console 
-        console.log('count kalender 1');
-        break;
-      }
-      case 2: {
-        // tslint:disable-next-line:no-console
-        console.log('count kalender 2');
-        break;
-      }
-      case 3: {
-        // tslint:disable-next-line:no-console
-        console.log('count kalender 3');
-        break;
-      }
-      case 4: {
-        // tslint:disable-next-line:no-console
-        console.log('count kalender 4');
-        break;
-      }
-      case 5: {
-        // tslint:disable-next-line:no-console
-        console.log('count kalender 5');
-        break;
-      }
-      case 6: {
-        // tslint:disable-next-line:no-console
-        console.log('count kalender 6');
-        break;
-      }
-      case 7: {
-        // tslint:disable-next-line:no-console
-        console.log('count kalender 7');
-        break;
-      }
-      case 8: {
-        // tslint:disable-next-line:no-console
-        console.log('count kalender 8');
-        break;
-      }  
-      case 9: {
-        // tslint:disable-next-line:no-console
-        console.log('count kalender 9');
-        break;
-      }
-      case 10: {
-        // tslint:disable-next-line:no-console
-        console.log('count kalender 10');
-        break;
-      }
-      case 11: {
-        // tslint:disable-next-line:no-console
-        console.log('count kalender 11');
-        break;
-      }
-      case 12: {
-        // tslint:disable-next-line:no-console
-        console.log('count kalender 12');
-        break;
-      }
-      case 13: {
-        // tslint:disable-next-line:no-console
-        console.log('count kalender 13');
-        break;
-      }
-      case 14: {
-        // tslint:disable-next-line:no-console
-        console.log('count kalender 14');
-        break;
-      }
-      case 15: {
-        // tslint:disable-next-line:no-console
-        console.log('count kalender 15');
-        break;
-      }
-      case 16: {
-        // tslint:disable-next-line:no-console
-        console.log('count kalender 16');
-        break;
-      }
-      case 17: {
-        // tslint:disable-next-line:no-console
-        console.log('count kalender 17');
-        break;
-      }                                                          
-      default: {
-        // tslint:disable-next-line:no-console
-        console.log('Countpc = ' + this.countpc + ' och countCalendar = ' + countCalendar);
-        break;
-      }
-    }
-    this.$forceUpdate();
-  }
+  // countCalendarSelect() {
+  //   const countCalendar: Number = parseInt(this.countpc.toString(), 10);
+  //   switch (countCalendar) {
+  //     case 1: {
+  //       // tslint:disable-next-line:no-console
+  //       console.log('count kalender 1');
+  //       break;
+  //     }
+  //     case 2: {
+  //       // tslint:disable-next-line:no-console
+  //       console.log('count kalender 2');
+  //       break;
+  //     }
+  //     case 3: {
+  //       // tslint:disable-next-line:no-console
+  //       console.log('count kalender 3');
+  //       break;
+  //     }
+  //     case 4: {
+  //       // tslint:disable-next-line:no-console
+  //       console.log('count kalender 4');
+  //       break;
+  //     }
+  //     case 5: {
+  //       // tslint:disable-next-line:no-console
+  //       console.log('count kalender 5');
+  //       break;
+  //     }
+  //     case 6: {
+  //       // tslint:disable-next-line:no-console
+  //       console.log('count kalender 6');
+  //       break;
+  //     }
+  //     case 7: {
+  //       // tslint:disable-next-line:no-console
+  //       console.log('count kalender 7');
+  //       break;
+  //     }
+  //     case 8: {
+  //       // tslint:disable-next-line:no-console
+  //       console.log('count kalender 8');
+  //       break;
+  //     }
+  //     case 9: {
+  //       // tslint:disable-next-line:no-console
+  //       console.log('count kalender 9');
+  //       break;
+  //     }
+  //     case 10: {
+  //       // tslint:disable-next-line:no-console
+  //       console.log('count kalender 10');
+  //       break;
+  //     }
+  //     case 11: {
+  //       // tslint:disable-next-line:no-console
+  //       console.log('count kalender 11');
+  //       break;
+  //     }
+  //     case 12: {
+  //       // tslint:disable-next-line:no-console
+  //       console.log('count kalender 12');
+  //       break;
+  //     }
+  //     case 13: {
+  //       // tslint:disable-next-line:no-console
+  //       console.log('count kalender 13');
+  //       break;
+  //     }
+  //     case 14: {
+  //       // tslint:disable-next-line:no-console
+  //       console.log('count kalender 14');
+  //       break;
+  //     }
+  //     case 15: {
+  //       // tslint:disable-next-line:no-console
+  //       console.log('count kalender 15');
+  //       break;
+  //     }
+  //     case 16: {
+  //       // tslint:disable-next-line:no-console
+  //       console.log('count kalender 16');
+  //       break;
+  //     }
+  //     case 17: {
+  //       // tslint:disable-next-line:no-console
+  //       console.log('count kalender 17');
+  //       break;
+  //     }
+  //     default: {
+  //       // tslint:disable-next-line:no-console
+  //       console.log(
+  //         'Countpc = ' + this.countpc + ' och countCalendar = ' + countCalendar
+  //       );
+  //       break;
+  //     }
+  //   }
+  //   this.$forceUpdate();
+  // }
 }
 
 class Datorer {
@@ -1135,7 +1474,7 @@ class Bokning {
     this.id = 0;
     this.avbokad = 0;
   }
-} 
+}
 
 class Berakningar {
   nr: Number;
@@ -1151,19 +1490,19 @@ class Berakningar {
   id: number;
 
   constructor() {
-      this.nr = 0;
-      this.karnor = 0;
-      this.berakning = '';
-      this.berakningtxt = '';
-      this.cityfolder = '';
-      this.projectfolder = '';
-      this.insidecityproject = '';
-      this.fds = 0;
-      this.namn = '';
-      this.bokningsid = 0;
-      this.id = 0;
+    this.nr = 0;
+    this.karnor = 0;
+    this.berakning = '';
+    this.berakningtxt = '';
+    this.cityfolder = '';
+    this.projectfolder = '';
+    this.insidecityproject = '';
+    this.fds = 0;
+    this.namn = '';
+    this.bokningsid = 0;
+    this.id = 0;
   }
-} 
+}
 
 class Nuvarandeberakningar {
   dator: number;
@@ -1172,7 +1511,7 @@ class Nuvarandeberakningar {
   path: String;
   bokningsid: number;
 
-  constructor(){
+  constructor() {
     this.dator = 0;
     this.subnr = 0;
     this.usedkarnor = 0;
@@ -1183,81 +1522,78 @@ class Nuvarandeberakningar {
 </script>
 
 <style scoped lang="scss">
-
-.login{
-  margin-top:10px;
-
+.login {
+  margin-top: 10px;
 }
 
-.login p{
-  color:black;
+.login p {
+  color: black;
 }
 
-.firstcontent{
+.firstcontent {
   margin-bottom: 10px;
 }
 
-.modalbuttons button{
+.modalbuttons button {
   margin-right: 10px;
-  margin-top:10px;
+  margin-top: 10px;
 }
 
 .redbutton {
-	box-shadow: 0px 10px 14px -7px #d42222;
-	background:linear-gradient(to bottom, #f53434 5%, #d60000 100%);
-	background-color:#f53434;
-	border-radius:5px;
-	border:1px solid #e02d2d;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:13px;
-	font-weight:bold;
-	padding:6px 34px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #bf1313;
-	&:hover {
-	background:linear-gradient(to bottom, #d60000 5%, #f53434 100%);
-	background-color:#d60000;
+  box-shadow: 0px 10px 14px -7px #d42222;
+  background: linear-gradient(to bottom, #f53434 5%, #d60000 100%);
+  background-color: #f53434;
+  border-radius: 5px;
+  border: 1px solid #e02d2d;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 6px 34px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #bf1313;
+  &:hover {
+    background: linear-gradient(to bottom, #d60000 5%, #f53434 100%);
+    background-color: #d60000;
+  }
+  &:active {
+    position: relative;
+    top: 1px;
+  }
 }
- &:active {
-	position:relative;
-	top:1px;
-}
- }
-      
 
-.greenbutton{
+.greenbutton {
   box-shadow: 0px 6px 14px -7px #3e7327;
-	background:linear-gradient(to bottom, #77b55a 5%, #72b352 100%);
-	background-color:#77b55a;
-	border-radius:5px;
-	border:1px solid #4b8f29;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:13px;
-	font-weight:bold;
-	padding:7px 37px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #5b8a3c;
-  margin-top:5px;
+  background: linear-gradient(to bottom, #77b55a 5%, #72b352 100%);
+  background-color: #77b55a;
+  border-radius: 5px;
+  border: 1px solid #4b8f29;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 7px 37px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #5b8a3c;
+  margin-top: 5px;
 }
 
 .greenbutton:hover {
-	background:linear-gradient(to bottom, #72b352 5%, #77b55a 100%);
-	background-color:#72b352;
+  background: linear-gradient(to bottom, #72b352 5%, #77b55a 100%);
+  background-color: #72b352;
 }
 
 .greenbutton:active {
-	position:relative;
-	top:1px;
+  position: relative;
+  top: 1px;
 }
 
-.selects select{
-  margin-top:10px;
+.selects select {
+  margin-top: 10px;
 }
 
 #fsdcountselector {
@@ -1268,7 +1604,7 @@ class Nuvarandeberakningar {
 }
 #Dags-fullscreen {
   overflow: hidden;
- // margin-left:20px ;
+  // margin-left:20px ;
 }
 
 #Rubrik {
@@ -1286,9 +1622,9 @@ class Nuvarandeberakningar {
   }
 }
 #Month {
-  background-color:#014B94; 
-  border-radius: 40px; 
-  padding:20px; 
+  background-color: #014b94;
+  border-radius: 40px;
+  padding: 20px;
   margin-right: 0%;
 }
 .bokningar {
@@ -1305,7 +1641,6 @@ class Nuvarandeberakningar {
   padding: 20px;
   margin-left: 300px;
   margin-top: -404px;
-
 }
 .container {
   width: 100%;
@@ -1333,7 +1668,6 @@ class Nuvarandeberakningar {
   margin-bottom: 30px;
   width: 100%;
   padding: 5px;
-
 }
 
 .row-cols-2 {
@@ -1350,21 +1684,20 @@ class Nuvarandeberakningar {
   img {
     width: 100px;
     height: 100px;
-  } 
+  }
 }
 
-.bokaknapp{
-  margin-top:10px;
-  margin-bottom:10px;
+.bokaknapp {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
-.mappknapp{
-  margin-top:10px;
-  margin-bottom:10px;
+.mappknapp {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 @media only screen and (max-width: 600px) {
-
   .row-cols-1 {
     float: none;
     width: 100%;
@@ -1384,15 +1717,15 @@ class Nuvarandeberakningar {
     width: 100%;
     height: 50px;
     overflow-y: hidden;
-    background-color:white;
+    background-color: white;
 
-    .sidebar{
+    .sidebar {
       height: 100%;
-      background-color: #CBD7FB;
+      background-color: #cbd7fb;
       overflow-y: hidden;
 
-      a{
-      color: #1E45A1;
+      a {
+        color: #1e45a1;
       }
     }
   }
@@ -1402,14 +1735,12 @@ class Nuvarandeberakningar {
   }
 
   .dator {
-
     h3 {
       font: 15px;
       margin-top: 10px;
     }
-
   }
-  .row-cols-1{
+  .row-cols-1 {
     width: 100%;
   }
   .row-cols-table {
@@ -1427,23 +1758,22 @@ class Nuvarandeberakningar {
     overflow-y: auto;
     overflow-x: hidden;
   }
-    #Month {
+  #Month {
     overflow-y: auto;
     overflow-x: auto;
   }
   .dator-row-3 {
-  margin-top: 0px;
+    margin-top: 0px;
   }
   .dator-row-4 {
     margin-top: 0px;
   }
   .calendar-start {
-  padding: 20px;
-  margin-left: 20px;
-  float: right;
-  margin-left: 0px;
-  margin-top: 0px;
-}
-
+    padding: 20px;
+    margin-left: 20px;
+    float: right;
+    margin-left: 0px;
+    margin-top: 0px;
+  }
 }
 </style>
